@@ -1,5 +1,8 @@
 /* iCheck plugin Flat skin, blue
 ----------------------------------- */
+.contentAll{width: 100%;}
+.margin0auto{margin:0 auto;}
+.mediano{max-width: 400px;}
 .icheckbox_flat-blue,
 .iradio_flat-blue {
     display: inline-block;
