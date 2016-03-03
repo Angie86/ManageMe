@@ -12,19 +12,20 @@ import javax.enterprise.context.RequestScoped;
  *
  * @author inftel08
  */
-@Named(value = "chatBean")
+@Named(value = "historicBean")
 @RequestScoped
-public class chatBean {
+public class HistoricBean {
 
     /**
-     * Creates a new instance of chatBean
+     * Creates a new instance of historicBean
      */
-    public chatBean() {
+    public HistoricBean() {
     }
     
-    public String doShowChat(){
+    public String doShowHistoric(){
     
-        return ("chatPage");
+        return ("historicPage");
     }
+    
     
 }

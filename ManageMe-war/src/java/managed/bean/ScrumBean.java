@@ -12,20 +12,19 @@ import javax.enterprise.context.RequestScoped;
  *
  * @author inftel08
  */
-@Named(value = "historicBean")
+@Named(value = "scrumBean")
 @RequestScoped
-public class historicBean {
+public class ScrumBean {
 
     /**
-     * Creates a new instance of historicBean
+     * Creates a new instance of scrumBean
      */
-    public historicBean() {
+    public ScrumBean() {
     }
     
-    public String doShowHistoric(){
+    public String doShowScrum(){
     
-        return ("historicPage");
+        return ("scrumPage");
     }
-    
     
 }

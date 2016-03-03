@@ -6,9 +6,11 @@
 package ManageMe.ejb;
 
 import ManageMe.entity.Projects;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,15 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
 
     public ProjectsFacade() {
 	super(Projects.class);
+    }
+    
+     public List<String> getListProjectsbyIdUser(int idUser) {
+
+        //Query q = em.createQuery("SELECT p  FROM Projects p WHERE p.idProject.");
+
+        //List<String> listaCiudadSearch = q.getResultList();
+
+        return null;//listaCiudadSearch;
     }
     
 }

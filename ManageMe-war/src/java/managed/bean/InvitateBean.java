@@ -14,12 +14,12 @@ import javax.enterprise.context.Dependent;
  */
 @Named(value = "invitateBean")
 @Dependent
-public class invitateBean {
+public class InvitateBean {
 
     /**
      * Creates a new instance of invitateBean
      */
-    public invitateBean() {
+    public InvitateBean() {
     }
     
     public String doShowInvitate(){
