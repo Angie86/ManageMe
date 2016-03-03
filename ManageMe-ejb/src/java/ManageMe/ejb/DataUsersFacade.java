@@ -6,6 +6,8 @@
 package ManageMe.ejb;
 
 import ManageMe.entity.DataUsers;
+import ManageMe.entity.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,14 @@ public class DataUsersFacade extends AbstractFacade<DataUsers> {
 
     public DataUsersFacade() {
         super(DataUsers.class);
+    }
+    
+    public DataUsers findByIdUser(Users user){
+        List<DataUsers> resultList = getEntityManager().createQuery("SELECT u FROM DataUsers u WHERE u.idUser.idUser = :id").setParameter("id", user.getIdUser()).getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList.get(0);
     }
     
 }

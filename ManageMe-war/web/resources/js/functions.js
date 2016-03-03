@@ -20,6 +20,10 @@ function onSignIn(googleUser) {
                 value : profile.getEmail()
             },
             {
+                name: 'photo',
+                value : profile.getImageUrl()
+            },
+            {
                 name: 'name',
                 value : profile.getName()
                 
