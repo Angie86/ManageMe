@@ -33,6 +33,8 @@ public class UserBean implements Serializable {
     protected String name;
     protected String idUser;
     
+    protected String photo;
+    
     protected String nameProject;
     /**
      * Creates a new instance of UserBean
@@ -87,6 +89,15 @@ public class UserBean implements Serializable {
     public void setNameProject(String nameProject) {
         this.nameProject = nameProject;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    
     
     public String doNewProject(){
         Projects project = new Projects();
@@ -98,10 +109,15 @@ public class UserBean implements Serializable {
     } 
     
     public void doShowIndex(){
+        
         String emailUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("email");
         String nameUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
+        String fotoUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("photo");
         System.out.println("Hola: "+nameUsuario+"\n\n\nCon email:"+emailUsuario);
         name=nameUsuario;
+        photo = fotoUsuario;
+        email = emailUsuario;
+        
         //return "indexPage";
     }
     
