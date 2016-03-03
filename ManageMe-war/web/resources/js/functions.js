@@ -22,6 +22,7 @@ function onSignIn(googleUser) {
             {
                 name: 'name',
                 value : profile.getName()
+                
             }
        
         ]);

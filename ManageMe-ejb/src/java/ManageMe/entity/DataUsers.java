@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DataUsers.findByNameUser", query = "SELECT d FROM DataUsers d WHERE d.nameUser = :nameUser"),
     @NamedQuery(name = "DataUsers.findByTitulationUser", query = "SELECT d FROM DataUsers d WHERE d.titulationUser = :titulationUser")})
 public class DataUsers implements Serializable {
+    @Size(max = 200)
+    @Column(name = "PHOTO_USER")
+    private String photoUser;
 
     private static final long serialVersionUID = 1L;
     
@@ -50,9 +53,6 @@ public class DataUsers implements Serializable {
     @Size(max = 50)
     @Column(name = "NAME_USER")
     private String nameUser;
-    @Lob
-    @Column(name = "PHOTO_USER")
-    private Serializable photoUser;
     @Size(max = 50)
     @Column(name = "TITULATION_USER")
     private String titulationUser;
@@ -83,11 +83,11 @@ public class DataUsers implements Serializable {
 	this.nameUser = nameUser;
     }
 
-    public Serializable getPhotoUser() {
+    public String getPhotoUser() {
 	return photoUser;
     }
 
-    public void setPhotoUser(Serializable photoUser) {
+    public void setPhotoUser(String photoUser) {
 	this.photoUser = photoUser;
     }
 
@@ -131,5 +131,7 @@ public class DataUsers implements Serializable {
     public String toString() {
 	return "ManageMe.entity.DataUsers[ idDatauser=" + idDatauser + " ]";
     }
+
+
     
 }

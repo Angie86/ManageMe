@@ -7,6 +7,7 @@ package ManageMe.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Document.findByNameDocument", query = "SELECT d FROM Document d WHERE d.nameDocument = :nameDocument"),
     @NamedQuery(name = "Document.findByTypeDocument", query = "SELECT d FROM Document d WHERE d.typeDocument = :typeDocument")})
 public class Document implements Serializable {
+    @Column(name = "DATE_DOCUMENT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateDocument;
 
     private static final long serialVersionUID = 1L;
    
@@ -142,6 +148,14 @@ public class Document implements Serializable {
     @Override
     public String toString() {
 	return "ManageMe.entity.Document[ idDocument=" + idDocument + " ]";
+    }
+
+    public Date getDateDocument() {
+        return dateDocument;
+    }
+
+    public void setDateDocument(Date dateDocument) {
+        this.dateDocument = dateDocument;
     }
     
 }

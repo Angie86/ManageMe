@@ -11,20 +11,20 @@
         <section class="content-header">
             <h1>
                 Nuevo Projecto 
-
             </h1>
-
         </section>
 
         <!-- Main content -->
         <section class="content">
             <h:form>
-            <h:outputText value="Introduce Nombre Nuevo Projecto"/>
+                <h:outputText value="Introduce Nombre Nuevo Projecto"/></br>
+            <h:inputText value="#{userBean.nameProject}" />
+            <h:outputText value="Descripción"/>
             <h:inputText value="#{userBean.nameProject}" />
             <h:commandButton action="#{userBean.doNewProject()}"/>
             </h:form>
         </section>
-        
+        </div>   
         
 </html>
 
