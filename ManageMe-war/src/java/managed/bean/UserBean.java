@@ -37,13 +37,10 @@ public class UserBean implements Serializable {
     private ProjectsFacade projectsFacade;
 
     protected Users user;
+    protected DataUsers dataUsers;
+    protected String titulationIntroduced;
 
     List<Projects> listProjects;
-    protected String email;
-    protected String name;
-    protected String idUser;
-
-    protected String photo;
 
     protected String nameProject;
 
@@ -55,36 +52,26 @@ public class UserBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        //email = ContextFaces;
-        name = "";
+
         listProjects = new ArrayList();
 
     }
 
-    public String getEmail() {
-        return email;
+    public DataUsers getDataUsers() {
+        return dataUsers;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDataUsers(DataUsers dataUsers) {
+        this.dataUsers = dataUsers;
     }
 
-    public String getName() {
-        return name;
+    public String getTitulationIntroduced() {
+        return titulationIntroduced;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitulationIntroduced(String titulationIntroduced) {
+        this.titulationIntroduced = titulationIntroduced;
     }
-
-    public String getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
-    }
-    
 
     public List<Projects> getListProjects() {
         return listProjects;
@@ -102,13 +89,6 @@ public class UserBean implements Serializable {
         this.nameProject = nameProject;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     public Users getUser() {
         return user;
@@ -132,13 +112,10 @@ public class UserBean implements Serializable {
         String nameUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String fotoUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("photo");
 
-        name = nameUsuario;
-        photo = fotoUsuario;
-        email = emailUsuario;
 
-        if (usersFacade.findByEmail(email) == null) {
+        if (usersFacade.findByEmail(emailUsuario) == null) {
             Users newUser = new Users();
-            newUser.setEmail(email);
+            newUser.setEmail(emailUsuario);
             usersFacade.create(newUser);
             DataUsers newDataUser = new DataUsers();
             newDataUser.setIdUser(newUser);
@@ -147,7 +124,18 @@ public class UserBean implements Serializable {
             dataUsersFacade.create(newDataUser);
         }
         user = usersFacade.findByEmail(emailUsuario);
-        System.out.println(user.getIdUser());
+        dataUsers = dataUsersFacade.findByIdUser(user);
+        System.out.println("dataUs"+ dataUsers.getNameUser());
+                
+             
+    }
+    
+    public String doSetInformation(){
+        System.out.println(titulationIntroduced);
+               
+      dataUsers.setTitulationUser(titulationIntroduced);
+      dataUsersFacade.edit(dataUsers);
+      return "profilePage";
     }
 
 }
