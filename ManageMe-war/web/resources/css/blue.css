@@ -1,5 +1,19 @@
 /* iCheck plugin Flat skin, blue
 ----------------------------------- */
+
+.sidebar-menu .treeview-menu>form>li>a {
+    padding: 5px 5px 5px 15px;
+    display: block;
+    font-size: 14px;
+}
+.skin-blue .treeview-menu>form>li.active>a, .skin-blue .treeview-menu>form>li>a:hover {
+    color: #fff;
+}
+
+.sidebar-menu .treeview-menu>form>li>a>.fa, .sidebar-menu .treeview-menu>form>li>a>.glyphicon, .sidebar-menu .treeview-menu>form>li>a>.ion {
+    width: 20px;
+}
+
 .contentAll{width: 100%;}
 .margin0auto{margin:0 auto;}
 .mediano{max-width: 400px;}

@@ -33,10 +33,12 @@
                         <i class="fa fa-folder"></i> <span>Proyecto 1</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="header.xhtml"><i class="fa fa-th-list"></i>Muro</a></li>
-                        <li class="active"><a href="pages/loginPage.xhtml"><i class="fa fa-comment"></i>Chat</a></li>
-                        <li class="active"><a href="#"><i class="fa fa-calendar"></i>Scrum</a></li>
-                        <li class="active"><a href="#"><i class="fa fa-user-plus"></i>Invitar</a></li>
+                  
+                        <h:form><li class="active"><h:commandLink action="#{historicBean.doShowHistoric()}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li></h:form>
+                        <h:form><li class="active"><h:commandLink action="#{chatBean.doShowChat()}"><i class="fa fa-comment"></i>Chat</h:commandLink></li></h:form>
+                        <h:form><li class="active"><h:commandLink action="#{scrumBean.doShowScrum()}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></li></h:form>
+                        <h:form><li class="active"><h:commandLink action="#{invitateBean.doShowInvitate()}"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></li></h:form>
+                        
                     </ul>
                 </li>
             </ul>
