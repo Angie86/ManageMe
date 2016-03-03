@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "TASKS")
@@ -44,12 +44,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tasks.findByNameTask", query = "SELECT t FROM Tasks t WHERE t.nameTask = :nameTask"),
     @NamedQuery(name = "Tasks.findByDuration", query = "SELECT t FROM Tasks t WHERE t.duration = :duration")})
 public class Tasks implements Serializable {
-
     private static final long serialVersionUID = 1L;
     
     @Id
-    @SequenceGenerator(name = "seq_tasks", sequenceName = "SEQ_TASK", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tasks")
+    @SequenceGenerator(name = "seq_task", sequenceName = "SEQ_TASK", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_task")
     
     @Basic(optional = false)
     @NotNull
@@ -85,104 +84,104 @@ public class Tasks implements Serializable {
     }
 
     public Tasks(Long idTask) {
-	this.idTask = idTask;
+        this.idTask = idTask;
     }
 
     public Tasks(Long idTask, Date dateInit, String nameTask, long duration) {
-	this.idTask = idTask;
-	this.dateInit = dateInit;
-	this.nameTask = nameTask;
-	this.duration = duration;
+        this.idTask = idTask;
+        this.dateInit = dateInit;
+        this.nameTask = nameTask;
+        this.duration = duration;
     }
 
     public Long getIdTask() {
-	return idTask;
+        return idTask;
     }
 
     public void setIdTask(Long idTask) {
-	this.idTask = idTask;
+        this.idTask = idTask;
     }
 
     public String getDescription() {
-	return description;
+        return description;
     }
 
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     public Date getDateInit() {
-	return dateInit;
+        return dateInit;
     }
 
     public void setDateInit(Date dateInit) {
-	this.dateInit = dateInit;
+        this.dateInit = dateInit;
     }
 
     public String getNameTask() {
-	return nameTask;
+        return nameTask;
     }
 
     public void setNameTask(String nameTask) {
-	this.nameTask = nameTask;
+        this.nameTask = nameTask;
     }
 
     public long getDuration() {
-	return duration;
+        return duration;
     }
 
     public void setDuration(long duration) {
-	this.duration = duration;
+        this.duration = duration;
     }
 
     public Projects getIdProject() {
-	return idProject;
+        return idProject;
     }
 
     public void setIdProject(Projects idProject) {
-	this.idProject = idProject;
+        this.idProject = idProject;
     }
 
     public Users getIdUsercreator() {
-	return idUsercreator;
+        return idUsercreator;
     }
 
     public void setIdUsercreator(Users idUsercreator) {
-	this.idUsercreator = idUsercreator;
+        this.idUsercreator = idUsercreator;
     }
 
     @XmlTransient
     public Collection<TaskComponents> getTaskComponentsCollection() {
-	return taskComponentsCollection;
+        return taskComponentsCollection;
     }
 
     public void setTaskComponentsCollection(Collection<TaskComponents> taskComponentsCollection) {
-	this.taskComponentsCollection = taskComponentsCollection;
+        this.taskComponentsCollection = taskComponentsCollection;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (idTask != null ? idTask.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (idTask != null ? idTask.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Tasks)) {
-	    return false;
-	}
-	Tasks other = (Tasks) object;
-	if ((this.idTask == null && other.idTask != null) || (this.idTask != null && !this.idTask.equals(other.idTask))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Tasks)) {
+            return false;
+        }
+        Tasks other = (Tasks) object;
+        if ((this.idTask == null && other.idTask != null) || (this.idTask != null && !this.idTask.equals(other.idTask))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "ManageMe.entity.Tasks[ idTask=" + idTask + " ]";
+        return "ManageMe.ejb.Tasks[ idTask=" + idTask + " ]";
     }
     
 }

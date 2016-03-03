@@ -5,8 +5,12 @@
  */
 package managed.bean;
 
+import ManageMe.ejb.DataUsersFacade;
 import ManageMe.ejb.ProjectsFacade;
+import ManageMe.ejb.UsersFacade;
+import ManageMe.entity.DataUsers;
 import ManageMe.entity.Projects;
+import ManageMe.entity.Users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,31 +28,38 @@ import javax.faces.context.FacesContext;
 @Named(value = "userBean")
 @SessionScoped
 public class UserBean implements Serializable {
+
+    @EJB
+    private DataUsersFacade dataUsersFacade;
+    @EJB
+    private UsersFacade usersFacade;
     @EJB
     private ProjectsFacade projectsFacade;
-    
-    
+
+    protected Users user;
+
     List<Projects> listProjects;
     protected String email;
     protected String name;
     protected String idUser;
-    
+
     protected String photo;
-    
+
     protected String nameProject;
+
     /**
      * Creates a new instance of UserBean
      */
     public UserBean() {
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         //email = ContextFaces;
         name = "";
         listProjects = new ArrayList();
-        
-    } 
+
+    }
 
     public String getEmail() {
         return email;
@@ -73,6 +84,7 @@ public class UserBean implements Serializable {
     public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
+    
 
     public List<Projects> getListProjects() {
         return listProjects;
@@ -97,29 +109,45 @@ public class UserBean implements Serializable {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    
-    
-    public String doNewProject(){
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public String doNewProject() {
         Projects project = new Projects();
         project.setNameProject(nameProject);
         projectsFacade.create(project);
-        
-        
+
         return "";
-    } 
-    
-    public void doShowIndex(){
-        
+    }
+
+    public void doGetIn() {
+
         String emailUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("email");
         String nameUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String fotoUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("photo");
-        System.out.println("Hola: "+nameUsuario+"\n\n\nCon email:"+emailUsuario);
-        name=nameUsuario;
+
+        name = nameUsuario;
         photo = fotoUsuario;
         email = emailUsuario;
+
+        if (usersFacade.findByEmail(email) == null) {
+            Users newUser = new Users();
+            newUser.setEmail(email);
+            usersFacade.create(newUser);
+            DataUsers newDataUser = new DataUsers();
+            newDataUser.setIdUser(newUser);
+            newDataUser.setNameUser(nameUsuario);
+            newDataUser.setPhotoUser(fotoUsuario);
+            dataUsersFacade.create(newDataUser);
+        }
+        user = usersFacade.findByEmail(emailUsuario);
         
-        //return "indexPage";
     }
-    
-    
+
 }

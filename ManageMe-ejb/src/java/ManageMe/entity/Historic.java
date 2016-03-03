@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "HISTORIC")
@@ -32,7 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Historic.findAll", query = "SELECT h FROM Historic h"),
     @NamedQuery(name = "Historic.findByIdHistoric", query = "SELECT h FROM Historic h WHERE h.idHistoric = :idHistoric")})
 public class Historic implements Serializable {
-
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -57,64 +56,64 @@ public class Historic implements Serializable {
     }
 
     public Historic(Long idHistoric) {
-	this.idHistoric = idHistoric;
+        this.idHistoric = idHistoric;
     }
 
     public Long getIdHistoric() {
-	return idHistoric;
+        return idHistoric;
     }
 
     public void setIdHistoric(Long idHistoric) {
-	this.idHistoric = idHistoric;
+        this.idHistoric = idHistoric;
     }
 
     public Document getIdDocument() {
-	return idDocument;
+        return idDocument;
     }
 
     public void setIdDocument(Document idDocument) {
-	this.idDocument = idDocument;
+        this.idDocument = idDocument;
     }
 
     public Projects getIdProject() {
-	return idProject;
+        return idProject;
     }
 
     public void setIdProject(Projects idProject) {
-	this.idProject = idProject;
+        this.idProject = idProject;
     }
 
     public Users getIdUser() {
-	return idUser;
+        return idUser;
     }
 
     public void setIdUser(Users idUser) {
-	this.idUser = idUser;
+        this.idUser = idUser;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (idHistoric != null ? idHistoric.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (idHistoric != null ? idHistoric.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Historic)) {
-	    return false;
-	}
-	Historic other = (Historic) object;
-	if ((this.idHistoric == null && other.idHistoric != null) || (this.idHistoric != null && !this.idHistoric.equals(other.idHistoric))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Historic)) {
+            return false;
+        }
+        Historic other = (Historic) object;
+        if ((this.idHistoric == null && other.idHistoric != null) || (this.idHistoric != null && !this.idHistoric.equals(other.idHistoric))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "ManageMe.entity.Historic[ idHistoric=" + idHistoric + " ]";
+        return "ManageMe.ejb.Historic[ idHistoric=" + idHistoric + " ]";
     }
     
 }

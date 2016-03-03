@@ -12,21 +12,20 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Stateless
 public class TasksFacade extends AbstractFacade<Tasks> {
-
     @PersistenceContext(unitName = "ManageMe-ejbPU")
     private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-	return em;
+        return em;
     }
 
     public TasksFacade() {
-	super(Tasks.class);
+        super(Tasks.class);
     }
     
 }

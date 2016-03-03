@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "DOCUMENT")
@@ -39,14 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Document.findAll", query = "SELECT d FROM Document d"),
     @NamedQuery(name = "Document.findByIdDocument", query = "SELECT d FROM Document d WHERE d.idDocument = :idDocument"),
     @NamedQuery(name = "Document.findByNameDocument", query = "SELECT d FROM Document d WHERE d.nameDocument = :nameDocument"),
-    @NamedQuery(name = "Document.findByTypeDocument", query = "SELECT d FROM Document d WHERE d.typeDocument = :typeDocument")})
+    @NamedQuery(name = "Document.findByTypeDocument", query = "SELECT d FROM Document d WHERE d.typeDocument = :typeDocument"),
+    @NamedQuery(name = "Document.findByDateDocument", query = "SELECT d FROM Document d WHERE d.dateDocument = :dateDocument")})
 public class Document implements Serializable {
-    @Column(name = "DATE_DOCUMENT")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateDocument;
-
     private static final long serialVersionUID = 1L;
-   
+    
     @Id
     @SequenceGenerator(name = "seq_document", sequenceName = "SEQ_DOCUMENT", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_document")
@@ -68,6 +65,9 @@ public class Document implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "TYPE_DOCUMENT")
     private String typeDocument;
+    @Column(name = "DATE_DOCUMENT")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateDocument;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDocument")
     private Collection<Historic> historicCollection;
 
@@ -75,79 +75,45 @@ public class Document implements Serializable {
     }
 
     public Document(Long idDocument) {
-	this.idDocument = idDocument;
+        this.idDocument = idDocument;
     }
 
     public Document(Long idDocument, String nameDocument, String typeDocument) {
-	this.idDocument = idDocument;
-	this.nameDocument = nameDocument;
-	this.typeDocument = typeDocument;
+        this.idDocument = idDocument;
+        this.nameDocument = nameDocument;
+        this.typeDocument = typeDocument;
     }
 
     public Long getIdDocument() {
-	return idDocument;
+        return idDocument;
     }
 
     public void setIdDocument(Long idDocument) {
-	this.idDocument = idDocument;
+        this.idDocument = idDocument;
     }
 
     public Serializable getDocument() {
-	return document;
+        return document;
     }
 
     public void setDocument(Serializable document) {
-	this.document = document;
+        this.document = document;
     }
 
     public String getNameDocument() {
-	return nameDocument;
+        return nameDocument;
     }
 
     public void setNameDocument(String nameDocument) {
-	this.nameDocument = nameDocument;
+        this.nameDocument = nameDocument;
     }
 
     public String getTypeDocument() {
-	return typeDocument;
+        return typeDocument;
     }
 
     public void setTypeDocument(String typeDocument) {
-	this.typeDocument = typeDocument;
-    }
-
-    @XmlTransient
-    public Collection<Historic> getHistoricCollection() {
-	return historicCollection;
-    }
-
-    public void setHistoricCollection(Collection<Historic> historicCollection) {
-	this.historicCollection = historicCollection;
-    }
-
-    @Override
-    public int hashCode() {
-	int hash = 0;
-	hash += (idDocument != null ? idDocument.hashCode() : 0);
-	return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Document)) {
-	    return false;
-	}
-	Document other = (Document) object;
-	if ((this.idDocument == null && other.idDocument != null) || (this.idDocument != null && !this.idDocument.equals(other.idDocument))) {
-	    return false;
-	}
-	return true;
-    }
-
-    @Override
-    public String toString() {
-	return "ManageMe.entity.Document[ idDocument=" + idDocument + " ]";
+        this.typeDocument = typeDocument;
     }
 
     public Date getDateDocument() {
@@ -156,6 +122,40 @@ public class Document implements Serializable {
 
     public void setDateDocument(Date dateDocument) {
         this.dateDocument = dateDocument;
+    }
+
+    @XmlTransient
+    public Collection<Historic> getHistoricCollection() {
+        return historicCollection;
+    }
+
+    public void setHistoricCollection(Collection<Historic> historicCollection) {
+        this.historicCollection = historicCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idDocument != null ? idDocument.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Document)) {
+            return false;
+        }
+        Document other = (Document) object;
+        if ((this.idDocument == null && other.idDocument != null) || (this.idDocument != null && !this.idDocument.equals(other.idDocument))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ManageMe.ejb.Document[ idDocument=" + idDocument + " ]";
     }
     
 }

@@ -2,6 +2,16 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="ManageMe-ejbPU" transaction-type="JTA">
     <jta-data-source>ManageMe_DDBB</jta-data-source>
+    <class>ManageMe.entity.Chat</class>
+    <class>ManageMe.entity.DataUsers</class>
+    <class>ManageMe.entity.Document</class>
+    <class>ManageMe.entity.Historic</class>
+    <class>ManageMe.entity.Invitations</class>
+    <class>ManageMe.entity.ProjectComponents</class>
+    <class>ManageMe.entity.Projects</class>
+    <class>ManageMe.entity.TaskComponents</class>
+    <class>ManageMe.entity.Tasks</class>
+    <class>ManageMe.entity.Users</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "USERS")
@@ -38,11 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @SequenceGenerator(name = "seq_users", sequenceName = "SEQ_USERS", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_users")
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USER")
@@ -72,116 +72,116 @@ public class Users implements Serializable {
     }
 
     public Users(Long idUser) {
-	this.idUser = idUser;
+        this.idUser = idUser;
     }
 
     public Users(Long idUser, String email) {
-	this.idUser = idUser;
-	this.email = email;
+        this.idUser = idUser;
+        this.email = email;
     }
 
     public Long getIdUser() {
-	return idUser;
+        return idUser;
     }
 
     public void setIdUser(Long idUser) {
-	this.idUser = idUser;
+        this.idUser = idUser;
     }
 
     public String getEmail() {
-	return email;
+        return email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     @XmlTransient
     public Collection<Tasks> getTasksCollection() {
-	return tasksCollection;
+        return tasksCollection;
     }
 
     public void setTasksCollection(Collection<Tasks> tasksCollection) {
-	this.tasksCollection = tasksCollection;
+        this.tasksCollection = tasksCollection;
     }
 
     @XmlTransient
     public Collection<TaskComponents> getTaskComponentsCollection() {
-	return taskComponentsCollection;
+        return taskComponentsCollection;
     }
 
     public void setTaskComponentsCollection(Collection<TaskComponents> taskComponentsCollection) {
-	this.taskComponentsCollection = taskComponentsCollection;
+        this.taskComponentsCollection = taskComponentsCollection;
     }
 
     @XmlTransient
     public Collection<ProjectComponents> getProjectComponentsCollection() {
-	return projectComponentsCollection;
+        return projectComponentsCollection;
     }
 
     public void setProjectComponentsCollection(Collection<ProjectComponents> projectComponentsCollection) {
-	this.projectComponentsCollection = projectComponentsCollection;
+        this.projectComponentsCollection = projectComponentsCollection;
     }
 
     @XmlTransient
     public Collection<DataUsers> getDataUsersCollection() {
-	return dataUsersCollection;
+        return dataUsersCollection;
     }
 
     public void setDataUsersCollection(Collection<DataUsers> dataUsersCollection) {
-	this.dataUsersCollection = dataUsersCollection;
+        this.dataUsersCollection = dataUsersCollection;
     }
 
     @XmlTransient
     public Collection<Invitations> getInvitationsCollection() {
-	return invitationsCollection;
+        return invitationsCollection;
     }
 
     public void setInvitationsCollection(Collection<Invitations> invitationsCollection) {
-	this.invitationsCollection = invitationsCollection;
+        this.invitationsCollection = invitationsCollection;
     }
 
     @XmlTransient
     public Collection<Invitations> getInvitationsCollection1() {
-	return invitationsCollection1;
+        return invitationsCollection1;
     }
 
     public void setInvitationsCollection1(Collection<Invitations> invitationsCollection1) {
-	this.invitationsCollection1 = invitationsCollection1;
+        this.invitationsCollection1 = invitationsCollection1;
     }
 
     @XmlTransient
     public Collection<Historic> getHistoricCollection() {
-	return historicCollection;
+        return historicCollection;
     }
 
     public void setHistoricCollection(Collection<Historic> historicCollection) {
-	this.historicCollection = historicCollection;
+        this.historicCollection = historicCollection;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (idUser != null ? idUser.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (idUser != null ? idUser.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Users)) {
-	    return false;
-	}
-	Users other = (Users) object;
-	if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Users)) {
+            return false;
+        }
+        Users other = (Users) object;
+        if ((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "ManageMe.entity.Users[ idUser=" + idUser + " ]";
+        return "ManageMe.ejb.Users[ idUser=" + idUser + " ]";
     }
-    
+
 }
