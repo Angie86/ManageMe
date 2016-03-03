@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" >
     <meta name="google-signin-scope" content="profile email">  </meta>
     <meta name="google-signin-client_id" content="705488456905-svi40eknsrna536slc7pka25mciuqae7.apps.googleusercontent.com">
     </meta>
@@ -29,102 +29,103 @@
             auth2.attachClickHandler(element, {},
                     function (googleUser) {
                         var profile = googleUser.getBasicProfile();
-                        
-                        passToJSFManagedBean ([ {
+
+                        passToJSFManagedBean([{
                                 name: 'email',
-                                value : profile.getEmail()
-                        },
-                        {
+                                value: profile.getEmail()
+                            },
+                            {
                                 name: 'name',
-                                value : profile.getName()
+                                value: profile.getName()
 
-                        },
-                        {
+                            },
+                            {
                                 name: 'photo',
-                                value : profile.getImageUrl()
+                                value: profile.getImageUrl()
 
-                        }
+                            }
                         ]);
-                        
+
                         window.location.replace("http://localhost:8080/ManageMe-war/faces/pages/chatPage.xhtml");
-                         
+
                     }, function (error) {
-                        alert(JSON.stringify(error, undefined, 2));
-                    });
-                }
+                alert(JSON.stringify(error, undefined, 2));
+            });
+        }
 
     </script>
     <!-- Content Wrapper. Contains page content -->
-    <div class="contentAll">
-        <!-- Content Header (Page header) -->
+    <div class="fondoPosist">
+        <div class="contentAll">
+            <!-- Content Header (Page header) -->
 
 
-        <div class="login-box-body margin0auto mediano">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <div class="login-box-body margin0auto bloqueLogin centrarAbsoluto">
+                <p class="login-box-msg h2">ManageMe</p>
 
-            <!--<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>-->
-            <div id="gSignInWrapper">
-                <div id="customBtn" class="customGPlusSignIn">
-                    <span class="btn btn-primary btn-xl page-scroll">Acceder con Google</span>
+                <!--<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>-->
+                <div id="gSignInWrapper">
+                    <div id="customBtn" class="customGPlusSignIn anchoBotonInicio margin0auto">
+                        <span class="btn btn-google btn-xl page-scroll">Acceder con tu cuenta de Google</span>
+                    </div>
                 </div>
-            </div>
 
 
 
-            <h:form >
-                <p:remoteCommand name="passToJSFManagedBean" id="passToJSFManagedBeancmd" action="#{userBean.doShowIndex()}" process="@this" />
-            </h:form>
+                <h:form >
+                    <p:remoteCommand name="passToJSFManagedBean" id="passToJSFManagedBeancmd" action="#{userBean.doShowIndex()}" process="@this" />
+                </h:form>
 
 
 
-        </div><!-- /.login-box-body -->
+            </div><!-- /.login-box-body -->
 
 
 
 
-    </div><!-- /.content-wrapper -->
+        </div><!-- /.content-wrapper -->
 
 
 
-    <script>
+        <script>
 
 
-                function onSuccess(googleUser) {
-                    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+            function onSuccess(googleUser) {
+                console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
 
-                }
-                function onFailure(error) {
-                    console.log(error);
-                }
-                function renderButton() {
-                    gapi.signin2.render('my-signin2', {
-                        'scope': 'profile email',
-                        'width': 240,
-                        'height': 50,
-                        'longtitle': true,
-                        'theme': 'dark',
-                        'onsuccess': onSuccess,
-                        'onfailure': onFailure
-                    });
-                }
-    </script>
+            }
+            function onFailure(error) {
+                console.log(error);
+            }
+            function renderButton() {
+                gapi.signin2.render('my-signin2', {
+                    'scope': 'profile email',
+                    'width': 240,
+                    'height': 50,
+                    'longtitle': true,
+                    'theme': 'dark',
+                    'onsuccess': onSuccess,
+                    'onfailure': onFailure
+                });
+            }
+        </script>
 
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
 
-    <!-- jQuery -->
-    <h:outputScript library="js"  name="jquery.js"></h:outputScript>
+        <!-- jQuery -->
+        <h:outputScript library="js"  name="jquery.js"></h:outputScript>
 
-    <!-- Bootstrap Core JavaScript -->
-    <h:outputScript library="js"  name="bootstrap2.min.js"></h:outputScript>
+        <!-- Bootstrap Core JavaScript -->
+        <h:outputScript library="js"  name="bootstrap2.min.js"></h:outputScript>
 
-    <!-- Plugin JavaScript -->
-    <h:outputScript library="js"  name="jquery.easing.min.js"></h:outputScript>
-    <h:outputScript library="js"  name="jquery.fittext.js"></h:outputScript>
-    <h:outputScript library="js"  name="wow.min.js"></h:outputScript>
+        <!-- Plugin JavaScript -->
+        <h:outputScript library="js"  name="jquery.easing.min.js"></h:outputScript>
+        <h:outputScript library="js"  name="jquery.fittext.js"></h:outputScript>
+        <h:outputScript library="js"  name="wow.min.js"></h:outputScript>
 
-    <!-- Custom Theme JavaScript -->
-    <h:outputScript library="js"  name="creative.js"></h:outputScript>
-    <script>startApp();</script>
+        <!-- Custom Theme JavaScript -->
+        <h:outputScript library="js"  name="creative.js"></h:outputScript>
+        <script>startApp();</script>
 
-
+    </div>
 </html>

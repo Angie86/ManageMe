@@ -10,21 +10,21 @@ import javax.enterprise.context.Dependent;
 
 /**
  *
- * @author inftel08
+ * @author inftel07
  */
-@Named(value = "invitateBean")
+@Named(value = "inviteUserBean")
 @Dependent
-public class InvitateBean {
+public class InviteUserBean {
 
     /**
-     * Creates a new instance of invitateBean
+     * Creates a new instance of InviteUserBean
      */
-    public InvitateBean() {
+    public InviteUserBean() {
     }
     
-    public String doShowInvitate(){
+    public String doShowInviteUser(){
     
-        return ("invitatePage");
+        return ("inviteUserPage");
     }
     
 }
