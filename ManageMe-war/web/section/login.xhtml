@@ -2,52 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
- <meta name="google-signin-scope" content="profile email">  </meta>
+      xmlns:p="http://primefaces.org/ui">
+    <meta name="google-signin-scope" content="profile email">  </meta>
     <meta name="google-signin-client_id" content="705488456905-svi40eknsrna536slc7pka25mciuqae7.apps.googleusercontent.com">
     </meta>
     <script src="https://apis.google.com/js/platform.js" async="defer"></script>
-    
+
+
     <!-- Content Wrapper. Contains page content -->
     <div class="contentAll">
         <!-- Content Header (Page header) -->
 
 
-            <div class="login-box-body margin0auto mediano">
-                <p class="login-box-msg">Sign in to start your session</p>
-                <form action="../../index2.html" method="post">
-                    <div class="form-group has-feedback">
-                        <input type="email" class="form-control" placeholder="Email"/>
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="Password"/>
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    
+        <div class="login-box-body margin0auto mediano">
+            <p class="login-box-msg">Sign in to start your session</p>
 
-                        
-                            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-                            
-                        
-                    <input class="email" type="hidden" value=""/>
-                </form>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <h:form >
+                <p:remoteCommand name="passToJSFManagedBean" id="passToJSFManagedBeancmd" action="#{userBean.doShowIndex()}" process="@this" />
+            </h:form>
 
-                <div class="social-auth-links text-center">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
-                    <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
-                </div><!-- /.social-auth-links -->
+            <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
+            </div><!-- /.social-auth-links -->
 
-                <a href="#">I forgot my password</a><br/>
-                <a href="register.html" class="text-center">Register a new membership</a>
+            <a href="#">I forgot my password</a><br/>
+            <a href="register.html" class="text-center">Register a new membership</a>
 
-            </div><!-- /.login-box-body -->
+        </div><!-- /.login-box-body -->
 
 
 
-        
+
     </div><!-- /.content-wrapper -->
 
 

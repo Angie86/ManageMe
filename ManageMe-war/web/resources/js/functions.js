@@ -12,21 +12,28 @@ function onSignIn(googleUser) {
         console.log("Name: " + profile.getName());
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
-        alert("MI nombre: "+profile.getName());
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
-        
-            
-            window.location.replace("faces/pages/chatPage.xhtml");
+        passToJSFManagedBean ([ {
+                name: 'email',
+                value : profile.getEmail()
+            },
+            {
+                name: 'name',
+                value : profile.getName()
+            }
+       
+        ]);
+            window.location.replace("http://localhost:8080/ManageMe-war/faces/pages/chatPage.xhtml");
       };
       
       
   function signOut() {
       alert("fernandin");
-    var aouth2 = gapi.auth2.getAuthInstance();
+    var auth2 = gapi.auth2.getAuthInstance();
    
-    aouth2.signOut().then(function () {
+    auth2.signOut().then(function () {
       console.log('User signed out.');
       alert("Hasta luego cabrones0");
     });
