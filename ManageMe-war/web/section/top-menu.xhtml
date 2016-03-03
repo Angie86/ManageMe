@@ -39,7 +39,8 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                    <h:form id="botonPerfil"><h:commandLink action="#{profileBean.doShowProfile()}">Perfil</h:commandLink></h:form>
+                                 <!-- <a href="#" class="btn btn-default btn-flat">Perfil</a> -->
                                 </div>
                                 <div class="pull-right">
                                     <h:link outcome="loginPage" onclick="signOut()" value="Cerrar Sesión" class="btn btn-default btn-flat"/>

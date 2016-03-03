@@ -1,6 +1,12 @@
 /* iCheck plugin Flat skin, blue
 ----------------------------------- */
 
+ul li div #botonPerfil a{padding: 7px 16px!important;
+    border: solid 1px #DDDDDD!important;
+    color: #666666!important;}
+#botonPerfil{margin-top: 6px;}
+
+
 .sidebar-menu .treeview-menu>form>li>a {
     padding: 5px 5px 5px 15px;
     display: block;
