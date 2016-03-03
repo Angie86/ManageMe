@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projects.findByIdProject", query = "SELECT p FROM Projects p WHERE p.idProject = :idProject"),
     @NamedQuery(name = "Projects.findByNameProject", query = "SELECT p FROM Projects p WHERE p.nameProject = :nameProject")})
 public class Projects implements Serializable {
+    @Size(max = 400)
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     private static final long serialVersionUID = 1L;
     
@@ -160,6 +163,14 @@ public class Projects implements Serializable {
     @Override
     public String toString() {
 	return "ManageMe.entity.Projects[ idProject=" + idProject + " ]";
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 }
