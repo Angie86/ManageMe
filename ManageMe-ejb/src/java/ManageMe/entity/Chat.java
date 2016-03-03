@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "CHAT")
@@ -37,13 +37,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Chat.findByIdChat", query = "SELECT c FROM Chat c WHERE c.idChat = :idChat"),
     @NamedQuery(name = "Chat.findByDateModification", query = "SELECT c FROM Chat c WHERE c.dateModification = :dateModification")})
 public class Chat implements Serializable {
-
     private static final long serialVersionUID = 1L;
     
     @Id
     @SequenceGenerator(name = "seq_chat", sequenceName = "SEQ_CHAT", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_chat")
- 
     
     @Basic(optional = false)
     @NotNull
@@ -63,64 +61,64 @@ public class Chat implements Serializable {
     }
 
     public Chat(Long idChat) {
-	this.idChat = idChat;
+        this.idChat = idChat;
     }
 
     public Long getIdChat() {
-	return idChat;
+        return idChat;
     }
 
     public void setIdChat(Long idChat) {
-	this.idChat = idChat;
+        this.idChat = idChat;
     }
 
     public Date getDateModification() {
-	return dateModification;
+        return dateModification;
     }
 
     public void setDateModification(Date dateModification) {
-	this.dateModification = dateModification;
+        this.dateModification = dateModification;
     }
 
     public Serializable getChatRecord() {
-	return chatRecord;
+        return chatRecord;
     }
 
     public void setChatRecord(Serializable chatRecord) {
-	this.chatRecord = chatRecord;
+        this.chatRecord = chatRecord;
     }
 
     public Projects getIdProject() {
-	return idProject;
+        return idProject;
     }
 
     public void setIdProject(Projects idProject) {
-	this.idProject = idProject;
+        this.idProject = idProject;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (idChat != null ? idChat.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (idChat != null ? idChat.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Chat)) {
-	    return false;
-	}
-	Chat other = (Chat) object;
-	if ((this.idChat == null && other.idChat != null) || (this.idChat != null && !this.idChat.equals(other.idChat))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Chat)) {
+            return false;
+        }
+        Chat other = (Chat) object;
+        if ((this.idChat == null && other.idChat != null) || (this.idChat != null && !this.idChat.equals(other.idChat))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "ManageMe.entity.Chat[ idChat=" + idChat + " ]";
+        return "ManageMe.ejb.Chat[ idChat=" + idChat + " ]";
     }
     
 }

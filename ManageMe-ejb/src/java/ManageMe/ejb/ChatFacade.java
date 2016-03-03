@@ -12,21 +12,20 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Stateless
 public class ChatFacade extends AbstractFacade<Chat> {
-
     @PersistenceContext(unitName = "ManageMe-ejbPU")
     private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-	return em;
+        return em;
     }
 
     public ChatFacade() {
-	super(Chat.class);
+        super(Chat.class);
     }
     
 }

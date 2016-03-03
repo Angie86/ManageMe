@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "INVITATIONS")
@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Invitations.findAll", query = "SELECT i FROM Invitations i"),
     @NamedQuery(name = "Invitations.findByIdInvitation", query = "SELECT i FROM Invitations i WHERE i.idInvitation = :idInvitation")})
 public class Invitations implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @SequenceGenerator(name = "seq_invitation", sequenceName = "SEQ_INVITATION", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_invitation")
@@ -56,64 +56,64 @@ public class Invitations implements Serializable {
     }
 
     public Invitations(Long idInvitation) {
-	this.idInvitation = idInvitation;
+        this.idInvitation = idInvitation;
     }
 
     public Long getIdInvitation() {
-	return idInvitation;
+        return idInvitation;
     }
 
     public void setIdInvitation(Long idInvitation) {
-	this.idInvitation = idInvitation;
+        this.idInvitation = idInvitation;
     }
 
     public Projects getIdProject() {
-	return idProject;
+        return idProject;
     }
 
     public void setIdProject(Projects idProject) {
-	this.idProject = idProject;
+        this.idProject = idProject;
     }
 
     public Users getIdUsersender() {
-	return idUsersender;
+        return idUsersender;
     }
 
     public void setIdUsersender(Users idUsersender) {
-	this.idUsersender = idUsersender;
+        this.idUsersender = idUsersender;
     }
 
     public Users getIdUserreceiver() {
-	return idUserreceiver;
+        return idUserreceiver;
     }
 
     public void setIdUserreceiver(Users idUserreceiver) {
-	this.idUserreceiver = idUserreceiver;
+        this.idUserreceiver = idUserreceiver;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (idInvitation != null ? idInvitation.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (idInvitation != null ? idInvitation.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Invitations)) {
-	    return false;
-	}
-	Invitations other = (Invitations) object;
-	if ((this.idInvitation == null && other.idInvitation != null) || (this.idInvitation != null && !this.idInvitation.equals(other.idInvitation))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Invitations)) {
+            return false;
+        }
+        Invitations other = (Invitations) object;
+        if ((this.idInvitation == null && other.idInvitation != null) || (this.idInvitation != null && !this.idInvitation.equals(other.idInvitation))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "ManageMe.entity.Invitations[ idInvitation=" + idInvitation + " ]";
+        return "ManageMe.ejb.Invitations[ idInvitation=" + idInvitation + " ]";
     }
     
 }

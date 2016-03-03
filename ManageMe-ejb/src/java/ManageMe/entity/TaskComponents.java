@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "TASK_COMPONENTS")
@@ -32,12 +32,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TaskComponents.findAll", query = "SELECT t FROM TaskComponents t"),
     @NamedQuery(name = "TaskComponents.findByIdTaskcomponent", query = "SELECT t FROM TaskComponents t WHERE t.idTaskcomponent = :idTaskcomponent")})
 public class TaskComponents implements Serializable {
-
     private static final long serialVersionUID = 1L;
     
     @Id
     @SequenceGenerator(name = "seq_taskComponents", sequenceName = "SEQ_TASKCOMPONENTS", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_taskComponents")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_taskcomponents")
     
     @Basic(optional = false)
     @NotNull
@@ -54,56 +53,56 @@ public class TaskComponents implements Serializable {
     }
 
     public TaskComponents(Long idTaskcomponent) {
-	this.idTaskcomponent = idTaskcomponent;
+        this.idTaskcomponent = idTaskcomponent;
     }
 
     public Long getIdTaskcomponent() {
-	return idTaskcomponent;
+        return idTaskcomponent;
     }
 
     public void setIdTaskcomponent(Long idTaskcomponent) {
-	this.idTaskcomponent = idTaskcomponent;
+        this.idTaskcomponent = idTaskcomponent;
     }
 
     public Tasks getIdTask() {
-	return idTask;
+        return idTask;
     }
 
     public void setIdTask(Tasks idTask) {
-	this.idTask = idTask;
+        this.idTask = idTask;
     }
 
     public Users getIdUser() {
-	return idUser;
+        return idUser;
     }
 
     public void setIdUser(Users idUser) {
-	this.idUser = idUser;
+        this.idUser = idUser;
     }
 
     @Override
     public int hashCode() {
-	int hash = 0;
-	hash += (idTaskcomponent != null ? idTaskcomponent.hashCode() : 0);
-	return hash;
+        int hash = 0;
+        hash += (idTaskcomponent != null ? idTaskcomponent.hashCode() : 0);
+        return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof TaskComponents)) {
-	    return false;
-	}
-	TaskComponents other = (TaskComponents) object;
-	if ((this.idTaskcomponent == null && other.idTaskcomponent != null) || (this.idTaskcomponent != null && !this.idTaskcomponent.equals(other.idTaskcomponent))) {
-	    return false;
-	}
-	return true;
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TaskComponents)) {
+            return false;
+        }
+        TaskComponents other = (TaskComponents) object;
+        if ((this.idTaskcomponent == null && other.idTaskcomponent != null) || (this.idTaskcomponent != null && !this.idTaskcomponent.equals(other.idTaskcomponent))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-	return "ManageMe.entity.TaskComponents[ idTaskcomponent=" + idTaskcomponent + " ]";
+        return "ManageMe.ejb.TaskComponents[ idTaskcomponent=" + idTaskcomponent + " ]";
     }
     
 }

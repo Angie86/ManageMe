@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author noussairelharrak
+ * @author inftel06
  */
 @Entity
 @Table(name = "PROJECTS")
@@ -34,18 +34,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Projects.findAll", query = "SELECT p FROM Projects p"),
     @NamedQuery(name = "Projects.findByIdProject", query = "SELECT p FROM Projects p WHERE p.idProject = :idProject"),
-    @NamedQuery(name = "Projects.findByNameProject", query = "SELECT p FROM Projects p WHERE p.nameProject = :nameProject")})
+    @NamedQuery(name = "Projects.findByNameProject", query = "SELECT p FROM Projects p WHERE p.nameProject = :nameProject"),
+    @NamedQuery(name = "Projects.findByDescription", query = "SELECT p FROM Projects p WHERE p.description = :description")})
 public class Projects implements Serializable {
-    @Size(max = 400)
-    @Column(name = "DESCRIPTION")
-    private String description;
-
     private static final long serialVersionUID = 1L;
     
     @Id
     @SequenceGenerator(name = "seq_project", sequenceName = "SEQ_PROJECT", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_project")
-    
     
     @Basic(optional = false)
     @NotNull
@@ -56,6 +52,9 @@ public class Projects implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "NAME_PROJECT")
     private String nameProject;
+    @Size(max = 400)
+    @Column(name = "DESCRIPTION")
+    private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProject")
     private Collection<Tasks> tasksCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProject")
@@ -71,98 +70,28 @@ public class Projects implements Serializable {
     }
 
     public Projects(Long idProject) {
-	this.idProject = idProject;
+        this.idProject = idProject;
     }
 
     public Projects(Long idProject, String nameProject) {
-	this.idProject = idProject;
-	this.nameProject = nameProject;
+        this.idProject = idProject;
+        this.nameProject = nameProject;
     }
 
     public Long getIdProject() {
-	return idProject;
+        return idProject;
     }
 
     public void setIdProject(Long idProject) {
-	this.idProject = idProject;
+        this.idProject = idProject;
     }
 
     public String getNameProject() {
-	return nameProject;
+        return nameProject;
     }
 
     public void setNameProject(String nameProject) {
-	this.nameProject = nameProject;
-    }
-
-    @XmlTransient
-    public Collection<Tasks> getTasksCollection() {
-	return tasksCollection;
-    }
-
-    public void setTasksCollection(Collection<Tasks> tasksCollection) {
-	this.tasksCollection = tasksCollection;
-    }
-
-    @XmlTransient
-    public Collection<ProjectComponents> getProjectComponentsCollection() {
-	return projectComponentsCollection;
-    }
-
-    public void setProjectComponentsCollection(Collection<ProjectComponents> projectComponentsCollection) {
-	this.projectComponentsCollection = projectComponentsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Chat> getChatCollection() {
-	return chatCollection;
-    }
-
-    public void setChatCollection(Collection<Chat> chatCollection) {
-	this.chatCollection = chatCollection;
-    }
-
-    @XmlTransient
-    public Collection<Invitations> getInvitationsCollection() {
-	return invitationsCollection;
-    }
-
-    public void setInvitationsCollection(Collection<Invitations> invitationsCollection) {
-	this.invitationsCollection = invitationsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Historic> getHistoricCollection() {
-	return historicCollection;
-    }
-
-    public void setHistoricCollection(Collection<Historic> historicCollection) {
-	this.historicCollection = historicCollection;
-    }
-
-    @Override
-    public int hashCode() {
-	int hash = 0;
-	hash += (idProject != null ? idProject.hashCode() : 0);
-	return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-	// TODO: Warning - this method won't work in the case the id fields are not set
-	if (!(object instanceof Projects)) {
-	    return false;
-	}
-	Projects other = (Projects) object;
-	if ((this.idProject == null && other.idProject != null) || (this.idProject != null && !this.idProject.equals(other.idProject))) {
-	    return false;
-	}
-	return true;
-    }
-
-    @Override
-    public String toString() {
-	return "ManageMe.entity.Projects[ idProject=" + idProject + " ]";
+        this.nameProject = nameProject;
     }
 
     public String getDescription() {
@@ -171,6 +100,76 @@ public class Projects implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @XmlTransient
+    public Collection<Tasks> getTasksCollection() {
+        return tasksCollection;
+    }
+
+    public void setTasksCollection(Collection<Tasks> tasksCollection) {
+        this.tasksCollection = tasksCollection;
+    }
+
+    @XmlTransient
+    public Collection<ProjectComponents> getProjectComponentsCollection() {
+        return projectComponentsCollection;
+    }
+
+    public void setProjectComponentsCollection(Collection<ProjectComponents> projectComponentsCollection) {
+        this.projectComponentsCollection = projectComponentsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Chat> getChatCollection() {
+        return chatCollection;
+    }
+
+    public void setChatCollection(Collection<Chat> chatCollection) {
+        this.chatCollection = chatCollection;
+    }
+
+    @XmlTransient
+    public Collection<Invitations> getInvitationsCollection() {
+        return invitationsCollection;
+    }
+
+    public void setInvitationsCollection(Collection<Invitations> invitationsCollection) {
+        this.invitationsCollection = invitationsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Historic> getHistoricCollection() {
+        return historicCollection;
+    }
+
+    public void setHistoricCollection(Collection<Historic> historicCollection) {
+        this.historicCollection = historicCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idProject != null ? idProject.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Projects)) {
+            return false;
+        }
+        Projects other = (Projects) object;
+        if ((this.idProject == null && other.idProject != null) || (this.idProject != null && !this.idProject.equals(other.idProject))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ManageMe.ejb.Projects[ idProject=" + idProject + " ]";
     }
     
 }
