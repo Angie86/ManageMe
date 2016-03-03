@@ -1,6 +1,13 @@
 /* iCheck plugin Flat skin, blue
 ----------------------------------- */
 
+.bloqueLogin {
+    width: 406px;
+    border-radius: 10px;
+    border: 2px solid #DE4E4E;
+}
+.anchoBotonInicio{width: 218px;}
+
 ul li div #botonPerfil a{padding: 7px 16px!important;
     border: solid 1px #DDDDDD!important;
     color: #666666!important;}
@@ -20,9 +27,24 @@ ul li div #botonPerfil a{padding: 7px 16px!important;
     width: 20px;
 }
 
+.centrarAbsoluto {
+    position: absolute;
+    left: 50%;
+    top:20%;
+    transform: translate(-50%, 0);
+}
+
+
 .contentAll{width: 100%;}
 .margin0auto{margin:0 auto;}
-.mediano{max-width: 400px;}
+.mediano{max-width: 402px;}
+.peque{max-width: 259px;}
+
+.fondoPosist{background-image: url(../resources/images/postits.jpg);
+    background-repeat: no-repeat;background-size: cover;height: 900px;}
+
+
+
 .icheckbox_flat-blue,
 .iradio_flat-blue {
     display: inline-block;
