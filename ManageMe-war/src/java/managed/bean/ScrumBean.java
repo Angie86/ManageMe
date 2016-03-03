@@ -5,14 +5,17 @@
  */
 package managed.bean;
 
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+
 
 /**
  *
  * @author inftel08
  */
-@Named(value = "scrumBean")
+
+@ManagedBean
 @RequestScoped
 public class ScrumBean {
 

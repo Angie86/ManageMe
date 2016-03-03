@@ -16,16 +16,16 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author inftel06
  */
-@Named(value = "userBean")
+
+@ManagedBean
 @SessionScoped
 public class UserBean implements Serializable {
 
@@ -147,7 +147,7 @@ public class UserBean implements Serializable {
             dataUsersFacade.create(newDataUser);
         }
         user = usersFacade.findByEmail(emailUsuario);
-        
+        System.out.println(user.getIdUser());
     }
 
 }

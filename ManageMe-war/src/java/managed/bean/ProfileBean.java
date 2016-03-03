@@ -5,15 +5,18 @@
  */
 package managed.bean;
 
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
+
 
 /**
  *
  * @author inftel07
  */
-@Named(value = "profileBean")
-@Dependent
+
+@ManagedBean
+@RequestScoped
 public class ProfileBean {
 
     /**

@@ -6,6 +6,8 @@
 package ManageMe.ejb;
 
 import ManageMe.entity.ProjectComponents;
+import ManageMe.entity.Projects;
+import ManageMe.entity.Users;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +29,14 @@ public class ProjectComponentsFacade extends AbstractFacade<ProjectComponents> {
     public ProjectComponentsFacade() {
         super(ProjectComponents.class);
     }
+    
+   public void setProjectComponent(Users user,Projects project){
+       ProjectComponents projectComponents = new ProjectComponents();
+       
+       projectComponents.setIdProject(project);
+       projectComponents.setIdUser(user);
+       em.persist(projectComponents);
+            
+   }
     
 }

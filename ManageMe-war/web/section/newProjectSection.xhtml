@@ -9,22 +9,46 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Nuevo Projecto 
-            </h1>
         </section>
 
         <!-- Main content -->
         <section class="content">
-            <h:form>
-                <h:outputText value="Introduce Nombre Nuevo Projecto"/></br>
-            <h:inputText value="#{userBean.nameProject}" />
-            <h:outputText value="Descripción"/>
-            <h:inputText value="#{userBean.nameProject}" />
-            <h:commandButton action="#{userBean.doNewProject()}"/>
+
+            <div class="col-md-9 personal-info">
+
+                <h3>Nuevo proyecto</h3>
+          
+            
+
+            <h:form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Nombre del proyecto:</label>
+                    <div class="col-lg-8">
+                        <h:inputText class="form-control" value="#{newProjectBean.name}" />
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Descripcion del proyecto:</label>
+                    <div class="col-lg-8">
+                        <h:inputText class="form-control" value="#{newProjectBean.description}" />
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <h:commandButton class="btn btn-primary" action="#{newProjectBean.doNewProject()}" value="Crear proyecto"/>
+                        <span></span>
+                    
+                    </div>
+                </div>
             </h:form>
+            </div>
+
+
         </section>
-        </div>   
-        
+    </div>
+
 </html>
 

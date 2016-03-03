@@ -28,4 +28,15 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
         super(Projects.class);
     }
     
+    public Projects createNewProject(String name, String description){
+        
+        Projects project = new Projects();
+        project.setDescription(description);
+        project.setNameProject(name);
+        em.persist(project);
+        System.out.println(project.getIdProject());
+        return project;
+    
+    }
+    
 }
