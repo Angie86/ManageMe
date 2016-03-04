@@ -6,9 +6,11 @@
 package managed.bean;
 
 import ManageMe.ejb.DataUsersFacade;
+import ManageMe.ejb.ProjectComponentsFacade;
 import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.UsersFacade;
 import ManageMe.entity.DataUsers;
+import ManageMe.entity.ProjectComponents;
 import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import java.io.Serializable;
@@ -28,7 +30,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class UserBean implements Serializable {
-
+    @EJB
+    private ProjectComponentsFacade projectComponentsFacade;
     @EJB
     private DataUsersFacade dataUsersFacade;
     @EJB
@@ -40,7 +43,7 @@ public class UserBean implements Serializable {
     protected DataUsers dataUsers;
     protected String titulationIntroduced;
 
-    List<Projects> listProjects;
+    List<Projects> listProjects = new ArrayList();
 
     protected String nameProject;
 
@@ -53,7 +56,10 @@ public class UserBean implements Serializable {
     @PostConstruct
     public void init() {
 
-        listProjects = new ArrayList();
+//        listProjects = new ArrayList();
+        System.out.println("entra init");
+//        System.out.println(user.getEmail());
+        
 
     }
 
@@ -98,13 +104,7 @@ public class UserBean implements Serializable {
         this.user = user;
     }
 
-    public String doNewProject() {
-        Projects project = new Projects();
-        project.setNameProject(nameProject);
-        projectsFacade.create(project);
 
-        return "";
-    }
 
     public void doGetIn() {
 
@@ -127,6 +127,11 @@ public class UserBean implements Serializable {
         dataUsers = dataUsersFacade.findByIdUser(user);
         System.out.println("dataUs"+ dataUsers.getNameUser());
                 
+        List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(user);
+        for (ProjectComponents listProject : listProjectComps) {
+            System.out.println(listProject.getIdProject().getNameProject());
+            listProjects.add(listProject.getIdProject());
+        }
              
     }
     
@@ -136,6 +141,10 @@ public class UserBean implements Serializable {
       dataUsers.setTitulationUser(titulationIntroduced);
       dataUsersFacade.edit(dataUsers);
       return "profilePage";
+    }
+    
+    public void doShowListProject(){
+        projectComponentsFacade.getProjectsListByUser(user);
     }
 
 }

@@ -103,14 +103,11 @@ public class NewProjectBean implements Serializable {
 
     
     public String doNewProject(){
-        
-        System.out.println("entra do New Project");
-        System.out.println("Nombre " +name);
-        System.out.println("Descripción" + description);
+
         Projects  project = projectsFacade.createNewProject(name,description,userBean.user);
-        
         projectComponentsFacade.setProjectComponent(userBean.user,project);
-        System.out.println(userBean.user.getIdUser());     
+        
+        
         return "";
     } 
     
