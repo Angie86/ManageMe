@@ -44,6 +44,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tasks.findByNameTask", query = "SELECT t FROM Tasks t WHERE t.nameTask = :nameTask"),
     @NamedQuery(name = "Tasks.findByDuration", query = "SELECT t FROM Tasks t WHERE t.duration = :duration")})
 public class Tasks implements Serializable {
+    @Size(max = 50)
+    @Column(name = "STATE")
+    private String state;
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -182,6 +185,14 @@ public class Tasks implements Serializable {
     @Override
     public String toString() {
         return "ManageMe.ejb.Tasks[ idTask=" + idTask + " ]";
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
     
 }

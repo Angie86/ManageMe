@@ -42,6 +42,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Document.findByTypeDocument", query = "SELECT d FROM Document d WHERE d.typeDocument = :typeDocument"),
     @NamedQuery(name = "Document.findByDateDocument", query = "SELECT d FROM Document d WHERE d.dateDocument = :dateDocument")})
 public class Document implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "PATH_DOCUMENT")
+    private String pathDocument;
+    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 200)
+//    @Column(name = "DOCUMENT")
+//    private String document;
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -52,9 +62,6 @@ public class Document implements Serializable {
     @NotNull
     @Column(name = "ID_DOCUMENT")
     private Long idDocument;
-    @Lob
-    @Column(name = "DOCUMENT")
-    private Serializable document;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -92,13 +99,6 @@ public class Document implements Serializable {
         this.idDocument = idDocument;
     }
 
-    public Serializable getDocument() {
-        return document;
-    }
-
-    public void setDocument(Serializable document) {
-        this.document = document;
-    }
 
     public String getNameDocument() {
         return nameDocument;
@@ -156,6 +156,22 @@ public class Document implements Serializable {
     @Override
     public String toString() {
         return "ManageMe.ejb.Document[ idDocument=" + idDocument + " ]";
+    }
+
+//    public String getDocument() {
+//        return document;
+//    }
+//
+//    public void setDocument(String document) {
+//        this.document = document;
+//    }
+
+    public String getPathDocument() {
+        return pathDocument;
+    }
+
+    public void setPathDocument(String pathDocument) {
+        this.pathDocument = pathDocument;
     }
     
 }

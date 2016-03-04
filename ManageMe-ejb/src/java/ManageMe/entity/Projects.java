@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projects.findByNameProject", query = "SELECT p FROM Projects p WHERE p.nameProject = :nameProject"),
     @NamedQuery(name = "Projects.findByDescription", query = "SELECT p FROM Projects p WHERE p.description = :description")})
 public class Projects implements Serializable {
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID_USER")
+    @ManyToOne(optional = false)
+    private Users idUser;
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -170,6 +175,14 @@ public class Projects implements Serializable {
     @Override
     public String toString() {
         return "ManageMe.ejb.Projects[ idProject=" + idProject + " ]";
+    }
+
+    public Users getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Users idUser) {
+        this.idUser = idUser;
     }
     
 }

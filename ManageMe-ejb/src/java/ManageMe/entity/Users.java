@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByIdUser", query = "SELECT u FROM Users u WHERE u.idUser = :idUser"),
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")})
 public class Users implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
+    private Collection<Projects> projectsCollection;
 
     private static final long serialVersionUID = 1L;
 
@@ -182,6 +184,15 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "ManageMe.ejb.Users[ idUser=" + idUser + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Projects> getProjectsCollection() {
+        return projectsCollection;
+    }
+
+    public void setProjectsCollection(Collection<Projects> projectsCollection) {
+        this.projectsCollection = projectsCollection;
     }
 
 }
