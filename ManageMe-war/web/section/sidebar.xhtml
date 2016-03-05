@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
 
@@ -31,27 +30,29 @@
                     <li class="active"><h:link outcome="newProject.xhtml"><i class="fa fa-plus"></i>Crear nuevo proyecto</h:link></li>
                 </li>
 
-                <li class="active treeview">
-                    <a href="#">
-                        <i class="fa fa-folder"></i> <span>Proyecto 1</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    
-                   
+                <ui:repeat var="projects" value="#{userBean.listProjects}" varStatus="status">
+                    <li class="active ">
+                        <a href="#">
+                            <i class="fa fa-folder"></i> <span>#{projects.nameProject}</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
 
-                    <ul class="treeview-menu">
-                        
-                        <h:form><li class="active"><h:commandLink action="#{historicBean.doShowHistoric()}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li></h:form>
-                        <h:form><li class="active"><h:commandLink action="#{chatBean.doShowChat()}"><i class="fa fa-comment"></i>Chat</h:commandLink></li></h:form>
-                        <h:form><li class="active"><h:commandLink action="#{scrumBean.doShowScrum()}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></li></h:form>
-                        <h:form><li class="active"><h:commandLink action="#{inviteUserBean.doShowInviteUser() }"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></li></h:form>
+                        <ul class="treeview-menu acordeon">
 
-                    </ul>
-                </li>
+                            <h:form><li class="active"><h:commandLink action="#{historicBean.doShowHistoric()}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li></h:form>
+                            <h:form><li class="active"><h:commandLink action="#{chatBean.doShowChat()}"><i class="fa fa-comment"></i>Chat</h:commandLink></li></h:form>
+                            <h:form><li class="active"><h:commandLink action="#{scrumBean.doShowScrum()}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></li></h:form>
+                            <h:form><li class="active"><h:commandLink action="#{inviteUserBean.doShowInviteUser() }"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></li></h:form>
+
+                        </ul>
+                    </li>
+                    </ui:repeat>
             </ul>
 
         </section>
         <!-- /.sidebar -->
     </aside>
-
+    <script>
+        $( ".acordeon" );
+    </script>
 
 </html>
