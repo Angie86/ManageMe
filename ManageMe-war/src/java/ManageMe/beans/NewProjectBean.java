@@ -9,17 +9,16 @@ package ManageMe.beans;
 import ManageMe.ejb.ProjectComponentsFacade;
 import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.UsersFacade;
+import ManageMe.entity.ProjectComponents;
 import ManageMe.entity.Projects;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
-
-
 
 
 /**
@@ -50,6 +49,7 @@ public class NewProjectBean implements Serializable {
     
     @PostConstruct
     public void init(){
+    
         
     //name = userBean.user.getEmail();
     
@@ -103,14 +103,13 @@ public class NewProjectBean implements Serializable {
 
     
     public String doNewProject(){
-        
-        System.out.println("entra do New Project");
-        System.out.println("Nombre " +name);
-        System.out.println("Descripción" + description);
+
         Projects  project = projectsFacade.createNewProject(name,description,userBean.user);
-        
         projectComponentsFacade.setProjectComponent(userBean.user,project);
-        System.out.println(userBean.user.getIdUser());     
+        
+   
+        
+        
         return "";
     } 
     

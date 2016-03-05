@@ -6,9 +6,11 @@
 package ManageMe.beans;
 
 import ManageMe.ejb.DataUsersFacade;
+import ManageMe.ejb.ProjectComponentsFacade;
 import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.UsersFacade;
 import ManageMe.entity.DataUsers;
+import ManageMe.entity.ProjectComponents;
 import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import java.io.Serializable;
@@ -28,7 +30,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class UserBean implements Serializable {
-
+    @EJB
+    private ProjectComponentsFacade projectComponentsFacade;
     @EJB
     private DataUsersFacade dataUsersFacade;
     @EJB
@@ -52,8 +55,11 @@ public class UserBean implements Serializable {
 
     @PostConstruct
     public void init() {
-
-        listProjects = new ArrayList();
+ listProjects = new ArrayList();
+//        listProjects = new ArrayList();
+        System.out.println("entra init");
+//        System.out.println(user.getEmail());
+        
 
     }
 
@@ -98,19 +104,14 @@ public class UserBean implements Serializable {
         this.user = user;
     }
 
-    public String doNewProject() {
-        Projects project = new Projects();
-        project.setNameProject(nameProject);
-        projectsFacade.create(project);
 
-        return "";
-    }
 
     public void doGetIn() {
 
         String emailUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("email");
         String nameUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String fotoUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("photo");
+
 
         if (usersFacade.findByEmail(emailUsuario) == null) {
             Users newUser = new Users();
@@ -119,15 +120,18 @@ public class UserBean implements Serializable {
             DataUsers newDataUser = new DataUsers();
             newDataUser.setIdUser(newUser);
             newDataUser.setNameUser(nameUsuario);
-            if(fotoUsuario.equals("undefined")||fotoUsuario.equals("")){
-                fotoUsuario = "../resources/images/user.png";
-            }
             newDataUser.setPhotoUser(fotoUsuario);
             dataUsersFacade.create(newDataUser);
         }
         user = usersFacade.findByEmail(emailUsuario);
         dataUsers = dataUsersFacade.findByIdUser(user);
+        System.out.println("dataUs"+ dataUsers.getNameUser());
                 
+        List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(user);
+        for (ProjectComponents listProject : listProjectComps) {
+            System.out.println(listProject.getIdProject().getNameProject());
+            listProjects.add(listProject.getIdProject());
+        }
              
     }
     
@@ -137,9 +141,10 @@ public class UserBean implements Serializable {
       dataUsers.setTitulationUser(titulationIntroduced);
       dataUsersFacade.edit(dataUsers);
       return "profilePage";
-      
-      
-      
+    }
+    
+    public void doShowListProject(){
+        projectComponentsFacade.getProjectsListByUser(user);
     }
 
 }
