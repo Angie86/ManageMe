@@ -100,8 +100,8 @@ public class SessionHandler {
             JsonObject addMessage = provider.createObjectBuilder()
                 .add("action", "add")
                 .add("id", device.getId())
-                //.add("name", device.getName())
-                //.add("type", device.getType())
+                .add("name", device.getName())
+                .add("type", device.getType())
                 .add("status", device.getStatus())
                 .add("description", device.getDescription())
                 .build();

@@ -57,9 +57,9 @@ public class WebSocketServer {
 
             if ("add".equals(jsonMessage.getString("action"))) {
                 Device device = new Device();
-                //device.setName(jsonMessage.getString("name"));
+                device.setName(jsonMessage.getString("name"));
                 device.setDescription(jsonMessage.getString("description"));
-                //device.setType(jsonMessage.getString("type"));
+                device.setType(jsonMessage.getString("type"));
                 device.setStatus("Off");
                 sessionHandler.addDevice(device);
             }

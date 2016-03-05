@@ -6,6 +6,7 @@
 package ManageMe.ejb;
 
 import ManageMe.entity.Chat;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ChatFacade extends AbstractFacade<Chat> {
+
     @PersistenceContext(unitName = "ManageMe-ejbPU")
     private EntityManager em;
 
@@ -27,5 +29,14 @@ public class ChatFacade extends AbstractFacade<Chat> {
     public ChatFacade() {
         super(Chat.class);
     }
-    
+
+    public Chat findChatById(Long idProject) {
+        List<Chat> resultList = getEntityManager().createQuery("SELECT c FROM Chat c WHERE c.idProject.idProject = :idProject").setParameter("idProject", idProject).getResultList();
+        if (resultList == null || resultList.isEmpty()) {
+            return null;
+        } else {
+            return resultList.get(0);
+        }
+    }
+
 }

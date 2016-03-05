@@ -7,6 +7,7 @@ package ManageMe.ejb;
 
 import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,6 +40,14 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
         System.out.println(project.getIdProject());
         return project;
     
+    }
+    
+    public Projects findProjectById(Long idProject){
+        List<Projects> resultList = getEntityManager().createQuery("SELECT u FROM Projects u WHERE u.idProject = :idProject").setParameter("idProject", idProject).getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList.get(0);
     }
     
 }

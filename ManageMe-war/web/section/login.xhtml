@@ -29,7 +29,6 @@
             auth2.attachClickHandler(element, {},
                     function (googleUser) {
                         var profile = googleUser.getBasicProfile();
-
                         passToJSFManagedBean([{
                                 name: 'email',
                                 value: profile.getEmail()

@@ -36,4 +36,12 @@ public class UsersFacade extends AbstractFacade<Users> {
         else
             return resultList.get(0);
     }
+    
+    public Users findByIdUser(Long idUser){
+        List<Users> resultList = getEntityManager().createQuery("SELECT u FROM Users u WHERE u.idUser = :idUser").setParameter("idUser", idUser).getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList.get(0);
+    }
 }
