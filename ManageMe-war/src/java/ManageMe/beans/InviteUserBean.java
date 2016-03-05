@@ -5,7 +5,9 @@
  */
 package ManageMe.beans;
 
+import ManageMe.ejb.InvitationsFacade;
 import ManageMe.entity.Projects;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
@@ -19,6 +21,8 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class InviteUserBean {
+    @EJB
+    private InvitationsFacade invitationsFacade;
     
     @ManagedProperty(value = "#{userBean}")
     protected UserBean userBean;
@@ -55,9 +59,9 @@ public class InviteUserBean {
     }
     
     public String doInvite(){
-        
-        
-        return "";
+        System.out.println("Entra");
+        invitationsFacade.sendInvitationEmail(userBean.project, email);  
+    return "inviteUserPage";
     }
     
 }

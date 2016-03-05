@@ -16,8 +16,8 @@ import javax.mail.internet.MimeMessage;
 public class Mail {
         String servidorSMTP = "smtp.gmail.com";
         String puerto = "587";
-        String usuario = "teleriegoinftel@gmail.com";
-        String password = "inftelinftel";
+        String usuario = "angelika.macioszek@gmail.com";
+        String password = "2sf52rz4A";
    
         String destino = null;
         String asunto = null;
