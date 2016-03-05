@@ -5,7 +5,11 @@
  */
 package ManageMe.ejb;
 
+import ManageMe.entity.DataUsers;
 import ManageMe.entity.Invitations;
+import ManageMe.entity.Projects;
+import java.math.BigDecimal;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +20,12 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class InvitationsFacade extends AbstractFacade<Invitations> {
+    @EJB
+    private DataUsersFacade dataUsersFacade;
+    @EJB
+    private Mail mail;
+
+    
     @PersistenceContext(unitName = "ManageMe-ejbPU")
     private EntityManager em;
 
@@ -27,5 +37,23 @@ public class InvitationsFacade extends AbstractFacade<Invitations> {
     public InvitationsFacade() {
         super(Invitations.class);
     }
-    
+
+    public void sendInvitationEmail(Projects project, String email) {
+        DataUsers dataUser = em.find(DataUsers.class, project.getIdUser().getIdUser());
+        //String destino = transaction.getMemberNumber().getEmail();
+        String asunto;
+        String mensaje;
+        //if (transaction.getStateOrder().equals("pagado")) {
+            asunto = "Invitación al proyecto " + project.getNameProject()+ " desde ManageMe";
+            mensaje = "Ha sido invitado al proyecto " + project.getNameProject()
+                    + " por " + dataUser.getNameUser() + "." + "\n"
+                    + " Puede acudir a la página de ManageMe para aceptar la invitación.\n\n" 
+                    + "Un saludo, \n ManageMe";
+            
+        System.out.println("Email"+asunto+mensaje+email);           
+        mail = new Mail(asunto, mensaje, email);
+        mail.sendMail();
+
+    }
+
 }
