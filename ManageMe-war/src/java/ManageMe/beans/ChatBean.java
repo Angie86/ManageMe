@@ -3,31 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managed.bean;
+package ManageMe.beans;
+
+
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-
-
 
 /**
  *
  * @author inftel08
  */
-
 @ManagedBean
 @RequestScoped
-public class ScrumBean {
+public class ChatBean {
 
     /**
-     * Creates a new instance of scrumBean
+     * Creates a new instance of chatBean
      */
-    public ScrumBean() {
+    public ChatBean() {
     }
     
-    public String doShowScrum(){
+    public String doShowChat(){
     
-        return ("scrumPage");
+        return ("chatPage");
     }
     
 }
