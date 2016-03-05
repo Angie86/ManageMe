@@ -106,10 +106,7 @@ public class NewProjectBean implements Serializable {
 
         Projects  project = projectsFacade.createNewProject(name,description,userBean.user);
         projectComponentsFacade.setProjectComponent(userBean.user,project);
-        
-   
-        
-        
+        //Crear Chat nuevo
         return "";
     } 
     
