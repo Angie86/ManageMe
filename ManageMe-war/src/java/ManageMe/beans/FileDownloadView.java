@@ -1,4 +1,4 @@
-package ManagedMe.beans;
+package ManageMe.beans;
 
 import java.io.File;
 import java.io.FileInputStream;
