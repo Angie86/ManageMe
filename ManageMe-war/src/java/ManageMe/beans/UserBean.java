@@ -46,6 +46,8 @@ public class UserBean implements Serializable {
     List<Projects> listProjects;
 
     protected String nameProject;
+    
+    protected Projects project;
 
     /**
      * Creates a new instance of UserBean
@@ -58,6 +60,7 @@ public class UserBean implements Serializable {
         listProjects = new ArrayList();
 //        listProjects = new ArrayList();
         System.out.println("entra init");
+        
 //        System.out.println(user.getEmail());
 
     }
@@ -102,6 +105,16 @@ public class UserBean implements Serializable {
         this.user = user;
     }
 
+    public Projects getProject() {
+        return project;
+    }
+
+    public void setProject(Projects project) {
+        this.project = project;
+    }
+    
+    
+
     public void doGetIn() {
 
         String emailUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("email");
@@ -142,7 +155,21 @@ public class UserBean implements Serializable {
     }
 
     public void doShowListProject() {
-        projectComponentsFacade.getProjectsListByUser(user);
+        //projectComponentsFacade.getProjectsListByUser(user);
     }
 
+    
+    public void doSignOut(){
+        user = new Users();
+   dataUsers = new DataUsers();
+    titulationIntroduced = ""; 
+
+    listProjects = new ArrayList();
+
+    nameProject = "";
+    
+    project = new Projects();
+    
+    
+    }
 }

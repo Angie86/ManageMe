@@ -5,8 +5,10 @@
  */
 package ManageMe.beans;
 
+import ManageMe.entity.Projects;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.UploadedFile;
@@ -20,15 +22,27 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @RequestScoped
 public class HistoricBean {
+    
+    @ManagedProperty(value ="#{userBean}")
+    protected UserBean userBean;
 
     /**
      * Creates a new instance of historicBean
      */
     public HistoricBean() {
     }
+
+    public UserBean getUserBean() {
+        return userBean;
+    }
+
+    public void setUserBean(UserBean userBean) {
+        this.userBean = userBean;
+    }
     
-    public String doShowHistoric(){
     
+    public String doShowHistoric(Projects project){
+        userBean.project = project;
         return ("historicPage");
     }
 
