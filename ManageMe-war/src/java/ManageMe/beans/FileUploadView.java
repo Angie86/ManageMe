@@ -56,8 +56,8 @@ public class FileUploadView {
     public void upload() throws Exception {
         System.out.println("Estoy en fileUpload " + file1.getInputStream().toString());
         file1.write(getFilename(file1));
-        
-        
+      
+///Users/noussairelharrak/GlassFish_Server/glassfish/domains/domain1/generated/jsp/ManageMe/ManageMe-war_war        
     }
     
     
