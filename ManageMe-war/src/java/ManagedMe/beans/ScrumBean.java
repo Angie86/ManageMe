@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managed.bean;
+package ManagedMe.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -12,19 +12,22 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author inftel07
+ * @author inftel08
  */
 
 @ManagedBean
 @RequestScoped
-public class ProfileBean {
+public class ScrumBean {
 
     /**
-     * Creates a new instance of ProfileBean
+     * Creates a new instance of scrumBean
      */
-    public String doShowProfile(){
+    public ScrumBean() {
+    }
     
-        return ("profilePage");
+    public String doShowScrum(){
+    
+        return ("scrumPage");
     }
     
 }

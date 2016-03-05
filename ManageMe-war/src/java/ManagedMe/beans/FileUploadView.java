@@ -1,4 +1,4 @@
-package managed.bean;
+package ManagedMe.beans;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
