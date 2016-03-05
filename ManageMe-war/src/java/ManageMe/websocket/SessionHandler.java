@@ -6,6 +6,7 @@
 package ManageMe.websocket;
 
 
+import ManageMe.beans.UserBean;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.json.JsonObject;
 import javax.json.spi.JsonProvider;
 import javax.websocket.Session;
@@ -26,16 +30,23 @@ public class SessionHandler {
     private final ArrayList<Session> sessions = new ArrayList<>();
     private final ArrayList<Device> devices = new ArrayList<>();
     
+
+    
     @PostConstruct
     public void afterCreate() {
         System.out.println("DeviceSessionHandler created");
     }        
+
+
     
     public void addSession(Session session) {
+        System.out.println("session" + session.getId());
         sessions.add(session);
         for (Device device : devices) {
             JsonObject addMessage = createAddMessage(device);
-            sendToSession(session, addMessage);
+  
+                sendToSession(session, addMessage);
+            
         }
     }
 
@@ -47,15 +58,19 @@ public class SessionHandler {
         return new ArrayList<>(devices);
     }
 
-    public void addDevice(Device device) {
+    public void addDevice(Device device, Session session) {
         device.setId(deviceId);
         devices.add(device);
         deviceId++;
         JsonObject addMessage = createAddMessage(device);
-        sendToAllConnectedSessions(addMessage);
+        //sendToAllConnectedSessions(addMessage);
+          if(session.isOpen()){
+            sendToSession(session, addMessage);
+          }
+          
     }
 
-    public void removeDevice(int id) {
+    public void removeDevice(int id, Session session) {
         Device device = getDeviceById(id);
         if (device != null) {
             devices.remove(device);
@@ -64,11 +79,14 @@ public class SessionHandler {
                     .add("action", "remove")
                     .add("id", id)
                     .build();
-            sendToAllConnectedSessions(removeMessage);
+            //sendToAllConnectedSessions(removeMessage);
+          
+            sendToSession(session, removeMessage);
+            
         }
     }
 
-    public void toggleDevice(int id) {
+    public void toggleDevice(int id, Session session) {
         JsonProvider provider = JsonProvider.provider();
         Device device = getDeviceById(id);
         if (device != null) {
@@ -82,7 +100,9 @@ public class SessionHandler {
                     .add("id", device.getId())
                     .add("status", device.getStatus())
                     .build();
-            sendToAllConnectedSessions(updateDevMessage);
+            //sendToAllConnectedSessions(updateDevMessage);
+            sendToSession(session, updateDevMessage);
+            
         }
     }
 
@@ -110,16 +130,20 @@ public class SessionHandler {
 
     private void sendToAllConnectedSessions(JsonObject message) {
         for (Session session : sessions) {
+            
             sendToSession(session, message);
         }
     }
 
     private void sendToSession(Session session, JsonObject message) {
         try {
+         
+            System.out.println("Entra en Sendt to session");
             session.getBasicRemote().sendText(message.toString());
         } catch (IOException ex) {
             sessions.remove(session);
             Logger.getLogger("");
         }
+           
     }
 }

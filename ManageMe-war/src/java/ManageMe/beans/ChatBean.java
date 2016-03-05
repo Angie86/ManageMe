@@ -11,8 +11,10 @@ import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.UsersFacade;
 import ManageMe.entity.Chat;
 import ManageMe.entity.DataUsers;
+import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import ManageMe.model.ChatRecordModel;
+import ManageMe.websocket.WebSocketServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -69,15 +71,7 @@ public class ChatBean {
     @PostConstruct
     public void init(){
         
-        Chat oldChat = chatFacade.findChatById(21L); //CUIDADO!
-        lastListChat = new ArrayList();
         
-        if (oldChat.getChatRecord() != null) {
-            String lastChat = new String(oldChat.getChatRecord());
-            Gson gson2 = new Gson();
-            java.lang.reflect.Type tipoListaChat = new TypeToken<List<ChatRecordModel>>(){}.getType();
-            lastListChat = gson2.fromJson(lastChat, tipoListaChat);
-        }
         
     }
     
@@ -105,8 +99,19 @@ public class ChatBean {
         this.userBean = userBean;
     }
 
-    public String doShowChat() {
-
+    public String doShowChat(Projects project) {
+        userBean.project = project;
+        Chat oldChat = chatFacade.findChatById(userBean.project.getIdProject()); //CUIDADO!
+        lastListChat = new ArrayList();
+        
+        if (oldChat.getChatRecord() != null) {
+            String lastChat = new String(oldChat.getChatRecord());
+            Gson gson2 = new Gson();
+            java.lang.reflect.Type tipoListaChat = new TypeToken<List<ChatRecordModel>>(){}.getType();
+            lastListChat = gson2.fromJson(lastChat, tipoListaChat);
+        }
+        
+        System.out.println("AQUI SHOW CHAT"+ oldChat.getIdChat());
         return ("chatPage");
 
     }
@@ -115,8 +120,9 @@ public class ChatBean {
         
        messageWritten = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("message");
 
+       
         Date date = new Date();
-        Chat oldChat = chatFacade.findChatById(21L);
+        Chat oldChat = chatFacade.findChatById(userBean.project.getIdProject());
         List<ChatRecordModel> listaChat = new ArrayList();
         
         if (oldChat.getChatRecord() != null) {
@@ -151,6 +157,7 @@ public class ChatBean {
         DataUsers dataUserChat = dataUsersFacade.findByIdUser(userChat);
         return dataUserChat.getNameUser();
     }
+    
 //    public void saveChatMessage() {
 //
 //        Date date = new Date();
@@ -170,4 +177,5 @@ public class ChatBean {
 //        pruebaChat.setChatRecord(representation.getBytes());
 //        chatFacade.create(pruebaChat);
 //    }
+    
 }

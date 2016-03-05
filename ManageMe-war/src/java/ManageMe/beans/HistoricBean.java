@@ -37,6 +37,9 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @RequestScoped
 public class HistoricBean {
+    
+    @ManagedProperty(value ="#{userBean}")
+    protected UserBean userBean;
 
     @EJB
     private HistoricFacade historicFacade;
@@ -50,8 +53,7 @@ public class HistoricBean {
     @EJB
     private ProjectsFacade projectsFacade;
 
-    @ManagedProperty(value = "#{userBean}")
-    private UserBean userBean;
+    
 
     /**
      * Creates a new instance of historicBean

@@ -14,6 +14,7 @@ function onMessage(event) {
     var device = JSON.parse(event.data);
     if (device.action === "add") {
         printDeviceElement(device);
+        
     }
 //    if (device.action === "remove") {
 //        document.getElementById(device.id).remove();
@@ -27,6 +28,7 @@ function onMessage(event) {
         } else if (device.status === "Off") {
             statusText.innerHTML = "Status: " + device.status + " (<a href=\"#\" OnClick=toggleDevice(" + device.id + ")>Turn on</a>)";
         }
+       
     }
 }
 
@@ -65,7 +67,7 @@ function printDeviceElement(device) {
     
     var deviceDiv = document.createElement("div");
     deviceDiv.setAttribute("id", device.id);
-    //deviceDiv.setAttribute("class", "device " + device.type);
+    deviceDiv.setAttribute("class", "device " + device.type);
     content.appendChild(deviceDiv);
 
     var deviceName = document.createElement("span");
@@ -122,7 +124,6 @@ function formSubmit() {
                         ]);
     
     addDevice(status,name,type,description);
-    
     
 }
 
