@@ -6,6 +6,8 @@
 package ManageMe.ejb;
 
 import ManageMe.entity.Historic;
+import ManageMe.entity.Projects;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,14 @@ public class HistoricFacade extends AbstractFacade<Historic> {
 
     public HistoricFacade() {
         super(Historic.class);
+    }
+    
+    public List<Historic> findHistoricByProjectId(Long idProject){
+        List<Historic> resultList = getEntityManager().createQuery("SELECT u FROM Historic u WHERE u.idProject.idProject = :idProject").setParameter("idProject", idProject).getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList;
     }
     
 }
