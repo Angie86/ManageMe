@@ -70,9 +70,7 @@ public class ChatBean {
 
     @PostConstruct
     public void init(){
-        
-        
-        
+         
     }
     
     public List<ChatRecordModel> getLastListChat() {

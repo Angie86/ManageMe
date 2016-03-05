@@ -44,4 +44,10 @@ public class UsersFacade extends AbstractFacade<Users> {
         else
             return resultList.get(0);
     }
+    
+    public List<String> findAllMails(){
+        List<String> resultList = getEntityManager().createQuery("SELECT u.email FROM Users u").getResultList();
+        
+        return resultList;
+    }
 }

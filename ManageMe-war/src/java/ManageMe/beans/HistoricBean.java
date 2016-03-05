@@ -12,12 +12,14 @@ import ManageMe.ejb.ProjectsFacade;
 import ManageMe.entity.DataUsers;
 import ManageMe.entity.Document;
 import ManageMe.entity.Historic;
+import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -65,11 +67,7 @@ public class HistoricBean {
     private UploadedFile file;
     private Part file1;
 
-    @PostConstruct
-    public void HistoricBean() {
-	listaHistorico = historicFacade.findHistoricByProjectId(21L);
-	description="";
-    }
+  
 
     public List<Historic> getListaHistorico() {
 	return listaHistorico;
@@ -150,10 +148,10 @@ public class HistoricBean {
 	documentFacade.create(doc);
 	hist.setIdDocument(doc);
 	hist.setIdUser(userBean.user);
-	hist.setIdProject(projectsFacade.findProjectById(21L));
+	hist.setIdProject(projectsFacade.findProjectById(userBean.project.getIdProject()));
 	historicFacade.create(hist);
-	listaHistorico = historicFacade.findHistoricByProjectId(21L);
-	doShowHistoric();
+	listaHistorico = historicFacade.findHistoricByProjectId(userBean.project.getIdProject());
+	
 	
     }
 
@@ -177,7 +175,11 @@ public class HistoricBean {
 
     }
 
-    public String doShowHistoric() {
+    public String doShowHistoric(Projects project) {
+        userBean.project = project;
+        listaHistorico = historicFacade.findHistoricByProjectId(userBean.project.getIdProject());
+        description="";
+
 	return ("historicPage");
     }
 

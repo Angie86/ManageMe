@@ -6,6 +6,7 @@
 package ManageMe.beans;
 
 import ManageMe.ejb.TasksFacade;
+import ManageMe.ejb.UsersFacade;
 import ManageMe.entity.Projects;
 import ManageMe.entity.Tasks;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ManageMe.entity.Projects;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -24,6 +26,8 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class ScrumBean {
+    @EJB
+    private UsersFacade usersFacade;
     @EJB
     private TasksFacade tasksFacade;
     
@@ -57,7 +61,8 @@ public class ScrumBean {
 
     
     public String doShowScrum(Projects project){
-        userBean.project = project; return "scrumPage";
+        userBean.project = project; 
+        return "scrumPage";
  }
 
     @PostConstruct
@@ -154,5 +159,40 @@ public class ScrumBean {
         return ("scrumPage");
     }
     
+   
+    
+    
+    //PASAR A INVITEUSERBEAN
+    
+     protected String busqueda;
+    
+
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
+    }
+    
+    
+    public List<String> completeMail(String query){
+        
+        List<String> listaEmail = usersFacade.findAllMails();
+        List<String> results = new ArrayList<String>();
+
+        for (String mail : listaEmail) {
+            if (mail.contains(query)) {
+                results.add(mail);
+            }
+        }
+
+        return results;
+    }
+    
+    
+    public void doBuscarMail(){
+        System.out.println("busqueda " + busqueda);
+    }
     
 }
