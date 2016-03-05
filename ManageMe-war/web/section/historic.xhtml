@@ -2,8 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -82,24 +82,19 @@
                             </div><!-- /.item -->
                         </div><!-- /.chat -->
                         <div class="box-footer">
+                            <h:inputText class="form-control"></h:inputText>
                             <div class="input-group">
-                                <div class="input-group-btn">
-                                    <input class="form-control" placeholder="Escribe un nombre o comentario para el archivo" />
-                                </div>
-                                <div class="input-group-btn">
-                                    <input class="form-control" type="file" id="ejemplo_archivo_1"/>
-                                </div>
-                                
-                                <div class="input-group-btn">
-                                    <button class="btn btn-success ">Enviar Archivo</button>
+                               <div>
+                                    <h:form enctype="multipart/form-data">
+                                        <h:inputFile class="form-control" value="#{fileUploadView.file1}"></h:inputFile>
+                                        <h:commandButton class="btn btn-success" value="Subir" action="#{fileUploadView.upload()}" />
+                                        <h:commandButton class="btn btn-success" value="Bajar" action="#{fileUploadView.downLoad()}" />
+                                        
+                                    </h:form>
                                 </div>
                             </div>
-
-
                         </div>
                     </div><!-- /.box (chat box) -->
-
-
                 </section><!-- /.Left col -->
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
 
@@ -108,7 +103,7 @@
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
-    
+
 
 
 </html>

@@ -5,8 +5,11 @@
  */
 package managed.bean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.model.UploadedFile;
 
 
 /**
@@ -28,6 +31,7 @@ public class HistoricBean {
     
         return ("historicPage");
     }
+
     
     
 }

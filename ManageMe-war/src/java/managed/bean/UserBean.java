@@ -43,7 +43,7 @@ public class UserBean implements Serializable {
     protected DataUsers dataUsers;
     protected String titulationIntroduced;
 
-    List<Projects> listProjects = new ArrayList();
+    List<Projects> listProjects;
 
     protected String nameProject;
 
@@ -55,7 +55,7 @@ public class UserBean implements Serializable {
 
     @PostConstruct
     public void init() {
-
+ listProjects = new ArrayList();
 //        listProjects = new ArrayList();
         System.out.println("entra init");
 //        System.out.println(user.getEmail());
