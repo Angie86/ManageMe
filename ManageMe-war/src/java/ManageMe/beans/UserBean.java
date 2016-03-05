@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managed.bean;
+package ManageMe.beans;
 
 import ManageMe.ejb.DataUsersFacade;
 import ManageMe.ejb.ProjectsFacade;
@@ -112,7 +112,6 @@ public class UserBean implements Serializable {
         String nameUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String fotoUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("photo");
 
-
         if (usersFacade.findByEmail(emailUsuario) == null) {
             Users newUser = new Users();
             newUser.setEmail(emailUsuario);
@@ -120,12 +119,14 @@ public class UserBean implements Serializable {
             DataUsers newDataUser = new DataUsers();
             newDataUser.setIdUser(newUser);
             newDataUser.setNameUser(nameUsuario);
+            if(fotoUsuario.equals("undefined")||fotoUsuario.equals("")){
+                fotoUsuario = "../resources/images/user.png";
+            }
             newDataUser.setPhotoUser(fotoUsuario);
             dataUsersFacade.create(newDataUser);
         }
         user = usersFacade.findByEmail(emailUsuario);
         dataUsers = dataUsersFacade.findByIdUser(user);
-        System.out.println("dataUs"+ dataUsers.getNameUser());
                 
              
     }
@@ -136,6 +137,9 @@ public class UserBean implements Serializable {
       dataUsers.setTitulationUser(titulationIntroduced);
       dataUsersFacade.edit(dataUsers);
       return "profilePage";
+      
+      
+      
     }
 
 }

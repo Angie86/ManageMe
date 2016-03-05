@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package websocket;
+package ManageMe.websocket;
 
 
 import java.io.IOException;
@@ -100,8 +100,8 @@ public class SessionHandler {
             JsonObject addMessage = provider.createObjectBuilder()
                 .add("action", "add")
                 .add("id", device.getId())
-                //.add("name", device.getName())
-                //.add("type", device.getType())
+                .add("name", device.getName())
+                .add("type", device.getType())
                 .add("status", device.getStatus())
                 .add("description", device.getDescription())
                 .build();

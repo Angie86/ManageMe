@@ -52,7 +52,7 @@ public class Chat implements Serializable {
     private Date dateModification;
     @Lob
     @Column(name = "CHAT_RECORD")
-    private Serializable chatRecord;
+    private byte[] chatRecord;
     @JoinColumn(name = "ID_PROJECT", referencedColumnName = "ID_PROJECT")
     @ManyToOne(optional = false)
     private Projects idProject;
@@ -80,11 +80,11 @@ public class Chat implements Serializable {
         this.dateModification = dateModification;
     }
 
-    public Serializable getChatRecord() {
+    public byte[] getChatRecord() {
         return chatRecord;
     }
 
-    public void setChatRecord(Serializable chatRecord) {
+    public void setChatRecord(byte[] chatRecord) {
         this.chatRecord = chatRecord;
     }
 

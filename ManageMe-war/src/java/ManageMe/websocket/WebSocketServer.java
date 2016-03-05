@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package websocket;
+package ManageMe.websocket;
 
 import java.io.StringReader;
 import java.util.logging.Level;
@@ -57,9 +57,9 @@ public class WebSocketServer {
 
             if ("add".equals(jsonMessage.getString("action"))) {
                 Device device = new Device();
-                //device.setName(jsonMessage.getString("name"));
+                device.setName(jsonMessage.getString("name"));
                 device.setDescription(jsonMessage.getString("description"));
-                //device.setType(jsonMessage.getString("type"));
+                device.setType(jsonMessage.getString("type"));
                 device.setStatus("Off");
                 sessionHandler.addDevice(device);
             }

@@ -38,4 +38,6 @@ public class DataUsersFacade extends AbstractFacade<DataUsers> {
             return resultList.get(0);
     }
     
+    
+    
 }

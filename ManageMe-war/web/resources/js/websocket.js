@@ -30,10 +30,12 @@ function onMessage(event) {
     }
 }
 
-function addDevice(status,description) {
+function addDevice(status,description,name,type) {
     var DeviceAction = {
         action: "add",
         status: status,
+        name: name,
+        type: type,
         description: description
     };
     socket.send(JSON.stringify(DeviceAction));
@@ -46,6 +48,7 @@ function removeDevice(element) {
         id: id
     };
     socket.send(JSON.stringify(DeviceAction));
+    
 }
 
 function toggleDevice(element) {
@@ -65,14 +68,17 @@ function printDeviceElement(device) {
     //deviceDiv.setAttribute("class", "device " + device.type);
     content.appendChild(deviceDiv);
 
-//    var deviceName = document.createElement("span");
+    var deviceName = document.createElement("span");
+    var deviceDescription = document.createElement("span");
+    var deviceType = document.createElement("span");
+    var d = new Date();
 //    deviceName.setAttribute("class", "deviceName");
-//    deviceName.innerHTML = device.name;
-//    deviceDiv.appendChild(deviceName);
+    deviceName.innerHTML = "<div class='item'><img src='"+device.name+"' alt='user image' class='offline' /><p class='message'><a class='name'><small class='text-muted pull-right'><i class='fa fa-clock-o'></i>"+"  " + d.getHours()+":"+d.getMinutes()+"    "+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+"</small>"+device.description+"</a>"+device.type+"</p></div>";
+    deviceDiv.appendChild(deviceName);
 
-//    var deviceType = document.createElement("span");
+    
 //    deviceType.innerHTML = "<b>Type:</b> " + device.type;
-//    deviceDiv.appendChild(deviceType);
+    deviceDiv.appendChild(deviceType);
 
 //    var deviceStatus = document.createElement("span");
 //    if (device.status === "On") {
@@ -83,9 +89,11 @@ function printDeviceElement(device) {
 //    }
 //    deviceDiv.appendChild(deviceStatus);
 
-    var deviceDescription = document.createElement("span");
-    deviceDescription.innerHTML = "<b>Angie:</b> " + device.description;
-    deviceDiv.appendChild(deviceDescription);
+    
+//    deviceName.setAttribute("class", "deviceDescription");
+//    deviceDescription.innerHTML = device.name+"</p></div>";
+//    deviceDiv.appendChild(deviceDescription);
+    scrollBottom();
 
 //    var removeDevice = document.createElement("span");
 //    removeDevice.setAttribute("class", "removeDevice");
@@ -103,13 +111,27 @@ function hideForm() {
 
 function formSubmit() {
     var form = document.getElementById("addDeviceForm");
-    //var name = form.elements["device_name"].value;
-    //var type = form.elements["device_type"].value;
+    var name = form.elements["device_name"].value;
+    var type = form.elements["device_type"].value;
     var description = form.elements["device_description"].value;
     document.getElementById("addDeviceForm").reset();
-    addDevice(status,description);
+    passToChatBean([{
+                                name: 'message',
+                                value: description
+                            }
+                        ]);
+    
+    addDevice(status,name,type,description);
+    
+    
 }
 
 function init() {
+    
+}
+
+function scrollBottom(){
+    
+    $("#divScroll").scrollTop($("#divScroll")[0].scrollHeight);
     
 }
