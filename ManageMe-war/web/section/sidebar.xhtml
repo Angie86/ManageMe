@@ -13,7 +13,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    
+
                     <h:graphicImage value="#{userBean.dataUsers.photoUser}" class="img-circle" alt="User Image" rendered="#{userBean.dataUsers.photoUser!=null}" />
                     <h:graphicImage value="../resources/images/user.png" class="img-circle" alt="User Image" rendered="#{userBean.dataUsers.photoUser==null}" />
 
@@ -32,21 +32,21 @@
 
                 <ui:repeat var="project" value="#{userBean.listProjects}" varStatus="status">
                     <li class="active ">
-                        
+
                         <a href="#">
                             <i class="fa fa-folder"></i> <span>#{project.nameProject}</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
 
                         <ul class="treeview-menu acordeon">
 
-                            <h:form><li class="active"><h:commandLink action="#{historicBean.doShowHistoric(project)}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li></h:form>
-                            <h:form><li class="active"><h:commandLink action="#{chatBean.doShowChat(project)}"><i class="fa fa-comment"></i>Chat</h:commandLink></li></h:form>
-                            <h:form><li class="active"><h:commandLink action="#{scrumBean.doShowScrum(project)}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></li></h:form>
-                            <h:form><li class="active"><h:commandLink action="#{inviteUserBean.doShowInviteUser(project)}"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></li></h:form>
+                            <li class="active"><h:link outcome="#{historicBean.doShowHistoric(project)}"><i class="fa fa-th-list"></i>Historico</h:link></li>
+                            <li class="active"><h:link outcome="#{chatBean.doShowChat(project)}"><i class="fa fa-comment"></i>Chat</h:link></li>
+                            <li class="active"><h:link outcome="#{scrumBean.doShowScrum(project)}"><i class="fa fa-calendar"></i>Scrum</h:link></li>
+                            <li class="active"><h:link outcome="#{inviteUserBean.doShowInviteUser(project)}"><i class="fa fa-user-plus"></i>Invitar</h:link></li>
 
                         </ul>
                     </li>
-                    </ui:repeat>
+                </ui:repeat>
             </ul>
 
         </section>
