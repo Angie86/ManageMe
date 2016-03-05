@@ -17,7 +17,7 @@ public class Mail {
         String servidorSMTP = "smtp.gmail.com";
         String puerto = "587";
         String usuario = "angelika.macioszek@gmail.com";
-        String password = "2sf52rz4A";
+        String password = "";
    
         String destino = null;
         String asunto = null;
