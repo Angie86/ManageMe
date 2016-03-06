@@ -154,7 +154,8 @@ public class UserBean implements Serializable {
         return "profilePage";
     }
 
-    public void doShowListProject() {
+    public String doShowProfile() {
+        return "profilePage";
         //projectComponentsFacade.getProjectsListByUser(user);
     }
 
@@ -169,7 +170,27 @@ public class UserBean implements Serializable {
     nameProject = "";
     
     project = new Projects();
+
+    }
     
     
+    public String doShowHistoric(Projects project){
+        this.project = project;
+        return "historicPage";
+    }
+    
+    public String doShowChat(Projects project){
+        this.project = project;
+        return "chatPage";
+    }
+    
+    public String doShowScrum(Projects project){
+        this.project = project;
+        return "scrumPage";
+    }
+    
+    public String doShowInviteUser(Projects project){
+        this.project = project;
+        return "inviteUserPage";
     }
 }
