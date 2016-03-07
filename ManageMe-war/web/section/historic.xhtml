@@ -33,28 +33,32 @@
                         </div>
                         <div class="box-body chat" id="chat-box"> 
                             <!-- chat item -->
-			    <ui:repeat value="#{historicBean.listaHistorico}" var="historicRow">
-				<div class="item">
-				    <img src="#{historicBean.getPhotoUserHistoricRow(historicRow.idUser)}" alt="user image" class="online" />
-				    <p class="message">
-					<a href="#" class="name">
-					    <small class="text-muted pull-right"><i class="fa fa-calendar"></i> #{historicBean.getDateFileHistoricRow(historicRow.idDocument)}</small>
-					    #{historicBean.getNameUserHistoricRow(historicRow.idUser)}
-					</a>
-					#{historicRow.idDocument.nameDocument}
-				    </p>
-				    <div class="attachment">
-					<h4>Attachments:</h4>
-					<p class="filename">
-					    #{historicBean.getNameFileHistoricRow(historicRow.idDocument)}
+			    <h:form>
+				<ui:repeat value="#{historicBean.listaHistorico}" var="historicRow">
+				    <div class="item">
+					<img src="#{historicBean.getPhotoUserHistoricRow(historicRow.idUser)}" alt="user image" class="online" />
+					<p class="message">
+					    <a href="#" class="name">
+						<small class="text-muted pull-right"><i class="fa fa-calendar"></i> #{historicBean.getDateFileHistoricRow(historicRow.idDocument)}</small>
+						#{historicBean.getNameUserHistoricRow(historicRow.idUser)}
+					    </a>
+					    #{historicRow.idDocument.nameDocument}
 					</p>
-					<div class="pull-right">
-					    <button class="btn btn-primary btn-sm btn-flat">Open</button>
-					</div>
-				    </div><!-- /.attachment -->
-				</div><!-- /.item -->
+					<div class="attachment">
+					    <h4>Attachments:</h4>
+					    <p class="filename">
+						#{historicBean.getNameFileHistoricRow(historicRow.idDocument)}
+					    </p>
+					    <div class="pull-right">
 
-			    </ui:repeat>
+						<h:commandButton class="btn btn-success" action="#{historicBean.downloadFile(historicRow)}" value="Download"></h:commandButton>
+
+					    </div>
+					</div><!-- /.attachment -->
+				    </div><!-- /.item -->
+
+				</ui:repeat>
+			    </h:form>
 
 
                         </div><!-- /.chat -->
@@ -65,7 +69,7 @@
 					<h:inputText value='#{historicBean.description}' class="form-control"> </h:inputText>
                                         <h:inputFile class="" value="#{historicBean.file1}" ></h:inputFile>
                                         <h:commandButton class="btn btn-success" value="Subir" action="#{historicBean.upload()}" />
-                                        <h:commandButton class="btn btn-success" value="Bajar" action="#{historicBean.downLoad()}" />
+                                        <!--<h:commandButton class="btn btn-success" value="Bajar" action="" />-->
                                     </h:form>
                                 </div>
                             </div>

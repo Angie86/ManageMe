@@ -3,10 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-
-
-    <!-- Left side column. contains the logo and sidebar -->
+     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -26,6 +23,7 @@
 
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
+                
                 <li class="h4">
                     <li class="active"><h:link outcome="newProject.xhtml"><i class="fa fa-plus"></i>Crear nuevo proyecto</h:link></li>
                 </li>
@@ -34,17 +32,12 @@
                     <li class="active ">
 
                         <a href="#">
-                            <i class="fa fa-folder"></i> <span>#{project.nameProject}</span> <i class="fa fa-angle-left pull-right"></i>
+                            
+                            <h:form><li class="active"><h:commandLink action="#{principalBean.doShowPrincipal(project)}"><i class="fa fa-folder"></i>#{project.nameProject}</h:commandLink></li></h:form>
+                           
                         </a>
 
-                        <ul class="treeview-menu acordeon">
-
-                            <li class="active"><h:commandLink action="#{historicBean.doShowHistoric(project)}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li>
-                            <li class="active"><h:link outcome="#{chatBean.doShowChat(project)}"><i class="fa fa-comment"></i>Chat</h:link></li>
-                            <li class="active"><h:link outcome="#{scrumBean.doShowScrum(project)}"><i class="fa fa-calendar"></i>Scrum</h:link></li>
-                            <li class="active"><h:link outcome="#{inviteUserBean.doShowInviteUser(project)}"><i class="fa fa-user-plus"></i>Invitar</h:link></li>
-
-                        </ul>
+        
                     </li>
                 </ui:repeat>
             </ul>
@@ -52,5 +45,4 @@
         </section>
         <!-- /.sidebar -->
     </aside>
-
 </html>

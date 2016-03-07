@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h2>
+                Proyecto: #{profileProjectBean.nameProject}
+            </h2>
+
+            <h1>
+                Descripción: #{profileProjectBean.project.description}
+            </h1>    
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
+
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-15 connectedSortable">
+                    
+                    <!-- Participantes Box -->
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <i class="fa fa-list"></i>
+                            <h3 class="box-title">Participantes</h3>
+
+                        </div>
+                        <div class="box-body chat" id="chat-box"> 
+                            <!-- chat item -->
+                            <ui:repeat value="#{profileProjectBean.listUsers}" var="user">
+                                <div class="item">
+                                    <img src="#{profileProjectBean.getPhotoUser(user)}" alt="user image" class="online" />
+                                    <p class="message">
+                                        <a href="#" class="name">
+
+                                            #{profileProjectBean.getNameUser(user)}
+                                        </a>
+                                       
+                                    </p>
+                                    #{user.email}
+                                    <div class="pull-right">
+                                        <button class="btn btn-primary btn-sm btn-flat">Eliminar</button>
+                                    </div>
+
+                                </div><!-- /.item -->
+
+                            </ui:repeat>
+
+
+                        </div><!-- /.chat -->
+                        <div class="box-footer">
+                            <div class="input-group">
+                                <div>
+
+
+                                    <h:form>
+
+                                     <p:autoComplete id="email" c:placeholder="Introduce búsqueda" 
+                                                    value="#{profileProjectBean.email}"  completeMethod="#{profileProjectBean.completeMail}" 
+                                                    required="true"
+                                                    requiredMessage="Por favor introduzca la búsqueda."
+                                                    validatorMessage="Formato de email inválido">
+                                        <f:validateRegex
+                                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:autoComplete>
+                                    <p:watermark for="email" value="Email Address *" />
+                                    <p:message for="email" />
+                                    
+                                    <h:commandButton value="Invitar Usuario" class="btn btn-primary" action="#{profileProjectBean.doInvite()}"/>
+                                      </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box (chat box) -->
+                    
+                    
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <i class="fa fa-list"></i>
+                            <h3 class="box-title">Tareas</h3>
+
+                        </div>
+                        <div class="box-body chat" id="chat-box"> 
+                            <!-- chat item -->
+                            <ui:repeat value="#{profileProjectBean.listUsers}" var="user">
+                                <div class="item">
+                                    <img src="#{profileProjectBean.getPhotoUser(user)}" alt="user image" class="online" />
+                                    <p class="message">
+                                        <a href="#" class="name">
+
+                                            #{profileProjectBean.getNameUser(user)}
+                                        </a>
+                                       
+                                    </p>
+                                    #{user.email}
+                                    <div class="pull-right">
+                                        <button class="btn btn-primary btn-sm btn-flat">Eliminar</button>
+                                    </div>
+
+                                </div><!-- /.item -->
+
+                            </ui:repeat>
+
+
+                        </div><!-- /.chat -->
+                        <div class="box-footer">
+                            <div class="input-group">
+                                <div>
+
+
+                                    <h:form>
+
+                                     <p:autoComplete id="email" c:placeholder="Introduce búsqueda" 
+                                                    value="#{profileProjectBean.email}"  completeMethod="#{profileProjectBean.completeMail}" 
+                                                    required="true"
+                                                    requiredMessage="Por favor introduzca la búsqueda."
+                                                    validatorMessage="Formato de email inválido">
+                                        <f:validateRegex
+                                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:autoComplete>
+                                    <p:watermark for="email" value="Email Address *" />
+                                    <p:message for="email" />
+                                    
+                                    <h:commandButton value="Invitar Usuario" class="btn btn-primary" action="#{profileProjectBean.doInvite()}"/>
+                                      </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.box (chat box) -->
+                    
+                </section><!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+
+            </div><!-- /.row (main row) -->
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+
+
+
+</html>
+

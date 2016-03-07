@@ -129,7 +129,7 @@ public class ScrumBean {
 
  
 
-    public String createTask() {
+    public String createTask2() {
         
         
         Tasks task = new Tasks();
@@ -195,4 +195,7 @@ public class ScrumBean {
         System.out.println("busqueda " + busqueda);
     }
     
+    public String createTask(){
+        return "scrumPage";
+    }
 }

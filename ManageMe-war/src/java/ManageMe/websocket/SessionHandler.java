@@ -58,15 +58,15 @@ public class SessionHandler {
         return new ArrayList<>(devices);
     }
 
-    public void addDevice(Device device, Session session) {
+    public void addDevice(Device device) {
         device.setId(deviceId);
         devices.add(device);
         deviceId++;
         JsonObject addMessage = createAddMessage(device);
-        //sendToAllConnectedSessions(addMessage);
-          if(session.isOpen()){
-            sendToSession(session, addMessage);
-          }
+        sendToAllConnectedSessions(addMessage);
+//          if(session.isOpen()){
+//            sendToSession(session, addMessage);
+//          }
           
     }
 
@@ -79,9 +79,9 @@ public class SessionHandler {
                     .add("action", "remove")
                     .add("id", id)
                     .build();
-            //sendToAllConnectedSessions(removeMessage);
+            sendToAllConnectedSessions(removeMessage);
           
-            sendToSession(session, removeMessage);
+            //sendToSession(session, removeMessage);
             
         }
     }
@@ -100,7 +100,7 @@ public class SessionHandler {
                     .add("id", device.getId())
                     .add("status", device.getStatus())
                     .build();
-            //sendToAllConnectedSessions(updateDevMessage);
+            sendToAllConnectedSessions(updateDevMessage);
             sendToSession(session, updateDevMessage);
             
         }

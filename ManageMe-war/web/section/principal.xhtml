@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+
+            <h1>
+                Chronography of the project
+            </h1>
+
+        </section>
+
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Perfil de proyecto</h3>
+                            <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
+                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
+                            <h:form><li class="active"><h:commandLink action="#{profileProjectBean.doShowProfileProject(userBean.project)}"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></li></h:form>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Muro de archivos</h3>
+                            <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
+                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
+                            <h:form><li class="active"><h:commandLink action="#{historicBean.doShowHistoric(userBean.project)}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li></h:form>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Chat</h3>
+                            <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
+                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
+                            <h:form> <li class="active"><h:commandLink action="#{chatBean.doShowChat(userBean.project)}"><i class="fa fa-comment"></i>Chat</h:commandLink></li></h:form>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div>
+
+     
+
+                <div class="col-sm-6">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Scrum</h3>
+                            <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
+                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
+                            <h:form><li class="active"><h:commandLink action="#{scrumBean.doShowScrum(userBean.project)}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></li></h:form>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+
+                </div>
+            </div><!-- ./col -->
+            
+                       <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">  
+                        <h2>New Orders: #{userBean.project.nameProject}</h2>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+            
+                </div>
+
+
+
+
+         
+      
+
+        </section>
+    </div><!-- /.content-wrapper -->
+
+
+</html>
+
+
+
+
+
+
+
+
+

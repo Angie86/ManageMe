@@ -8,7 +8,9 @@ package ManageMe.ejb;
 import ManageMe.entity.DataUsers;
 import ManageMe.entity.Invitations;
 import ManageMe.entity.Projects;
+import ManageMe.entity.Users;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -55,5 +57,17 @@ public class InvitationsFacade extends AbstractFacade<Invitations> {
         mail.sendMail();
 
     }
+
+    public List<Invitations> findInvitationUser(Users user) {
+        
+        List<Invitations> invitations = getEntityManager().createQuery("SELECT u FROM Invitations u WHERE u.idUserreceiver = :idUserreceiver").setParameter("idUserreceiver", user).getResultList();
+       
+        
+        return invitations;
+       
+    }
+    
+
+    
 
 }

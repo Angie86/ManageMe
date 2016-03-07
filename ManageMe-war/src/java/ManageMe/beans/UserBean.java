@@ -6,15 +6,18 @@
 package ManageMe.beans;
 
 import ManageMe.ejb.DataUsersFacade;
+import ManageMe.ejb.InvitationsFacade;
 import ManageMe.ejb.ProjectComponentsFacade;
 import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.UsersFacade;
 import ManageMe.entity.DataUsers;
+import ManageMe.entity.Invitations;
 import ManageMe.entity.ProjectComponents;
 import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import java.io.Serializable;
 import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -31,6 +34,11 @@ import javax.faces.context.FacesContext;
 public class UserBean implements Serializable {
 
     @EJB
+    private InvitationsFacade invitationsFacade;
+
+
+
+    @EJB
     private ProjectComponentsFacade projectComponentsFacade;
     @EJB
     private DataUsersFacade dataUsersFacade;
@@ -42,11 +50,21 @@ public class UserBean implements Serializable {
     protected Users user;
     protected DataUsers dataUsers;
     protected String titulationIntroduced;
+    protected List<Projects> listInvitationsProject;
+    protected int numNotify;
 
-    List<Projects> listProjects;
+    public int getNumNotify() {
+        return numNotify;
+    }
+
+    public void setNumNotify(int numNotify) {
+        this.numNotify = numNotify;
+    }
+
+    protected List<Projects> listProjects;
 
     protected String nameProject;
-    
+
     protected Projects project;
 
     /**
@@ -58,11 +76,17 @@ public class UserBean implements Serializable {
     @PostConstruct
     public void init() {
         listProjects = new ArrayList();
-//        listProjects = new ArrayList();
-        System.out.println("entra init");
-        
-//        System.out.println(user.getEmail());
+        listInvitationsProject = new ArrayList();
+        //Buscar invitaciones usuario 
 
+    }
+
+    public List<Projects> getListInvitationsProject() {
+        return listInvitationsProject;
+    }
+
+    public void setListInvitationsProject(List<Projects> listInvitationsProject) {
+        this.listInvitationsProject = listInvitationsProject;
     }
 
     public DataUsers getDataUsers() {
@@ -82,6 +106,7 @@ public class UserBean implements Serializable {
     }
 
     public List<Projects> getListProjects() {
+
         return listProjects;
     }
 
@@ -112,8 +137,6 @@ public class UserBean implements Serializable {
     public void setProject(Projects project) {
         this.project = project;
     }
-    
-    
 
     public void doGetIn() {
 
@@ -136,14 +159,22 @@ public class UserBean implements Serializable {
         }
         user = usersFacade.findByEmail(emailUsuario);
         dataUsers = dataUsersFacade.findByIdUser(user);
-        System.out.println("dataUs" + dataUsers.getNameUser());
-
+        
+        listProjects = new ArrayList();
         List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(user);
         for (ProjectComponents listProject : listProjectComps) {
-            System.out.println(listProject.getIdProject().getNameProject());
             listProjects.add(listProject.getIdProject());
         }
-
+    
+        listInvitationsProject  = new ArrayList();
+        List<Invitations> invitations = invitationsFacade.findInvitationUser(user);
+        for (Invitations invitation : invitations) {
+            listInvitationsProject.add(invitation.getIdProject());
+        }
+        
+        numNotify = invitations.size();
+        System.out.println("Número de notificaciones" + numNotify);
+        
     }
 
     public String doSetInformation() {
@@ -154,22 +185,22 @@ public class UserBean implements Serializable {
         return "profilePage";
     }
 
-    public void doShowListProject() {
+    public String doShowChat(Projects project) {
+        this.project = project;
+        return "chatPage";
         //projectComponentsFacade.getProjectsListByUser(user);
     }
 
-    
-    public void doSignOut(){
+    public void doSignOut() {
         user = new Users();
-   dataUsers = new DataUsers();
-    titulationIntroduced = ""; 
+        dataUsers = new DataUsers();
+        titulationIntroduced = "";
 
-    listProjects = new ArrayList();
+        listProjects = new ArrayList();
 
-    nameProject = "";
-    
-    project = new Projects();
-    
-    
+        nameProject = "";
+
+        project = new Projects();
+
     }
 }

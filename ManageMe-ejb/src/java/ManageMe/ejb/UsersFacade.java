@@ -5,6 +5,7 @@
  */
 package ManageMe.ejb;
 
+import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -50,4 +51,15 @@ public class UsersFacade extends AbstractFacade<Users> {
         
         return resultList;
     }
+    
+    public List<Users> findAllUsersByIdProject(Projects project){
+        List<Users> resultList = getEntityManager().createQuery("SELECT u FROM Users u").getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList;
+    }
+    
+
+  
 }

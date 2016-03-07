@@ -72,8 +72,8 @@ public class WebSocketServer {
                 device.setDescription(jsonMessage.getString("description"));
                 device.setType(jsonMessage.getString("type"));
                 device.setStatus("Off");
-                //sessionHandler.addDevice(device);
-                sessionHandler.addDevice(device, session);
+                sessionHandler.addDevice(device);
+                //sessionHandler.addDevice(device, session);
             }
                                
             if ("remove".equals(jsonMessage.getString("action"))) {

@@ -55,6 +55,23 @@ public class ProjectComponentsFacade extends AbstractFacade<ProjectComponents> {
 //       }
        
        return projectComponentsList;
+       
    }
+   
+      public List<ProjectComponents> getUsersListByProject(Projects project){
+       
+       
+       
+       List<ProjectComponents> projectComponentsList = getEntityManager().
+               createQuery("SELECT u FROM ProjectComponents u WHERE u.idProject = :idProject").setParameter("idProject", project).getResultList();
+
+          System.out.println("EMAIL"+ projectComponentsList.get(0).getIdUser());
+       return projectComponentsList;
+       
+   }
+   
+   
+   
+   
     
 }

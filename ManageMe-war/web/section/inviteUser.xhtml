@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -22,32 +22,34 @@
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Email:</label>
-                            <div class="col-lg-8">
-                                <h:inputText class="form-control"  value="#{inviteUserBean.email}" p:placeholder="Introduce un email para invitar" />
-                            </div>
+                         
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-8">
                                 <h:form>
+                                    <p:autoComplete id="email" c:placeholder="Introduce búsqueda" 
+                                                    value="#{inviteUserBean.email}"  completeMethod="#{scrumBean.completeMail}" 
+                                                    required="true"
+                                                    requiredMessage="Por favor introduzca la búsqueda."
+                                                    validatorMessage="Formato de email inválido">
+                                        <f:validateRegex
+                                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                    </p:autoComplete>
+                                    <p:watermark for="email" value="Email Address *" />
+                                    <p:message for="email" />
+                                    <h:commandButton action="#{scrumBean.doBuscarMail()}" value="Buscar por Nombre" class="btn btn-primary"/>
                                     <h:commandButton value="Invitar Usuario" class="btn btn-primary" action="#{inviteUserBean.doInvite()}"/>
-                                </h:form>
 
+                                </h:form>
+            
 
                             </div>
                         </div>
                     </form>
 
-                    <h:form>
-                        <p:autoComplete c:placeholder="Introduce búsqueda" 
-                                        value="#{scrumBean.busqueda}"  completeMethod="#{scrumBean.completeMail}" 
-                                        required="true" />
-                        <br></br>
-                        <h:commandButton action="#{scrumBean.doBuscarMail()}" value="Buscar por Nombre" class="btn btn-primary btn-large btn-block"/>
 
-
-                    </h:form>
                 </section>
 
             </div>
