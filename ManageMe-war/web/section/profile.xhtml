@@ -81,7 +81,7 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <ul class="todo-list">
-                        <ui:repeat var="project" value="#{userBean.listInvitationsProject}" varStatus="status">
+                        <ui:repeat var="project" value="#{profileBean.listInvitationsProject}" varStatus="status">
                             <li>
                                 <!-- drag handle -->
                            
@@ -93,8 +93,8 @@
                                 <!-- General tools such as edit or delete-->
                                 <div class="tools">
                                       
-                                    <h:form><h:commandLink action="#{principalBean.doShowPrincipal(project)}"><i class="fa fa-edit"></i></h:commandLink></h:form>
-                                    <h:form><h:commandLink action="#{inviteUserBean.doInvite()}"><i class="fa fa-trash-o"></i></h:commandLink></h:form>
+                                    <h:form><h:commandLink action="#{profileBean.doAcceptInvitation(project)}"><i class="fa fa-edit"></i></h:commandLink></h:form>
+                                    <h:form><h:commandLink action="#{profileBean.doRefuseInvitation(project)}"><i class="fa fa-trash-o"></i></h:commandLink></h:form>
                               
                                 </div>
                             </li>

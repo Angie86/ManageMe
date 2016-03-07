@@ -189,7 +189,15 @@ public class ProfileProjectBean {
         invitation.setIdUsersender(userBean.user);
         invitationsFacade.create(invitation);
         
+        //Añadido para actualizar
+        userBean.listInvitationsProject  = new ArrayList();
+        List<Invitations> listInvitations = invitationsFacade.findInvitationUser(userBean.user);
+        for (Invitations listInvitation : listInvitations) {
+                userBean.listInvitationsProject.add(listInvitation.getIdProject());     
+        }
         
+        userBean.numNotify = userBean.listInvitationsProject.size();
+
         
         return "profileProjectPage";
     }

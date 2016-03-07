@@ -37,7 +37,7 @@
                                 <!-- inner menu: contains the actual data -->
 
                                 <ul class="menu">
-                                    <ui:repeat var="project" value="#{userBean.listInvitationsProject}" varStatus="status">
+                                    <ui:repeat var="project" value="#{userBean.listInvitationsProject}" >
                                         <li>
                                             <a href="#">
                                                 <i class="fa fa-users text-aqua"></i> Ha sido invitado al proyecto 
@@ -48,7 +48,7 @@
 
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">View all</a></li>
+                            <li class="footer"><h:link outcome="profilePage.xhtml">Ver Perfil</h:link> </li>
                         </ul>
                     </li>
 
@@ -68,7 +68,7 @@
 
                                 <p>
                                     #{userBean.dataUsers.nameUser}
-                                    <small>Member since Nov. 2012</small>
+                                    <small>5 Proyectos Activos</small>
                                 </p>
                             </li>
 

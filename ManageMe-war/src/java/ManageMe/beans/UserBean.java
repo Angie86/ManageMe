@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -35,8 +36,6 @@ public class UserBean implements Serializable {
 
     @EJB
     private InvitationsFacade invitationsFacade;
-
-
 
     @EJB
     private ProjectComponentsFacade projectComponentsFacade;
@@ -53,19 +52,14 @@ public class UserBean implements Serializable {
     protected List<Projects> listInvitationsProject;
     protected int numNotify;
 
-    public int getNumNotify() {
-        return numNotify;
-    }
-
-    public void setNumNotify(int numNotify) {
-        this.numNotify = numNotify;
-    }
-
     protected List<Projects> listProjects;
 
     protected String nameProject;
 
     protected Projects project;
+    
+//    @ManagedProperty(value="#{loginBean}")
+//    protected LoginBean loginBean;
 
     /**
      * Creates a new instance of UserBean
@@ -75,10 +69,28 @@ public class UserBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        listProjects = new ArrayList();
-        listInvitationsProject = new ArrayList();
+        
+        //user = loginBean.user;
+        
         //Buscar invitaciones usuario 
+//        System.out.println("Usuario "+ user.getEmail());
+//        
+//        dataUsers = dataUsersFacade.findByIdUser(user);
 
+        listProjects = new ArrayList();
+//        List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(user);
+//        for (ProjectComponents listProject : listProjectComps) {
+//            listProjects.add(listProject.getIdProject());
+//        }
+
+        listInvitationsProject = new ArrayList();
+//        List<Invitations> listInvitations = invitationsFacade.findInvitationUser(user);
+//        for (Invitations listInvitation : listInvitations) {
+//            listInvitationsProject.add(listInvitation.getIdProject());
+//        }
+//
+//        numNotify = listInvitationsProject.size();
+//        System.out.println("Número de notificaciones" + numNotify);
     }
 
     public List<Projects> getListInvitationsProject() {
@@ -138,7 +150,25 @@ public class UserBean implements Serializable {
         this.project = project;
     }
 
-    public void doGetIn() {
+    public int getNumNotify() {
+        return numNotify;
+    }
+
+    public void setNumNotify(int numNotify) {
+        this.numNotify = numNotify;
+    }
+
+//    public LoginBean getLoginBean() {
+//        return loginBean;
+//    }
+//
+//    public void setLoginBean(LoginBean loginBean) {
+//        this.loginBean = loginBean;
+//    }
+    
+    
+
+    public String doGetIn() {
 
         String emailUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("email");
         String nameUsuario = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
@@ -158,23 +188,28 @@ public class UserBean implements Serializable {
             dataUsersFacade.create(newDataUser);
         }
         user = usersFacade.findByEmail(emailUsuario);
+        
+        
         dataUsers = dataUsersFacade.findByIdUser(user);
         
+        project = projectsFacade.findLastProject(user);
+
         listProjects = new ArrayList();
         List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(user);
         for (ProjectComponents listProject : listProjectComps) {
             listProjects.add(listProject.getIdProject());
         }
-    
-        listInvitationsProject  = new ArrayList();
-        List<Invitations> invitations = invitationsFacade.findInvitationUser(user);
-        for (Invitations invitation : invitations) {
-            listInvitationsProject.add(invitation.getIdProject());
+
+        listInvitationsProject = new ArrayList();
+        List<Invitations> listInvitations = invitationsFacade.findInvitationUser(user);
+        for (Invitations listInvitation : listInvitations) {
+            listInvitationsProject.add(listInvitation.getIdProject());
         }
-        
-        numNotify = invitations.size();
+
+        numNotify = listInvitationsProject.size();
         System.out.println("Número de notificaciones" + numNotify);
-        
+        return "profilePage";
+
     }
 
     public String doSetInformation() {
@@ -188,6 +223,8 @@ public class UserBean implements Serializable {
     public String doShowChat(Projects project) {
         this.project = project;
         return "chatPage";
+    }
+
     public String doShowProfile() {
         return "profilePage";
         //projectComponentsFacade.getProjectsListByUser(user);
