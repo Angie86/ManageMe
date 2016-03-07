@@ -188,6 +188,8 @@ public class UserBean implements Serializable {
     public String doShowChat(Projects project) {
         this.project = project;
         return "chatPage";
+    public String doShowProfile() {
+        return "profilePage";
         //projectComponentsFacade.getProjectsListByUser(user);
     }
 

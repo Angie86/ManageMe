@@ -30,7 +30,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.primefaces.json.JSONObject;
 
 /**
