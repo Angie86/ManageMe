@@ -164,11 +164,16 @@ public class HistoricBean {
     public String downloadFile(Historic historicRow) throws IOException {
 	
 	File newFile = new File(historicRow.getIdDocument().getPathDocument());
-        System.out.println(historicRow.getIdDocument().getPathDocument());
+        System.out.println("Debajo de File " + historicRow.getIdDocument().getPathDocument());
 	File targetFile = new File("/Users/inftel08/Desktop/PruebaDeDownload.txt");
 	Path sourcePath = newFile.toPath();
+        System.out.println("Debajo de Path");
 	Path targetPath = targetFile.toPath();
-	Files.move(sourcePath, targetPath, REPLACE_EXISTING);
+        System.out.println("Debajo de Path2");
+	Files.move(sourcePath, targetPath, REPLACE_EXISTING); 
+        
+        
+         System.out.println("Debajo de Move");
 	return "historicPage";
 	
     }
