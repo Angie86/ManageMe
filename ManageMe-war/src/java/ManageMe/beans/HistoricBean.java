@@ -149,8 +149,8 @@ public class HistoricBean {
 	doc.setNameDocument(description);
 	doc.setTypeDocument(getFilename(file1).substring(getFilename(file1).lastIndexOf(".") + 1));
 	doc.setDateDocument(date);
-	doc.setPathDocument("/Users/inftel08/Applications/NetBeans/glassfish-4.1/glassfish/domains/domain1/generated/jsp/ManageMe/ManageMe-war_war/" + getFilename(file1));
-	
+	doc.setPathDocument("/Users/noussairelharrak/GlassFish_Server/glassfish/domains/domain1/generated/jsp/ManageMe/ManageMe-war_war/" + getFilename(file1));
+	///Users/inftel08/Applications/NetBeans/glassfish-4.1/glassfish/domains/domain1/generated/jsp/ManageMe/ManageMe-war_war/
         documentFacade.create(doc);
 	hist.setIdDocument(doc);
 	hist.setIdUser(userBean.user);
@@ -164,10 +164,9 @@ public class HistoricBean {
     public String downloadFile(Historic historicRow) throws IOException {
 	
 	File newFile = new File(historicRow.getIdDocument().getPathDocument());
-        System.out.println("Debajo de File " + historicRow.getIdDocument().getPathDocument());
-	File targetFile = new File("/Users/inftel08/Desktop/PruebaDeDownload.txt");
+	File targetFile = new File("/Users/noussairelharrak/Downloads/FicheroDeSalida.txt");
+	///Users/inftel08/Desktop/PruebaDeDownload.txt
 	Path sourcePath = newFile.toPath();
-        System.out.println("Debajo de Path");
 	Path targetPath = targetFile.toPath();
         System.out.println("Debajo de Path2");
 	Files.copy(sourcePath, targetPath, REPLACE_EXISTING); 

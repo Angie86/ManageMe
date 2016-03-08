@@ -50,7 +50,9 @@
                                     </p>
                                     #{user.email}
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-sm btn-flat">Eliminar</button>
+					<h:form rendered="#{profileProjectBean.isScrumMaster()==true}">
+					    <h:commandButton class="btn btn-primary btn-sm btn-flat" action="#{profileProjectBean.deleteProjectComponent(user)}" value="Eliminar"/>
+					</h:form>
                                     </div>
 
                                 </div><!-- /.item -->
