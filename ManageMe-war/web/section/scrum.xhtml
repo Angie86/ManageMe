@@ -2,12 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+ 
+ 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -16,16 +15,16 @@
                 Manage Scrum
             </h1>
         </section>
-
+ 
         <!-- Main content -->
-        <section class="content">
+        <section id="sectionScrum" class="content">
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <!-- Left col -->
                 <h:form>
                     <div class="box-group">
                         <div class="input-group">
-
+ 
                             <div class="input-group-btn">
                                 <h:inputText id="nombreTarea" class="form-control"  value="#{scrumBean.nombreTarea}"  />
                             </div>
@@ -38,187 +37,301 @@
                             <div class="input-group-btn">
                                 <h:inputText id="fechaInicio" class="form-control" value="#{scrumBean.fechaInicio}" pt:type="date" />
                             </div>
-
+ 
                             <div class="input-group-btn">
                                 <h:commandButton action="#{scrumBean.createTask()}" id="crearTarea" class="btn btn-success" value="crearTarea" />
-
+ 
                             </div>
-
-                        </div> 
-
+ 
+                        </div>
+ 
                     </div>
                 </h:form>
-
+ 
                 <script>
-
+ 
                     function crearTarea() {
-
+ 
                         /*var nombreTarea = $('#nombreTarea').val();
                          $( "#toDo" ).append( '<li class="sortable-item" style=""><form><label>'+nombreTarea+'</label></form></li>' );*/
                     }
-
-
+ 
+ 
                 </script>
-
+ 
                 <br/><br/>
-
-
+ 
+ 
                 <div class="dhe-example-section" id="ex-1-3">
                     <div class="dhe-example-section-header"></div>
                     <div class="dhe-example-section-content">
-
+ 
                         <!-- BEGIN: XHTML for example 1.3 -->
-
+ 
                         <div id="example-1-3">
-
+ 
                             <div id="toDo" class="column left first"><h2 class="tituloCentro">To Do</h2>
-
+ 
                                 <ul id="toDoUl" class="sortable-list ui-sortable">
                                     <ui:repeat var="task" value="#{scrumBean.listaTasks}" >
                                         <h:form pt:id="formTask-#{task.idTask}" rendered="#{task.state=='To Do'}">
-                                            <li class="sortable-item">
-                                                <h:inputHidden pt:id="state-#{task.idTask}" value="#{scrumBean.state}" />
-                                                <h:outputText value="#{task.nameTask}" />
-                                                <h:commandButton class="hidden" pt:id="saveTask-#{task.idTask}"  action="#{scrumBean.saveTask(task.idTask)}" />
+                                            <li class="sortable-item positionRelative listaBottom">
+                                                <h:inputHidden pt:name="entrada" pt:id="state-#{task.idTask}" value="#{scrumBean.state}" valueChangeListener="#{scrumBean.changeInput}" />
+                                                <p><i class="fa fa-tasks widthIcon"></i><h:outputText value="#{task.nameTask}" /></p>
+                                                <i class="fa fa-user widthIcon"></i><span>juanje, angie</span>
+                                                <div class="divRight">
+                                                    <span>#{task.duration} h</span>
+                                                </div>
+                                                <div class="divIcons">
+                                                    <h:commandLink action="#{scrumBean.seeTask()}"><i class="fa fa-eye widthIcon"></i></h:commandLink>
+                                                    <h:commandLink action="#{scrumBean.editTask()}"><i class="fa fa-pencil"></i></h:commandLink>
+                                                </div>
+ 
+                                                <h:commandButton class="hidden" pt:id="saveTask-#{task.idTask}"  action="#{scrumBean.saveTask(task.idTask, 'toDoUl')}" />
                                             </li>
                                         </h:form>
                                     </ui:repeat>
-
+ 
                                 </ul>
-
+ 
                             </div>
-
-
+ 
+ 
                             <div id="doing2" class="column left"><h2 class="tituloCentro">Doing</h2>
-
+ 
                                 <ul id="doingUl" class="sortable-list ui-sortable">
                                     <ui:repeat var="task" value="#{scrumBean.listaTasks}" >
-                                        <h:form pt:id="formTask-#{task.idTask}"  rendered="#{task.state=='Doing'}">
-                                            <li class="sortable-item">
-                                                <h:inputHidden pt:id="state-#{task.idTask}" value="#{scrumBean.state}" />
-                                                <h:outputText value="#{task.nameTask}" />
-                                                <h:commandButton class="hidden" pt:id="saveTask-#{task.idTask}"  action="#{scrumBean.saveTask(task.idTask)}" />
+                                        <h:form pt:id="formTask-#{task.idTask}"  rendered="#{task.state=='Doing'}" >
+                                            <li class="sortable-item positionRelative listaBottom">
+                                                <h:inputHidden pt:name="entrada" pt:id="state-#{task.idTask}" value="#{scrumBean.state}" valueChangeListener="#{scrumBean.changeInput}" />
+                                                <p><i class="fa fa-tasks widthIcon"></i><h:outputText value="#{task.nameTask}" /></p>
+                                                <i class="fa fa-user widthIcon"></i><span>juanje, angie</span>
+                                                <div class="divRight">
+                                                    <span>#{task.duration} h</span>
+                                                </div>
+                                                <div class="divIcons">
+                                                    <a onclick="showSee(#{task.idTask});" ><i class="fa fa-eye widthIcon pointer"></i></a>
+                                                    <a onclick="showEdit(#{task.idTask});"><i class="fa fa-pencil pointer"></i></a>
+                                                </div>
+ 
+                                                <h:commandButton class="hidden" pt:id="saveTask-#{task.idTask}"  action="#{scrumBean.saveTask(task.idTask, 'toDoUl')}" />
+ 
+                                                <!-- SEE TASK -->
+                                                <div id="seeTask-#{task.idTask}" class="hidden2 absoluteCentro">
+                                                <section class="content ">VER TAREA CON DETALLE
+                                                    <!-- Small boxes (Stat box) -->
+                                                    <div class="row">
+                                                        <!-- Left col -->
+                                                        <h:form>
+                                                            <div class="box-group">
+                                                                <div class="input-group">
+ 
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="nombreTarea" class="form-control"  value="#{scrumBean.nombreTarea}"  />
+                                                                    </div>
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="duracionTarea" class="form-control"  value="#{scrumBean.duracionTarea}" />
+                                                                    </div>
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="descripcionTarea" class="form-control"  value="#{scrumBean.description}" />
+                                                                    </div>
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="fechaInicio" class="form-control" value="#{scrumBean.fechaInicio}" pt:type="date" />
+                                                                    </div>
+ 
+                                                                    <div class="input-group-btn">
+                                                                        <h:commandButton action="#{scrumBean.createTask()}" id="crearTarea" class="btn btn-success" value="crearTarea" />
+ 
+                                                                    </div>
+ 
+                                                                </div>
+ 
+                                                            </div>
+                                                        </h:form>
+                                                    </div>
+                                                </section>
+                                                </div>
+                                               
+                                                <!-- EDIT  TASK -->
+                                              <div id="editTask-#{task.idTask}" class="hidden2 absoluteCentro">
+                                                <section class="content ">EDITAR TAREA
+                                                    <!-- Small boxes (Stat box) -->
+                                                    <div class="row">
+                                                        <!-- Left col -->
+                                                        <h:form>
+                                                            <div class="box-group">
+                                                                <div class="input-group">
+ 
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="nombreTarea" class="form-control"  value="#{scrumBean.nombreTarea}"  />
+                                                                    </div>
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="duracionTarea" class="form-control"  value="#{scrumBean.duracionTarea}" />
+                                                                    </div>
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="descripcionTarea" class="form-control"  value="#{scrumBean.description}" />
+                                                                    </div>
+                                                                    <div class="input-group-btn">
+                                                                        <h:inputText id="fechaInicio" class="form-control" value="#{scrumBean.fechaInicio}" pt:type="date" />
+                                                                    </div>
+ 
+                                                                    <div class="input-group-btn">
+                                                                        <h:commandButton action="#{scrumBean.createTask()}" id="crearTarea" class="btn btn-success" value="crearTarea" />
+ 
+                                                                    </div>
+ 
+                                                                </div>
+ 
+                                                            </div>
+                                                        </h:form>
+                                                    </div>
+                                                </section>
+                                                </div>
+ 
+ 
+ 
+ 
+ 
                                             </li>
                                         </h:form>
                                     </ui:repeat>
                                 </ul>
-
+ 
                             </div>
-
+ 
                             <div id="done2" class="column left"><h2 class="tituloCentro">Done</h2>
-
+ 
                                 <ul id="doneUl" class="sortable-list ui-sortable">
-
+ 
                                     <ui:repeat var="task" value="#{scrumBean.listaTasks}" >
-                                        <h:form pt:id="formTask-#{task.idTask}" rendered="#{task.state=='Done'}">
-                                            <li class="sortable-item">
-                                                <h:inputHidden pt:id="state-#{task.idTask}" value="#{scrumBean.state}" />
-                                                <h:outputText value="#{task.nameTask}" />
-                                                <h:commandButton  pt:id="saveTask-#{task.idTask}"  action="#{scrumBean.saveTask(task.idTask)}" />
+                                        <h:form pt:id="formTask-#{task.idTask}" rendered="#{task.state=='Done'}" >
+                                            <li class="sortable-item positionRelative listaBottom">
+                                                <h:inputHidden pt:name="entrada" pt:id="state-#{task.idTask}" value="#{scrumBean.state}" valueChangeListener="#{scrumBean.changeInput}" />
+                                                <p><i class="fa fa-tasks widthIcon"></i><h:outputText value="#{task.nameTask}" /></p>
+                                                <i class="fa fa-user widthIcon"></i><span>juanje, angie</span>
+                                                <div class="divRight">
+                                                    <span>#{task.duration} h</span>
+                                                </div>
+                                                <div class="divIcons">
+                                                    <h:commandLink action="#{scrumBean.seeTask()}"><i class="fa fa-eye widthIcon"></i></h:commandLink>
+                                                    <h:commandLink action="#{scrumBean.editTask()}"><i class="fa fa-pencil"></i></h:commandLink>
+                                                </div>
+ 
+                                                <h:commandButton class="hidden" pt:id="saveTask-#{task.idTask}"  action="#{scrumBean.saveTask(task.idTask, 'toDoUl')}" />
                                             </li>
                                         </h:form>
                                     </ui:repeat>
-
+ 
                                 </ul>
-
+ 
                             </div>
-
+ 
                             <div class="clearer">&nbsp;</div>
-
-
+ 
+ 
                         </div>
-
+ 
                         <!-- END: XHTML for example 1.3 -->
-
+ 
                     </div>
                 </div>
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
             </div>  
         </section>
     </div>
-
-
+ 
+ 
     <!-- Example JavaScript files -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-
+ 
     <!-- Example jQuery code (JavaScript)  -->
     <script type="text/javascript">
-
-                    $(document).ready(function () {
-
-                        // Example 1.3: Sortable and connectable lists with visual helper
-                        $('#example-1-3 #toDoUl').sortable({
-                            connectWith: '#example-1-3 .sortable-list',
-                            placeholder: 'placeholder',
-                            handle: '.sortable-item',
-                            receive: function (event, ui) {
-                                lanchEvent(event, ui);
-                            }
-
-                        });
-
-                        $('#example-1-3 #doingUl').sortable({
-                            connectWith: '#example-1-3 .sortable-list',
-                            placeholder: 'placeholder',
-                            handle: '.sortable-item',
-                            receive: function (event, ui) {
-                                lanchEvent(event, ui);
-                            }
-
-                        });
-
-                        $('#example-1-3 #doneUl').sortable({
-                            connectWith: '#example-1-3 .sortable-list',
-                            placeholder: 'placeholder',
-                            handle: '.sortable-item',
-                            receive: function (event, ui) {
-                                lanchEvent(event, ui);
-                            }
-
-                        });
-
-                    });
-                    function lanchEvent(event, ui) {
-                        var idTareaForm = ui.item.closest('ul form ').attr('id');
-                        var idUl = ui.item.closest('ul').attr('id');
-                        var idTarea = idTareaForm.split("-")[1];
-                        
-                        $("#" + idTareaForm + " #state-" + idTarea).val(idUl);
-                        alert();
-                        
-                        
-                        $("#" + idTareaForm + " #saveTask-" + idTarea).trigger( "click");
-
-                    }
-
+ 
+                                                        var panel;
+ 
+ 
+                                                        $(document).ready(function () {
+ 
+                                                            // Example 1.3: Sortable and connectable lists with visual helper
+                                                            $('#example-1-3 #toDoUl').sortable({
+                                                                connectWith: '#example-1-3 .sortable-list',
+                                                                placeholder: 'placeholder',
+                                                                receive: function (event, ui) {
+                                                                    lanchEvent(event, ui);
+                                                                }
+ 
+                                                            });
+ 
+                                                            $('#example-1-3 #doingUl').sortable({
+                                                                connectWith: '#example-1-3 .sortable-list',
+                                                                placeholder: 'placeholder',
+                                                                receive: function (event, ui) {
+                                                                    lanchEvent(event, ui);
+                                                                }
+ 
+                                                            });
+ 
+                                                            $('#example-1-3 #doneUl').sortable({
+                                                                connectWith: '#example-1-3 .sortable-list',
+                                                                placeholder: 'placeholder',
+                                                                receive: function (event, ui) {
+                                                                    lanchEvent(event, ui);
+                                                                }
+ 
+                                                            });
+ 
+                                                        });
+                                                        function lanchEvent(event, ui) {
+                                                            var idTareaForm = ui.item.closest('ul form ').attr('id');
+                                                            var idUl = ui.item.closest('ul').attr('id');
+                                                            var idTarea = idTareaForm.split("-")[1];
+                                                            var nombre = "state-" + idTarea;
+                                                            var elInput = document.getElementById(nombre);
+                                                            elInput.value = idUl;
+                                                            panel = idUl;
+ 
+ 
+                                                            $("#saveTask-" + idTarea).trigger("click");
+ 
+                                                        }
+                                                        function showSee(idTarea) {
+                                                            $("#sectionScrum").css("z-index","-2");
+                                                            $("#seeTask-"+idTarea).show();
+                                                            $("#seeTask-"+idTarea).css("z-index","100");
+                                                           
+                                                           
+ 
+                                                        }
+                                                        function showEdit(idTarea) {
+                                                            $("#sectionScrum").css("z-index","-2");
+                                                            $("#editTask-"+idTarea).show();
+                                                            $("#editTask-"+idTarea).css("z-index","100");
+                                                           
+ 
+                                                        }
+ 
+ 
     </script>
-
+ 
+ 
     <!-- This is NOT a part of the example code (Google Analytics) -->
     <script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>
     <script type="text/javascript">try {
-                        var pageTracker = _gat._getTracker("UA-223188-18");
-                        pageTracker._setDomainName(".devheart.org");
-                        pageTracker._trackPageview();
-                    } catch (err) {
-                    }
+                                                            var pageTracker = _gat._getTracker("UA-223188-18");
+                                                            pageTracker._setDomainName(".devheart.org");
+                                                            pageTracker._trackPageview();
+                                                        } catch (err) {
+                                                        }
     </script>
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
 </html>
-
-
-
-
-
-
-
