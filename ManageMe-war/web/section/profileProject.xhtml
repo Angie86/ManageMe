@@ -67,6 +67,7 @@
 
                                      <p:autoComplete id="email" c:placeholder="Introduce búsqueda" 
                                                     value="#{profileProjectBean.email}"  completeMethod="#{profileProjectBean.completeMail}" 
+                                                    rendered="#{userBean.user == userBean.project.idUser}"
                                                     required="true"
                                                     requiredMessage="Por favor introduzca la búsqueda."
                                                     validatorMessage="Formato de email inválido">
@@ -76,7 +77,8 @@
                                     <p:watermark for="email" value="Email Address *" />
                                     <p:message for="email" />
                                     
-                                    <h:commandButton value="Invitar Usuario" class="btn btn-primary" action="#{profileProjectBean.doInvite()}"/>
+                          
+                                    <h:commandButton value="Invitar Usuario" class="btn btn-primary" action="#{profileProjectBean.doInvite()}" rendered="#{userBean.user == userBean.project.idUser}" />
                                       </h:form>
                                 </div>
                             </div>
