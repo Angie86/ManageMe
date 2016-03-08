@@ -54,7 +54,7 @@ public class ProfileProjectBean {
     private TasksFacade tasksFacade;
     @EJB
     private ProjectsFacade projectsFacade;
-
+ 
     protected String nameProject;
     protected List<DataUsers> listDataUsers;
     protected List<Users> listUsers;
@@ -70,23 +70,20 @@ public class ProfileProjectBean {
  
     @PostConstruct
     public void init() {
-
-	//listUsers = usersFacade.findAllUsersByIdProject(userBean.project);
-	this.project = userBean.project;
-	nameProject = project.getNameProject();
-
-	listUsers = new ArrayList();
-	List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
-	for (ProjectComponents listProject : listProjectComps) {
-
-	    listUsers.add(listProject.getIdUser());
-	}
-	
-	listTasks = new ArrayList();
-	listTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
-    }
  
-    System.out.println("INIT profile Project");
+    //listUsers = usersFacade.findAllUsersByIdProject(userBean.project);
+    this.project = userBean.project;
+    nameProject = project.getNameProject();
+ 
+    listUsers = new ArrayList();
+    List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
+    for (ProjectComponents listProject : listProjectComps) {
+ 
+        listUsers.add(listProject.getIdUser());
+    }
+   
+    listTasks = new ArrayList();
+    listTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
     }
  
     public String getNameProject() {
@@ -95,6 +92,15 @@ public class ProfileProjectBean {
     }
  
     public void setNameProject(String nameProject) {
+    this.nameProject = nameProject;
+    }
+ 
+    public List<Tasks> getListTasks() {
+    return listTasks;
+    }
+ 
+    public void setListTasks(List<Tasks> listTasks) {
+    this.listTasks = listTasks;
     }
  
     public List<DataUsers> getListDataUsers() {
@@ -169,19 +175,35 @@ public class ProfileProjectBean {
     }
  
     public String doShowProfileProject(Projects project) {
-	this.nameProject = nameProject;
+    this.project = project;
+    //listTasks = new ArrayList();
+    //listTasks = tasksFacade.findTaskByIdProyect(project.getIdProject());
+    return "profileProjectPage";
+ 
     }
-
-    public List<Tasks> getListTasks() {
-	return listTasks;
-    }
-
-    public void setListTasks(List<Tasks> listTasks) {
-	this.listTasks = listTasks;
-    }
+ 
     public String doInvite() {
+    System.out.println("Entra en invite");
+ 
+    Users userReceiver = usersFacade.findByEmail(email);
+    Invitations invitation = new Invitations();
+ 
+    if (userReceiver == null) {
+ 
+        Users newUser = new Users();
+        newUser.setEmail(email);
+        usersFacade.create(newUser);
+        userReceiver = usersFacade.findByEmail(email);
+    } else {
+        invitation.setIdUserreceiver(userReceiver);
+        System.out.println("Existe email");
+ 
     }
-
+ 
+    invitationsFacade.sendInvitationEmail(userBean.project, email);
+ 
+    System.out.println("Enviadp Mail");
+ 
     invitation.setIdUserreceiver(userReceiver);
     invitation.setIdProject(userBean.project);
     invitation.setIdUsersender(userBean.user);
@@ -210,10 +232,44 @@ public class ProfileProjectBean {
     }
  
     public String deleteProjectComponent(Users user) {
-	this.project = project;
-	//listTasks = new ArrayList();
-	//listTasks = tasksFacade.findTaskByIdProyect(project.getIdProject());
-	return "profileProjectPage";
-
+ 
+    List<Tasks> listTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
+ 
+    for (Tasks task : listTasks) {
+        List<TaskComponents> taskComponentList = taskComponentsFacade.findTaskComponentByIdTask(task.getIdTask());
+ 
+        for (TaskComponents taskComponent : taskComponentList) {
+        if (taskComponent.getIdUser().getIdUser() == user.getIdUser().longValue()) {
+            taskComponentsFacade.remove(taskComponent);
+        }
+        }
+ 
+        taskComponentList = taskComponentsFacade.findTaskComponentByIdTask(task.getIdTask());
+        if (taskComponentList == null) {
+        tasksFacade.remove(task);
+        }
+ 
     }
-
+ 
+    ProjectComponents projectComponent = projectComponentsFacade.findProjectComponentByUserAndProject(user, userBean.project.getIdProject());
+    projectComponentsFacade.remove(projectComponent);
+    listUsers = new ArrayList();
+    List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
+    for (ProjectComponents listProject : listProjectComps) {
+        listUsers.add(listProject.getIdUser());
+    }
+ 
+    return "profileProject";
+    }
+ 
+    public String deleteProject() {
+    projectsFacade.remove(userBean.project);
+    userBean.listProjects = new ArrayList();
+        List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(userBean.user);
+        for (ProjectComponents listProject : listProjectComps) {
+            userBean.listProjects.add(listProject.getIdProject());
+        }
+    return "profilePage";
+    }
+ 
+}
