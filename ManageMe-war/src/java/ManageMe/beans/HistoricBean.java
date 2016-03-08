@@ -170,10 +170,10 @@ public class HistoricBean {
         System.out.println("Debajo de Path");
 	Path targetPath = targetFile.toPath();
         System.out.println("Debajo de Path2");
-	Files.move(sourcePath, targetPath, REPLACE_EXISTING); 
+	Files.copy(sourcePath, targetPath, REPLACE_EXISTING); 
         
         
-         System.out.println("Debajo de Move");
+        System.out.println("Debajo de Move");
 	return "historicPage";
 	
     }

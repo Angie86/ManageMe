@@ -166,7 +166,7 @@ public class ProfileProjectBean {
     }
     
      public String doInvite() {
-    
+         System.out.println("Entra en invite");
         
         Users userReceiver = usersFacade.findByEmail(email);
         Invitations invitation = new Invitations();
@@ -179,10 +179,13 @@ public class ProfileProjectBean {
             userReceiver = usersFacade.findByEmail(email);
         } else {
             invitation.setIdUserreceiver(userReceiver);
+            System.out.println("Existe email");
 
         }
         
         invitationsFacade.sendInvitationEmail(userBean.project, email);
+        
+         System.out.println("Enviadp Mail");
 
         invitation.setIdUserreceiver(userReceiver);
         invitation.setIdProject(userBean.project);

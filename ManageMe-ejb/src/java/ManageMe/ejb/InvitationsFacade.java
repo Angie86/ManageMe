@@ -41,7 +41,11 @@ public class InvitationsFacade extends AbstractFacade<Invitations> {
     }
 
     public void sendInvitationEmail(Projects project, String email) {
-        DataUsers dataUser = em.find(DataUsers.class, project.getIdUser().getIdUser());
+        DataUsers dataUser = dataUsersFacade.findByIdUser(project.getIdUser());
+        
+        
+        
+        
         //String destino = transaction.getMemberNumber().getEmail();
         String asunto;
         String mensaje;

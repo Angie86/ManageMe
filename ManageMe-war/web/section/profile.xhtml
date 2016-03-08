@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -93,8 +94,12 @@
                                 <!-- General tools such as edit or delete-->
                                 <div class="tools">
                                       
-                                    <h:form><h:commandLink action="#{profileBean.doAcceptInvitation(project)}"><i class="fa fa-edit"></i></h:commandLink></h:form>
-                                    <h:form><h:commandLink action="#{profileBean.doRefuseInvitation(project)}"><i class="fa fa-trash-o"></i></h:commandLink></h:form>
+                                    <h:form><h:commandLink action="#{profileBean.doAcceptInvitation(project)}">
+                                            <f:ajax render="notificacion"/>
+                                            <i class="fa fa-edit"></i></h:commandLink></h:form>
+                                    <h:form><h:commandLink action="#{profileBean.doRefuseInvitation(project)}">
+                                            <f:ajax render="notificacion"/>
+                                            <i class="fa fa-trash-o"></i></h:commandLink></h:form>
                               
                                 </div>
                             </li>
