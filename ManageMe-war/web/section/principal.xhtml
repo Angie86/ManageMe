@@ -7,9 +7,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
 
-            <h1>
-                Chronography of the project
-            </h1>
+            <h1><b>
+                #{userBean.project.nameProject}: 
+		</b>
+		#{userBean.project.description}
+		</h1>
 
         </section>
 
@@ -26,9 +28,9 @@
                             <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
-                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
-                            <h:form><li class="active"><h:commandLink action="#{profileProjectBean.doShowProfileProject(userBean.project)}"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></li></h:form>
+                            <p>Pagina principal del proyecto con su descripción, la lista de usuarios y tareas.</p>
+                            
+                            <h:form><h:commandLink class="btn btn-primary" action="#{profileProjectBean.doShowProfileProject(userBean.project)}"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></h:form>
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
 
@@ -41,9 +43,8 @@
                             <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
-                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
-                            <h:form><li class="active"><h:commandLink action="#{historicBean.doShowHistoric(userBean.project)}"><i class="fa fa-th-list"></i>Historico</h:commandLink></li></h:form>
+                            <p>Revisa la cronología del proyecto, que muestra las actualizaciones de archivos en el proyecto</p>
+                            <h:form><h:commandLink class="btn btn-primary" action="#{historicBean.doShowHistoric(userBean.project)}"><i class="fa fa-th-list"></i>Historico</h:commandLink></h:form>
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
 
@@ -56,9 +57,8 @@
                             <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
-                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
-                            <h:form> <li class="active"><h:commandLink action="#{chatBean.doShowChat(userBean.project)}"><i class="fa fa-comment"></i>Chat</h:commandLink></li></h:form>
+                            <p>Comenta con tus compañeros en tiempo real los aspectos relacionados con el proyecto.</p>
+                            <h:form> <h:commandLink style="align: center" class="btn btn-primary" action="#{chatBean.doShowChat(userBean.project)}"><i class="fa fa-comment"></i>Chat</h:commandLink></h:form>
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
 
@@ -73,9 +73,8 @@
                             <span class="label label-primary pull-right"><i class="fa fa-html5"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <p>Compiled and ready to use in production. Download this version if you don't want to customize AdminLTE's LESS files.</p>
-                            <a href="http://almsaeedstudio.com/download/AdminLTE-dist" class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
-                            <h:form><li class="active"><h:commandLink action="#{scrumBean.doShowScrum(userBean.project)}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></li></h:form>
+                            <p>Crea y modifica las listas de tareas según la metodología Scrum desde tu terminal</p>
+                            <h:form><h:commandLink class="btn btn-primary" action="#{scrumBean.doShowScrum(userBean.project)}"><i class="fa fa-calendar"></i>Scrum</h:commandLink></h:form>
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
 
@@ -83,13 +82,7 @@
             </div><!-- ./col -->
             
                        <div class="col-lg-3 col-xs-6">
-                    <!-- small box -->
-                    <div class="small-box bg-aqua">  
-                        <h2>New Orders: #{userBean.project.nameProject}</h2>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
+                    
             
                 </div>
 

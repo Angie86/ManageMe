@@ -20,58 +20,62 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ProjectComponentsFacade extends AbstractFacade<ProjectComponents> {
+
     @PersistenceContext(unitName = "ManageMe-ejbPU")
     private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+	return em;
     }
 
     public ProjectComponentsFacade() {
-        super(ProjectComponents.class);
+	super(ProjectComponents.class);
     }
-    
-   public void setProjectComponent(Users user,Projects project){
-       ProjectComponents projectComponents = new ProjectComponents();
-       
-       projectComponents.setIdProject(project);
-       projectComponents.setIdUser(user);
-       em.persist(projectComponents);
-            
-   }
-   
-   public List<ProjectComponents> getProjectsListByUser(Users user){
-       
-       List<Projects> listProject = new ArrayList();
-       System.out.println(user.getIdUser());
-       List<ProjectComponents> projectComponentsList = getEntityManager().
-               createQuery("SELECT u FROM ProjectComponents u WHERE u.idUser = :idUser").setParameter("idUser", user).getResultList();
-               //createQuery("SELECT p FROM ProjectComponents u, Projects p WHERE u.idUser = :idUser AND u.idProject = p.idProject").setParameter("idUser", user).getResultList();
+
+    public void setProjectComponent(Users user, Projects project) {
+	ProjectComponents projectComponents = new ProjectComponents();
+
+	projectComponents.setIdProject(project);
+	projectComponents.setIdUser(user);
+	em.persist(projectComponents);
+
+    }
+
+    public List<ProjectComponents> getProjectsListByUser(Users user) {
+
+	List<Projects> listProject = new ArrayList();
+	System.out.println(user.getIdUser());
+	List<ProjectComponents> projectComponentsList = getEntityManager().
+		createQuery("SELECT u FROM ProjectComponents u WHERE u.idUser = :idUser").setParameter("idUser", user).getResultList();
+	//createQuery("SELECT p FROM ProjectComponents u, Projects p WHERE u.idUser = :idUser AND u.idProject = p.idProject").setParameter("idUser", user).getResultList();
 //       for (ProjectComponents list : projectComponentsList) {
 //           System.out.println("Entraaa");
 //           System.out.println(list.getIdProject().getIdProject());
 //          //listProject.add(list.getIdProject());
 //       }
-       
-       return projectComponentsList;
-       
-   }
-   
-      public List<ProjectComponents> getUsersListByProject(Projects project){
-       
-       
-       
-       List<ProjectComponents> projectComponentsList = getEntityManager().
-               createQuery("SELECT u FROM ProjectComponents u WHERE u.idProject = :idProject").setParameter("idProject", project).getResultList();
 
-          System.out.println("EMAIL"+ projectComponentsList.get(0).getIdUser());
-       return projectComponentsList;
-       
-   }
-   
-   
-   
-   
-    
+	return projectComponentsList;
+
+    }
+
+    public List<ProjectComponents> getUsersListByProject(Projects project) {
+
+	List<ProjectComponents> projectComponentsList = getEntityManager().
+		createQuery("SELECT u FROM ProjectComponents u WHERE u.idProject = :idProject").setParameter("idProject", project).getResultList();
+
+	System.out.println("EMAIL" + projectComponentsList.get(0).getIdUser());
+	return projectComponentsList;
+
+    }
+
+    public ProjectComponents findProjectComponentByUserAndProject(Users user, Long idProject) {
+	List<ProjectComponents> resultList = getEntityManager().createQuery("SELECT u FROM ProjectComponents u WHERE u.idUser.idUser = :iduser AND u.idProject.idProject = :idproject").setParameter("iduser", user.getIdUser()).setParameter("idproject", idProject).getResultList();
+	if (resultList == null || resultList.isEmpty()) {
+	    return null;
+	} else {
+	    return resultList.get(0);
+	}
+    }
+
 }
