@@ -5,10 +5,10 @@
  */
 package ManageMe.websocket;
 
-
 import ManageMe.beans.UserBean;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,101 +23,70 @@ import javax.json.JsonObject;
 import javax.json.spi.JsonProvider;
 import javax.websocket.Session;
 
-
 @ApplicationScoped
 public class SessionHandler {
-    private int deviceId = 0;
-    private final ArrayList<Session> sessions = new ArrayList<>();
-    private final ArrayList<Device> devices = new ArrayList<>();
-    
 
-    
+    private int deviceId = 0;
+
+    private final HashMap<Long, ArrayList<Session>> projectSession = new HashMap<>();
+    private final HashMap<Long, ArrayList<Device>> projectMessages = new HashMap<>();
+
+//    private final ArrayList<Session> sessions = new ArrayList<>();
+//    private final ArrayList<Device> devices = new ArrayList<>();
+
     @PostConstruct
     public void afterCreate() {
         System.out.println("DeviceSessionHandler created");
-    }        
+    }
 
+    public void addSession(long idProject, Session session) {
+        System.out.println(idProject);
 
-    
-    public void addSession(Session session) {
-        System.out.println("session" + session.getId());
+        ArrayList<Session> sessions = projectSession.get(idProject);
+
+        if (sessions == null) {
+            sessions = new ArrayList<>();
+        }
         sessions.add(session);
-        for (Device device : devices) {
-            JsonObject addMessage = createAddMessage(device);
-  
-                sendToSession(session, addMessage);
-            
+        projectSession.put(idProject, sessions);
+
+        ArrayList<Device> deviceList = projectMessages.get(idProject);
+        if (deviceList == null) {
+            deviceList = new ArrayList();
         }
+
+        for (Device device : deviceList) {
+
+            JsonObject addMessage = createAddMessage(device);
+            sendToSession(idProject, session, addMessage);
+
+        }
+
     }
 
-    public void removeSession(Session session) {
-        sessions.remove(session);
+    public void removeSession(long idProject,Session session) {
+        projectSession.remove(idProject);
+    }
+
+
+    public void addDevice(long idProject, Device device) {
+
+        ArrayList<Device> deviceList = projectMessages.get(idProject);
+
+        if (deviceList == null) {
+            deviceList = new ArrayList<>();
+        }
+        deviceList.add(device);
+        projectMessages.put(idProject, deviceList);
+        JsonObject addMessage = createAddMessage(device);
+        sendToAllConnectedSessions(idProject,addMessage);             
+             
     }
     
-    public List getDevices() {
-        return new ArrayList<>(devices);
-    }
-
-    public void addDevice(Device device) {
-        device.setId(deviceId);
-        devices.add(device);
-        deviceId++;
-        JsonObject addMessage = createAddMessage(device);
-        sendToAllConnectedSessions(addMessage);
-//          if(session.isOpen()){
-//            sendToSession(session, addMessage);
-//          }
-          
-    }
-
-    public void removeDevice(int id, Session session) {
-        Device device = getDeviceById(id);
-        if (device != null) {
-            devices.remove(device);
-            JsonProvider provider = JsonProvider.provider();
-            JsonObject removeMessage = provider.createObjectBuilder()
-                    .add("action", "remove")
-                    .add("id", id)
-                    .build();
-            sendToAllConnectedSessions(removeMessage);
-          
-            //sendToSession(session, removeMessage);
-            
-        }
-    }
-
-    public void toggleDevice(int id, Session session) {
-        JsonProvider provider = JsonProvider.provider();
-        Device device = getDeviceById(id);
-        if (device != null) {
-            if ("On".equals(device.getStatus())) {
-                device.setStatus("Off");
-            } else {
-                device.setStatus("On");
-            }
-            JsonObject updateDevMessage = provider.createObjectBuilder()
-                    .add("action", "toggle")
-                    .add("id", device.getId())
-                    .add("status", device.getStatus())
-                    .build();
-            sendToAllConnectedSessions(updateDevMessage);
-            sendToSession(session, updateDevMessage);
-            
-        }
-    }
-
-    private Device getDeviceById(int id) {
-        for (Device device : devices) {
-            if (device.getId() == id) {
-                return device;
-            }
-        }
-        return null;
-    }
-
     private JsonObject createAddMessage(Device device) {
+   
         JsonProvider provider = JsonProvider.provider();
-            JsonObject addMessage = provider.createObjectBuilder()
+        JsonObject addMessage = provider.createObjectBuilder()
                 .add("action", "add")
                 .add("id", device.getId())
                 .add("name", device.getName())
@@ -128,22 +97,23 @@ public class SessionHandler {
         return addMessage;
     }
 
-    private void sendToAllConnectedSessions(JsonObject message) {
+    private void sendToAllConnectedSessions(long idProject,JsonObject message) {
+        ArrayList<Session> sessions = projectSession.get(idProject);
         for (Session session : sessions) {
-            
-            sendToSession(session, message);
+
+            sendToSession(idProject,session, message);
         }
     }
 
-    private void sendToSession(Session session, JsonObject message) {
+    private void sendToSession(long idProject,Session session, JsonObject message) {
         try {
-         
-            System.out.println("Entra en Sendt to session");
             session.getBasicRemote().sendText(message.toString());
         } catch (IOException ex) {
+            ArrayList<Session> sessions = projectSession.get(idProject);
+            if(sessions != null)
             sessions.remove(session);
             Logger.getLogger("");
         }
-           
+
     }
 }

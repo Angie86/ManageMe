@@ -10,7 +10,6 @@ import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-//import javax.faces.bean.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -24,23 +23,27 @@ import javax.websocket.server.ServerEndpoint;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.SessionScoped;
+import javax.websocket.server.PathParam;
 
 @ApplicationScoped
-@ServerEndpoint("/actions")
+@ServerEndpoint("/actions/{idProject}")
 public class WebSocketServer {
     
     @Inject
     private SessionHandler sessionHandler;
+    private long idProject;
     
     @PostConstruct
     public void afterCreate() {
         System.out.println("DeviceWebSocketServer created");
+        System.out.println("");
     }    
 
     @OnOpen
-        public void open(Session session) {
-             //sessionHandler.removeDevice(id,session);   
-            sessionHandler.addSession(session);
+        public void open(@PathParam("idProject") int idProject, Session session) {  
+            this.idProject = idProject;
+            System.out.println("idProject " + idProject);
+            sessionHandler.addSession(idProject,session);
          
             System.out.println("DeviceWebSocketServer opened");
     }
@@ -48,7 +51,7 @@ public class WebSocketServer {
     @OnClose
         public void close(Session session) throws IOException {
             
-            sessionHandler.removeSession(session);
+            sessionHandler.removeSession(idProject, session);
           
             System.out.println("DeviceWebSocketServer closed");
     }
@@ -56,6 +59,7 @@ public class WebSocketServer {
     public void funcion(){
         
     }    
+    
     @OnError
         public void onError(Throwable error) {
             Logger.getLogger("Error");
@@ -72,19 +76,10 @@ public class WebSocketServer {
                 device.setDescription(jsonMessage.getString("description"));
                 device.setType(jsonMessage.getString("type"));
                 device.setStatus("Off");
-                sessionHandler.addDevice(device);
-                //sessionHandler.addDevice(device, session);
+                sessionHandler.addDevice(idProject, device);
+
             }
                                
-            if ("remove".equals(jsonMessage.getString("action"))) {
-                int id = (int) jsonMessage.getInt("id");
-                sessionHandler.removeDevice(id,session);
-            }
-
-            if ("toggle".equals(jsonMessage.getString("action"))) {
-                int id = (int) jsonMessage.getInt("id");
-                sessionHandler.toggleDevice(id,session);
-            }
         }
     }
 }    
