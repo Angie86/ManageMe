@@ -5,8 +5,8 @@
  */
 package ManageMe.beans;
 
+import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.TasksFacade;
-import ManageMe.ejb.UsersFacade;
 import ManageMe.entity.Projects;
 import ManageMe.entity.Tasks;
 import java.util.Date;
@@ -14,20 +14,23 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ManageMe.entity.Projects;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  *
  * @author inftel08
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ScrumBean {
+
     @EJB
-    private UsersFacade usersFacade;
+    private ProjectsFacade projectsFacade;
     @EJB
     private TasksFacade tasksFacade;
     
@@ -55,14 +58,13 @@ public class ScrumBean {
     }
 
     public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
+        this.userBean = userBean;   
     }
     
 
     
     public String doShowScrum(Projects project){
-        userBean.project = project; 
-        return "scrumPage";
+        userBean.project = project; return "scrumPage";
  }
 
     @PostConstruct
@@ -70,8 +72,8 @@ public class ScrumBean {
         nombreTarea = "";
         duracionTarea = 0L;
         description = "";
-        state = "";
-        listaTasks = tasksFacade.findTaskByIdProyect(22L);
+        state = "ini";
+        listaTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
     }
 
     
@@ -129,7 +131,7 @@ public class ScrumBean {
 
  
 
-    public String createTask2() {
+    public String createTask() {
         
         
         Tasks task = new Tasks();
@@ -137,9 +139,8 @@ public class ScrumBean {
         task.setDescription(description);
         task.setDuration(duracionTarea);
         
-        Projects newProject = new Projects();
-        newProject.setIdProject(22L);
-        task.setIdProject(newProject);
+        Projects projectNew = projectsFacade.findProjectById(userBean.project.getIdProject());
+        task.setIdProject(projectNew);
         task.setIdUsercreator(userBean.user);
         task.setState("To Do");
         task.setDateInit(new Date());
@@ -153,49 +154,36 @@ public class ScrumBean {
     public void ListTasks() {
         listaTasks = tasksFacade.findTaskByIdProyect(22L);
     }
-    
-    public String saveTask(Long idTarea) {
-        System.out.println("llega al salvar"+idTarea+" y el estado es "+state);
-        return ("scrumPage");
-    }
-    
-   
-    
-    
-    //PASAR A INVITEUSERBEAN
-    
-     protected String busqueda;
-    
 
-    public String getBusqueda() {
-        return busqueda;
-    }
-
-    public void setBusqueda(String busqueda) {
-        this.busqueda = busqueda;
+    public void changeInput(ValueChangeEvent event) {
+        this.state = event.getNewValue().toString();
     }
     
-    
-    public List<String> completeMail(String query){
+    public String saveTask(Long idTarea, String estado) {
         
-        List<String> listaEmail = usersFacade.findAllMails();
-        List<String> results = new ArrayList<String>();
-
-        for (String mail : listaEmail) {
-            if (mail.contains(query)) {
-                results.add(mail);
-            }
+        state = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("entrada");
+        
+        String stateDB = "";
+        switch (state) {
+        case "toDoUl":
+            stateDB = "To Do";
+            break;
+        case "doingUl":
+            stateDB = "Doing";
+            break;
+        case "doneUl":
+            stateDB = "Done";
         }
-
-        return results;
-    }
-    
-    
-    public void doBuscarMail(){
-        System.out.println("busqueda " + busqueda);
-    }
-    
-    public String createTask(){
-        return "scrumPage";
-    }
+        
+        //tasksFacade.editStatus(idTarea, state);
+        Tasks myTask = new Tasks();
+          
+        myTask = tasksFacade.getTaskById(idTarea);
+        myTask.setState(stateDB);
+        tasksFacade.edit(myTask);
+        
+        System.out.println("idTarea "+idTarea+" y el estado es "+stateDB);
+        this.state="ini";
+        return ("scrumPage");
+    } 
 }

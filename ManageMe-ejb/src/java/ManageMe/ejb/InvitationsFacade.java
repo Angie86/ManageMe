@@ -41,7 +41,11 @@ public class InvitationsFacade extends AbstractFacade<Invitations> {
     }
 
     public void sendInvitationEmail(Projects project, String email) {
-        DataUsers dataUser = em.find(DataUsers.class, project.getIdUser().getIdUser());
+        DataUsers dataUser = dataUsersFacade.findByIdUser(project.getIdUser());
+        
+        
+        
+        
         //String destino = transaction.getMemberNumber().getEmail();
         String asunto;
         String mensaje;
@@ -65,6 +69,16 @@ public class InvitationsFacade extends AbstractFacade<Invitations> {
         
         return invitations;
        
+    }
+    
+    public Invitations findInvitationByUserAndProject(Projects project, Users user){
+        System.out.println("hola" + project + "  " + user);
+    List<Invitations> invitations = getEntityManager().createQuery("SELECT u FROM Invitations u WHERE u.idUserreceiver = :idUserreceiver AND u.idProject = :idProject").
+            setParameter("idUserreceiver", user).
+            setParameter("idProject", project).
+            getResultList();
+      
+    return invitations.get(0);   
     }
     
 

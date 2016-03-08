@@ -6,6 +6,7 @@
 package ManageMe.ejb;
 
 import ManageMe.entity.DataUsers;
+import ManageMe.entity.Projects;
 import ManageMe.entity.Users;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -38,6 +39,11 @@ public class DataUsersFacade extends AbstractFacade<DataUsers> {
             return resultList.get(0);
     }
     
-    
+//    public DataUsers findByProject(Projects project){
+//        List<DataUsers> resultList = getEntityManager().createQuery("SELECT u FROM DataUsers u, Projects p WHERE p.idUser = u.idUser AND p.idProject = :idProject")
+//                .setParameter("idProject", project).getResultList();
+//        return resultList.get(0);
+//        
+//    }
     
 }

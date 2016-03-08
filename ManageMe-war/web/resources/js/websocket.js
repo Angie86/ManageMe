@@ -5,8 +5,8 @@
  */
 
 
-window.onload = init;
-var socket = new WebSocket("ws://localhost:8080/ManageMe-war/actions");
+//window.onload = init;
+//var socket = new WebSocket("ws://localhost:8080/ManageMe-war/actions");
 
 socket.onmessage = onMessage;
 
@@ -112,24 +112,26 @@ function hideForm() {
 }
 
 function formSubmit() {
+   
     var form = document.getElementById("addDeviceForm");
     var name = form.elements["device_name"].value;
     var type = form.elements["device_type"].value;
     var description = form.elements["device_description"].value;
     document.getElementById("addDeviceForm").reset();
+    
     passToChatBean([{
                                 name: 'message',
                                 value: description
                             }
                         ]);
     
+    
     addDevice(status,name,type,description);
+    return false;
     
-}
+    }
 
-function init() {
-    
-}
+
 
 function scrollBottom(){
     

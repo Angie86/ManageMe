@@ -5,13 +5,18 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+
+
+    <h:outputScript>
+        var socket = new WebSocket("ws://localhost:8080/ManageMe-war/actions/#{userBean.project.idProject}");
+    </h:outputScript>
     <h:outputScript library="js" name="websocket.js"/>
-    <!-- Content Wrapper. Contains page content -->
+
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Manage Chat
+                Manage Chat #{userBean.project.nameProject}
             </h1>
         </section>
 
@@ -56,11 +61,11 @@
                                     </div>
                                     <div class="input-group">
                                         <form id="addDeviceForm"> 
-                                            
+
                                             <input type="hidden" name="name" id="device_name" rows="1" cols="50" class="form-control" value="#{userBean.dataUsers.nameUser}"></input>
                                             <input type="hidden" name="" id="device_type" rows="1" cols="50" class="form-control" value="#{userBean.dataUsers.photoUser}"></input>
                                             <textarea name="description" id="device_description" rows="1" cols="50" class="form-control"></textarea>
-                                            
+
 
                                         </form>  
 
@@ -68,7 +73,7 @@
                                             <button class="btn btn-success" value="Add" onclick="formSubmit()"><i class="fa fa-plus"></i></button>
                                         </div>
 
-                                        <h:form >
+                                        <h:form>
                                             <p:remoteCommand name="passToChatBean" id="passToChatBeancmd" action="#{chatBean.seeChatMessage()}" process="@this" />
                                         </h:form>
 

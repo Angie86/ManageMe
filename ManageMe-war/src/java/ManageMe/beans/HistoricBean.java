@@ -168,10 +168,11 @@ public class HistoricBean {
 	///Users/inftel08/Desktop/PruebaDeDownload.txt
 	Path sourcePath = newFile.toPath();
 	Path targetPath = targetFile.toPath();
-	Files.move(sourcePath, targetPath, REPLACE_EXISTING); 
+        System.out.println("Debajo de Path2");
+	Files.copy(sourcePath, targetPath, REPLACE_EXISTING); 
         
         
-         System.out.println("Debajo de Move");
+        System.out.println("Debajo de Move");
 	return "historicPage";
 	
     }

@@ -50,4 +50,14 @@ public class ProjectsFacade extends AbstractFacade<Projects> {
             return resultList.get(0);
     }
     
+    public Projects findLastProject(Users user){
+         List<Projects> resultList = getEntityManager().createQuery("SELECT u FROM Projects u WHERE u.idUser = :idUser ORDER BY u.idProject DESC").setParameter("idUser", user).getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList.get(0);
+    }
+    
+    
+    
 }

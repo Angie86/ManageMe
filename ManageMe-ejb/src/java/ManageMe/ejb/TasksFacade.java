@@ -36,5 +36,13 @@ public class TasksFacade extends AbstractFacade<Tasks> {
         else
             return resultList;
     }
+    public Tasks getTaskById(Long id_Task){
+        List<Tasks> resultList = getEntityManager().createQuery("SELECT u FROM Tasks u WHERE u.idTask = :id_Task").setParameter("id_Task", id_Task).getResultList();
+        if (resultList == null || resultList.isEmpty())
+            return null;
+        else
+            return resultList.get(0);
+    }
+
     
 }

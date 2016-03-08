@@ -170,33 +170,47 @@ public class ProfileProjectBean {
 	return "profileProjectPage";
 
     }
-
+    
     public String doInvite() {
-
-	System.out.println("Email: " + email);
-	Users userReceiver = usersFacade.findByEmail(email);
-	Invitations invitation = new Invitations();
-
-	if (userReceiver == null) {
-
-	    Users newUser = new Users();
-	    newUser.setEmail(email);
-	    usersFacade.create(newUser);
-	    userReceiver = usersFacade.findByEmail(email);
-	} else {
-	    invitation.setIdUserreceiver(userReceiver);
-
-	}
-
-	invitationsFacade.sendInvitationEmail(userBean.project, email);
-
-	invitation.setIdUserreceiver(userReceiver);
-	invitation.setIdProject(userBean.project);
-	invitation.setIdUsersender(userBean.user);
-	invitationsFacade.create(invitation);
-
-	return "profileProjectPage";
+         System.out.println("Entra en invite");
+       
+        Users userReceiver = usersFacade.findByEmail(email);
+        Invitations invitation = new Invitations();
+ 
+        if (userReceiver == null) {
+ 
+            Users newUser = new Users();
+            newUser.setEmail(email);
+            usersFacade.create(newUser);
+            userReceiver = usersFacade.findByEmail(email);
+        } else {
+            invitation.setIdUserreceiver(userReceiver);
+            System.out.println("Existe email");
+ 
+        }
+       
+        invitationsFacade.sendInvitationEmail(userBean.project, email);
+       
+         System.out.println("Enviadp Mail");
+ 
+        invitation.setIdUserreceiver(userReceiver);
+        invitation.setIdProject(userBean.project);
+        invitation.setIdUsersender(userBean.user);
+        invitationsFacade.create(invitation);
+       
+        //Añadido para actualizar
+        userBean.listInvitationsProject  = new ArrayList();
+        List<Invitations> listInvitations = invitationsFacade.findInvitationUser(userBean.user);
+        for (Invitations listInvitation : listInvitations) {
+                userBean.listInvitationsProject.add(listInvitation.getIdProject());    
+        }
+       
+        userBean.numNotify = userBean.listInvitationsProject.size();
+ 
+       
+        return "profileProjectPage";
     }
+    
 
     public Boolean isScrumMaster() {
 
@@ -241,3 +255,4 @@ public class ProfileProjectBean {
     }
 
 }
+        
