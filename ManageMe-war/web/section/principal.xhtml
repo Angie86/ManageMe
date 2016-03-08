@@ -8,10 +8,10 @@
         <section class="content-header">
 
             <h1><b>
-                #{userBean.project.nameProject}: 
+		    #{userBean.project.nameProject}: 
 		</b>
 		#{userBean.project.description}
-		</h1>
+	    </h1>
 
         </section>
 
@@ -29,7 +29,7 @@
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <p>Pagina principal del proyecto con su descripción, la lista de usuarios y tareas.</p>
-                            
+
                             <h:form><h:commandLink class="btn btn-primary" action="#{profileProjectBean.doShowProfileProject(userBean.project)}"><i class="fa fa-user-plus"></i>Invitar</h:commandLink></h:form>
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
@@ -64,7 +64,7 @@
 
                 </div>
 
-     
+
 
                 <div class="col-sm-6">
                     <div class="box box-primary">
@@ -80,18 +80,21 @@
 
                 </div>
             </div><!-- ./col -->
-            
-                       <div class="col-lg-3 col-xs-6">
-                    
-            
-                </div>
+
+	    <div class="col-lg-3 col-xs-6">
+
+
+	    </div>
 
 
 
 
-         
-      
 
+
+
+        </section>
+	<section class="content-header">
+	    <h:form><h:commandLink class="btn btn-primary" action="#{profileProjectBean.deleteProject()}" rendered="#{userBean.project.idUser.idUser == userBean.user.idUser}"><i class="fa fa-trash"></i> Eliminar proyecto</h:commandLink></h:form>
         </section>
     </div><!-- /.content-wrapper -->
 

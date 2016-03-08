@@ -8,6 +8,7 @@ package ManageMe.beans;
 import ManageMe.ejb.DataUsersFacade;
 import ManageMe.ejb.InvitationsFacade;
 import ManageMe.ejb.ProjectComponentsFacade;
+import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.TaskComponentsFacade;
 import ManageMe.ejb.TasksFacade;
 import ManageMe.ejb.UsersFacade;
@@ -51,12 +52,14 @@ public class ProfileProjectBean {
     private TaskComponentsFacade taskComponentsFacade;
     @EJB
     private TasksFacade tasksFacade;
+    @EJB
+    private ProjectsFacade projectsFacade;
 
     protected String nameProject;
     protected List<DataUsers> listDataUsers;
     protected List<Users> listUsers;
     protected String email;
-
+    protected List<Tasks> listTasks;
     protected Projects project;
 
     /**
@@ -68,12 +71,9 @@ public class ProfileProjectBean {
     @PostConstruct
     public void init() {
 
-	// System.out.println("Proejt"+ userBean.nameProject);
 	//listUsers = usersFacade.findAllUsersByIdProject(userBean.project);
 	this.project = userBean.project;
 	nameProject = project.getNameProject();
-
-	System.out.println("Proejt" + project.getNameProject());
 
 	listUsers = new ArrayList();
 	List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
@@ -81,8 +81,9 @@ public class ProfileProjectBean {
 
 	    listUsers.add(listProject.getIdUser());
 	}
-
-	System.out.println("INIT profile Project");
+	
+	listTasks = new ArrayList();
+	listTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
     }
 
     public String getNameProject() {
@@ -92,6 +93,14 @@ public class ProfileProjectBean {
 
     public void setNameProject(String nameProject) {
 	this.nameProject = nameProject;
+    }
+
+    public List<Tasks> getListTasks() {
+	return listTasks;
+    }
+
+    public void setListTasks(List<Tasks> listTasks) {
+	this.listTasks = listTasks;
     }
 
     public List<DataUsers> getListDataUsers() {
@@ -167,50 +176,50 @@ public class ProfileProjectBean {
 
     public String doShowProfileProject(Projects project) {
 	this.project = project;
+	//listTasks = new ArrayList();
+	//listTasks = tasksFacade.findTaskByIdProyect(project.getIdProject());
 	return "profileProjectPage";
 
     }
-    
+
     public String doInvite() {
-         System.out.println("Entra en invite");
-       
-        Users userReceiver = usersFacade.findByEmail(email);
-        Invitations invitation = new Invitations();
- 
-        if (userReceiver == null) {
- 
-            Users newUser = new Users();
-            newUser.setEmail(email);
-            usersFacade.create(newUser);
-            userReceiver = usersFacade.findByEmail(email);
-        } else {
-            invitation.setIdUserreceiver(userReceiver);
-            System.out.println("Existe email");
- 
-        }
-       
-        invitationsFacade.sendInvitationEmail(userBean.project, email);
-       
-         System.out.println("Enviadp Mail");
- 
-        invitation.setIdUserreceiver(userReceiver);
-        invitation.setIdProject(userBean.project);
-        invitation.setIdUsersender(userBean.user);
-        invitationsFacade.create(invitation);
-       
-        //Añadido para actualizar
-        userBean.listInvitationsProject  = new ArrayList();
-        List<Invitations> listInvitations = invitationsFacade.findInvitationUser(userBean.user);
-        for (Invitations listInvitation : listInvitations) {
-                userBean.listInvitationsProject.add(listInvitation.getIdProject());    
-        }
-       
-        userBean.numNotify = userBean.listInvitationsProject.size();
- 
-       
-        return "profileProjectPage";
+	System.out.println("Entra en invite");
+
+	Users userReceiver = usersFacade.findByEmail(email);
+	Invitations invitation = new Invitations();
+
+	if (userReceiver == null) {
+
+	    Users newUser = new Users();
+	    newUser.setEmail(email);
+	    usersFacade.create(newUser);
+	    userReceiver = usersFacade.findByEmail(email);
+	} else {
+	    invitation.setIdUserreceiver(userReceiver);
+	    System.out.println("Existe email");
+
+	}
+
+	invitationsFacade.sendInvitationEmail(userBean.project, email);
+
+	System.out.println("Enviadp Mail");
+
+	invitation.setIdUserreceiver(userReceiver);
+	invitation.setIdProject(userBean.project);
+	invitation.setIdUsersender(userBean.user);
+	invitationsFacade.create(invitation);
+
+	//Añadido para actualizar
+	userBean.listInvitationsProject = new ArrayList();
+	List<Invitations> listInvitations = invitationsFacade.findInvitationUser(userBean.user);
+	for (Invitations listInvitation : listInvitations) {
+	    userBean.listInvitationsProject.add(listInvitation.getIdProject());
+	}
+
+	userBean.numNotify = userBean.listInvitationsProject.size();
+
+	return "profileProjectPage";
     }
-    
 
     public Boolean isScrumMaster() {
 
@@ -234,15 +243,14 @@ public class ProfileProjectBean {
 		    taskComponentsFacade.remove(taskComponent);
 		}
 	    }
-	    
+
 	    taskComponentList = taskComponentsFacade.findTaskComponentByIdTask(task.getIdTask());
-	    if (taskComponentList == null){
+	    if (taskComponentList == null) {
 		tasksFacade.remove(task);
 	    }
-	    
+
 	}
 
-	//}
 	ProjectComponents projectComponent = projectComponentsFacade.findProjectComponentByUserAndProject(user, userBean.project.getIdProject());
 	projectComponentsFacade.remove(projectComponent);
 	listUsers = new ArrayList();
@@ -254,5 +262,14 @@ public class ProfileProjectBean {
 	return "profileProject";
     }
 
+    public String deleteProject() {
+	projectsFacade.remove(userBean.project);
+	userBean.listProjects = new ArrayList();
+        List<ProjectComponents> listProjectComps = projectComponentsFacade.getProjectsListByUser(userBean.user);
+        for (ProjectComponents listProject : listProjectComps) {
+            userBean.listProjects.add(listProject.getIdProject());
+        }
+	return "profilePage";
+    }
+
 }
-        
