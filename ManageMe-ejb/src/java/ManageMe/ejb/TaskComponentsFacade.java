@@ -5,7 +5,11 @@
  */
 package ManageMe.ejb;
 
+import ManageMe.entity.ProjectComponents;
+import ManageMe.entity.Projects;
 import ManageMe.entity.TaskComponents;
+import ManageMe.entity.Tasks;
+import ManageMe.entity.Users;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +31,12 @@ public class TaskComponentsFacade extends AbstractFacade<TaskComponents> {
     public TaskComponentsFacade() {
         super(TaskComponents.class);
     }
-    
+          
+   public void setTaskComponent(Users user,Tasks task){
+       TaskComponents taskComponents = new TaskComponents();
+       taskComponents.setIdTask(task);
+       taskComponents.setIdUser(user);
+   
+       em.persist(taskComponents);
+   }
 }

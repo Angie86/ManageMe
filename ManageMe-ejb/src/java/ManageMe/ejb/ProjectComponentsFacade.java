@@ -37,8 +37,7 @@ public class ProjectComponentsFacade extends AbstractFacade<ProjectComponents> {
        
        projectComponents.setIdProject(project);
        projectComponents.setIdUser(user);
-       em.persist(projectComponents);
-            
+       em.persist(projectComponents);         
    }
    
    public List<ProjectComponents> getProjectsListByUser(Users user){
@@ -52,16 +51,13 @@ public class ProjectComponentsFacade extends AbstractFacade<ProjectComponents> {
 //           System.out.println("Entraaa");
 //           System.out.println(list.getIdProject().getIdProject());
 //          //listProject.add(list.getIdProject());
-//       }
-       
+//       }    
        return projectComponentsList;
        
    }
    
       public List<ProjectComponents> getUsersListByProject(Projects project){
-       
-       
-       
+
        List<ProjectComponents> projectComponentsList = getEntityManager().
                createQuery("SELECT u FROM ProjectComponents u WHERE u.idProject = :idProject").setParameter("idProject", project).getResultList();
 

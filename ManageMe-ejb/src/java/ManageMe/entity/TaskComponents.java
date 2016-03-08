@@ -36,7 +36,7 @@ public class TaskComponents implements Serializable {
     
     @Id
     @SequenceGenerator(name = "seq_taskComponents", sequenceName = "SEQ_TASKCOMPONENTS", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_taskcomponents")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_taskComponents")
     
     @Basic(optional = false)
     @NotNull

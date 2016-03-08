@@ -114,10 +114,9 @@ public class NewProjectBean implements Serializable {
         Projects  project = projectsFacade.createNewProject(name,description,userBean.user);
         projectComponentsFacade.setProjectComponent(userBean.user,project);
         userBean.project = project;
-        System.out.println("llega");
         Chat newChat = new Chat();
         newChat.setIdProject(userBean.project);
-        System.out.println("Nombre del proyecto " + userBean.project.getNameProject());
+
              
         newChat.setDateModification(new Date());
         
@@ -130,7 +129,7 @@ public class NewProjectBean implements Serializable {
             System.out.println(listProject.getIdProject().getNameProject());
             userBean.listProjects.add(listProject.getIdProject());
         }
-        //Crear Chat nuevo
+      
         return "";
     } 
     
