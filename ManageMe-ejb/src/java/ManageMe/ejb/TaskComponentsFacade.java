@@ -42,6 +42,18 @@ public class TaskComponentsFacade extends AbstractFacade<TaskComponents> {
 	    return resultList;
 	}
     }
+    
+   
+    public List<TaskComponents> findTaskComponentByIdTask(Long idTask) {
+    List<TaskComponents> resultList = getEntityManager().createQuery("SELECT u FROM TaskComponents u WHERE u.idTask.idTask = :idTask").setParameter("idTask", idTask).getResultList();
+    if (resultList == null || resultList.isEmpty()) {
+        return null;
+    } else {
+        return resultList;
+    }
+    }
+    
+    
 
           
    public void setTaskComponent(Users user,Tasks task){
@@ -51,14 +63,11 @@ public class TaskComponentsFacade extends AbstractFacade<TaskComponents> {
    
        em.persist(taskComponents);
    }
+   
+   
+   
 
     
-    public List<TaskComponents> findTaskComponentByIdTask(Long idTask) {
-	List<TaskComponents> resultList = getEntityManager().createQuery("SELECT u FROM TaskComponents u WHERE u.idTask.idTask = :idTask").setParameter("idTask", idTask).getResultList();
-	if (resultList == null || resultList.isEmpty()) {
-	    return null;
-	} else {
-	    return resultList;
-	}
+
     }
 

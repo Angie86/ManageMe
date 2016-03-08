@@ -8,22 +8,16 @@ package ManageMe.beans;
 import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.TaskComponentsFacade;
 import ManageMe.ejb.TasksFacade;
-import ManageMe.entity.Chat;
-import ManageMe.entity.ProjectComponents;
-import ManageMe.entity.Projects;
 import ManageMe.entity.Tasks;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import ManageMe.entity.Projects;
-import ManageMe.entity.TaskComponents;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
  
 /**
@@ -41,10 +35,6 @@ public class ScrumBean {
     private ProjectsFacade projectsFacade;
     @EJB
     private TasksFacade tasksFacade;
-   
-   
-   
-   
  
     protected String nombreTarea;
     protected Long duracionTarea;
@@ -136,48 +126,14 @@ public class ScrumBean {
         this.fechaInicio = fechaInicio;
     }
  
- 
-   
- 
- 
- 
     public String createTask() {
-           
-       
-//        Tasks task = new Tasks();
-//        task.setNameTask(nombreTarea);
-//        task.setDescription(description);
-//        task.setDuration(duracionTarea);
-//       
+
         Projects projectNew = projectsFacade.findProjectById(userBean.project.getIdProject());
-//        task.setIdProject(projectNew);
-//        task.setIdUsercreator(userBean.user);
-//        task.setState("To Do");
-//        task.setDateInit(new Date());
- 
         Tasks myTask = tasksFacade.createNewTask(projectNew, nombreTarea, description, new Date(), duracionTarea,"To Do",userBean.user);
        
-        taskComponentsFacade.setTaskComponent(userBean.user, myTask);
-        
-        
-       
-        
-        
-     
+        //Hay que incluirlo donde creo tarea
+        //taskComponentsFacade.setTaskComponent(userBean.user, myTask);
 
-   
-
-             
-
-        
-
-        
-   
-        
-        
-        
-       
-       
         return ("scrumPage");
     }
    
@@ -205,10 +161,8 @@ public class ScrumBean {
             stateDB = "Done";
         }
        
-        //tasksFacade.editStatus(idTarea, state);
-        Tasks myTask = new Tasks();
-         
-        myTask = tasksFacade.getTaskById(idTarea);
+    
+        Tasks myTask = tasksFacade.getTaskById(idTarea);
         myTask.setState(stateDB);
         tasksFacade.edit(myTask);
        
@@ -225,8 +179,5 @@ public class ScrumBean {
        public String editTask(){
            return ("scrumPage");
        }
-   
-   
-   
 }
 

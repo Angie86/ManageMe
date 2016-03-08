@@ -36,6 +36,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import org.primefaces.model.UploadedFile;
 
+
+
 /**
  *
  * @author inftel08
@@ -122,13 +124,6 @@ public class HistoricBean {
 	this.file = file;
     }
 
-//    public void upload() throws IOException {
-////        if(file != null) {
-////            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-////            FacesContext.getCurrentInstance().addMessage(null, message);
-////        }
-//        file1.write(getFilename(file1));
-//    }
     private static String getFilename(Part part) {
 	for (String cd : part.getHeader("content-disposition").split(";")) {
 	    if (cd.trim().startsWith("filename")) {
@@ -157,7 +152,7 @@ public class HistoricBean {
 	hist.setIdProject(userBean.project);
 	historicFacade.create(hist);
 	listaHistorico = historicFacade.findHistoricByProjectId(userBean.project.getIdProject());
-	return ("historicPage");
+	return ("");
 
     }
 
