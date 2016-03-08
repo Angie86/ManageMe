@@ -8,6 +8,7 @@ package ManageMe.beans;
 import ManageMe.ejb.DataUsersFacade;
 import ManageMe.ejb.InvitationsFacade;
 import ManageMe.ejb.ProjectComponentsFacade;
+import ManageMe.ejb.ProjectsFacade;
 import ManageMe.ejb.TaskComponentsFacade;
 import ManageMe.ejb.TasksFacade;
 import ManageMe.ejb.UsersFacade;
@@ -51,12 +52,14 @@ public class ProfileProjectBean {
     private TaskComponentsFacade taskComponentsFacade;
     @EJB
     private TasksFacade tasksFacade;
- 
+    @EJB
+    private ProjectsFacade projectsFacade;
+
     protected String nameProject;
     protected List<DataUsers> listDataUsers;
     protected List<Users> listUsers;
     protected String email;
- 
+    protected List<Tasks> listTasks;
     protected Projects project;
  
     /**
@@ -67,19 +70,20 @@ public class ProfileProjectBean {
  
     @PostConstruct
     public void init() {
- 
-    // System.out.println("Proejt"+ userBean.nameProject);
-    //listUsers = usersFacade.findAllUsersByIdProject(userBean.project);
-    this.project = userBean.project;
-    nameProject = project.getNameProject();
- 
-    System.out.println("Proejt" + project.getNameProject());
- 
-    listUsers = new ArrayList();
-    List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
-    for (ProjectComponents listProject : listProjectComps) {
- 
-        listUsers.add(listProject.getIdUser());
+
+	//listUsers = usersFacade.findAllUsersByIdProject(userBean.project);
+	this.project = userBean.project;
+	nameProject = project.getNameProject();
+
+	listUsers = new ArrayList();
+	List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
+	for (ProjectComponents listProject : listProjectComps) {
+
+	    listUsers.add(listProject.getIdUser());
+	}
+	
+	listTasks = new ArrayList();
+	listTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
     }
  
     System.out.println("INIT profile Project");
@@ -91,7 +95,6 @@ public class ProfileProjectBean {
     }
  
     public void setNameProject(String nameProject) {
-    this.nameProject = nameProject;
     }
  
     public List<DataUsers> getListDataUsers() {
@@ -166,29 +169,18 @@ public class ProfileProjectBean {
     }
  
     public String doShowProfileProject(Projects project) {
-    this.project = project;
-    return "profileProjectPage";
- 
+	this.nameProject = nameProject;
     }
- 
+
+    public List<Tasks> getListTasks() {
+	return listTasks;
+    }
+
+    public void setListTasks(List<Tasks> listTasks) {
+	this.listTasks = listTasks;
+    }
     public String doInvite() {
-    System.out.println("Entra en invite");
- 
-    Users userReceiver = usersFacade.findByEmail(email);
-    Invitations invitation = new Invitations();
- 
-    if (userReceiver == null) {
- 
-        Users newUser = new Users();
-        newUser.setEmail(email);
-        usersFacade.create(newUser);
-        userReceiver = usersFacade.findByEmail(email);
-    } else {
-        invitation.setIdUserreceiver(userReceiver);
- 
     }
- 
-    invitationsFacade.sendInvitationEmail(userBean.project, email);
 
     invitation.setIdUserreceiver(userReceiver);
     invitation.setIdProject(userBean.project);
@@ -218,39 +210,10 @@ public class ProfileProjectBean {
     }
  
     public String deleteProjectComponent(Users user) {
- 
-    List<Tasks> listTasks = tasksFacade.findTaskByIdProyect(userBean.project.getIdProject());
- 
-    for (Tasks task : listTasks) {
-        List<TaskComponents> taskComponentList = taskComponentsFacade.findTaskComponentByIdTask(task.getIdTask());
- 
-        for (TaskComponents taskComponent : taskComponentList) {
-        if (taskComponent.getIdUser().getIdUser() == user.getIdUser().longValue()) {
-            taskComponentsFacade.remove(taskComponent);
-        }
-        }
- 
-        taskComponentList = taskComponentsFacade.findTaskComponentByIdTask(task.getIdTask());
-        if (taskComponentList == null) {
-        tasksFacade.remove(task);
-        }
- 
+	this.project = project;
+	//listTasks = new ArrayList();
+	//listTasks = tasksFacade.findTaskByIdProyect(project.getIdProject());
+	return "profileProjectPage";
+
     }
- 
-   
-    ProjectComponents projectComponent = projectComponentsFacade.findProjectComponentByUserAndProject(user, userBean.project.getIdProject());
-    projectComponentsFacade.remove(projectComponent);
-    listUsers = new ArrayList();
-    List<ProjectComponents> listProjectComps = projectComponentsFacade.getUsersListByProject(this.project);
-    for (ProjectComponents listProject : listProjectComps) {
-        listUsers.add(listProject.getIdUser());
-    }
- 
-    return "profileProject";
-    }
-   
-    public void deleteProject(){
-   
-    }
- 
-}
+

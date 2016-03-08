@@ -83,83 +83,89 @@
                         <ui:repeat var="project" value="#{profileBean.listInvitationsProject}" varStatus="status">
                             <li>
                                 <!-- drag handle -->
-                           
+
                                 <!-- todo text -->
                                 <span class="text"><b>Nombre del proyecto: </b>#{project.nameProject}</span><br></br>
                                 <span class="text"><b>Descripción del proyecto:</b> #{project.description}</span>
-                       
-                           
+
+
                                 <!-- General tools such as edit or delete-->
                                 <div class="tools">
-                                      
+
                                     <h:form><h:commandLink action="#{profileBean.doAcceptInvitation(project)}">
                                             <f:ajax render="notificacion"/>
                                             <i class="fa fa-edit"></i></h:commandLink></h:form>
                                     <h:form><h:commandLink action="#{profileBean.doRefuseInvitation(project)}">
                                             <f:ajax render="notificacion"/>
                                             <i class="fa fa-trash-o"></i></h:commandLink></h:form>
-                              
+
                                 </div>
                             </li>
                         </ui:repeat>
 
 
-            <div class="row">
+			<div class="row">
 
-                <div class="col-md-4">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-yellow">
-                            <div class="widget-user-image">
-                                <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar" />
-                            </div><!-- /.widget-user-image -->
-                            <h3 class="widget-user-username">#{userBean.dataUsers.nameUser}</h3>
+			    <div class="col-md-4">
+				<!-- Widget: user widget style 1 -->
+				<div class="box box-widget widget-user-2">
+				    <!-- Add the bg color to the header using any of the bg-* classes -->
+				    <div class="widget-user-header bg-yellow">
+					<div class="widget-user-image">
+					    <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar" />
+					</div><!-- /.widget-user-image -->
+					<h3 class="widget-user-username">#{userBean.dataUsers.nameUser}</h3>
 
-                        </div>
-                        <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
-                                <li><a>Proyectos <span class="pull-right badge bg-blue">#{userBean.listProjects.size()}</span></a></li>
-                                <li><a>Tareas <span class="pull-right badge bg-aqua">#{userBean.listProjects.size()}</span></a></li>
-                                <li><a>Proyectos finalizados <span class="pull-right badge bg-green">12</span></a></li>
+				    </div>
+				    <div class="box-footer no-padding">
+					<ul class="nav nav-stacked">
+					    <li><a>Proyectos <span class="pull-right badge bg-blue">#{userBean.listProjects.size()}</span></a></li>
+					    <li><a>Tareas <span class="pull-right badge bg-aqua">#{userBean.listProjects.size()}</span></a></li>
+					    <li><a>Proyectos finalizados <span class="pull-right badge bg-green">12</span></a></li>
 
-                            </ul>
-                        </div>
-                    </div><!-- /.widget-user -->
-                </div><!-- /.col -->
+					</ul>
+				    </div>
+				</div><!-- /.widget-user -->
+			    </div><!-- /.col -->
 
-                <div class="col-md-8">
-                    <!-- Widget: user widget style 1 -->
-                    <div class="box box-widget widget-user-2">
-                        <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-yellow">
+			    <div class="col-md-8">
+				<!-- Widget: user widget style 1 -->
+				<div class="box box-widget widget-user-2">
+				    <!-- Add the bg color to the header using any of the bg-* classes -->
+				    <div class="widget-user-header bg-yellow">
 
-                            <h3 class="widget-user-username">Invitaciones pendientes</h3>
+					<h3 class="widget-user-username">Invitaciones pendientes</h3>
 
-                        </div>
-                        <div class="box-footer no-padding">
-                            <ul class="nav nav-stacked">
+				    </div>
+				    <div class="box-footer no-padding">
+					<ul class="nav nav-stacked">
 
-                                <ui:repeat var="project" value="#{profileBean.listInvitationsProject}" varStatus="status">
-                                    <li>
-                                        <!-- drag handle -->
+					    <ui:repeat var="project" value="#{profileBean.listInvitationsProject}" varStatus="status">
+						<li>
+						    <!-- drag handle -->
 
-                                        <!-- todo text -->
-                                        <span class="text"><b>Nombre del proyecto: </b>#{project.nameProject}</span><br></br>
-                                        <span class="text"><b>Descripción del proyecto:</b> #{project.description}</span>
+						    <!-- todo text -->
+						    <span class="text"><b>Nombre del proyecto: </b>#{project.nameProject}</span><br></br>
+						    <span class="text"><b>Descripción del proyecto:</b> #{project.description}</span>
 
-                                        <!-- General tools such as edit or delete-->
-                                        <div class="tools">
-                                            <h:form><h:commandLink action="#{profileBean.doAcceptInvitation(project)}"><i class="fa fa-edit"></i></h:commandLink></h:form>
-                                            <h:form><h:commandLink action="#{profileBean.doRefuseInvitation(project)}"><i class="fa fa-trash-o"></i></h:commandLink></h:form>
-                                        </div>
-                                    </li>
-                                </ui:repeat>
-                            </ul>
-                        </div>
-                    </div><!-- /.widget-user -->
-                </div><!-- /.col -->
-            </div>
-        </div>
+						    <!-- General tools such as edit or delete-->
+						    <div class="tools">
+
+							<h:form><h:commandLink action="#{profileBean.doAcceptInvitation(project)}"><i class="fa fa-edit"></i></h:commandLink></h:form>
+							<h:form><h:commandLink action="#{profileBean.doRefuseInvitation(project)}"><i class="fa fa-trash-o"></i></h:commandLink></h:form>
+
+						    </div>
+						</li>
+					    </ui:repeat>
+
+					</ul>
+				    </div>
+				</div><!-- /.widget-user -->
+			    </div><!-- /.col -->
+			</div>
+		    </ul>
+		</div>
+	    </div>
+	</div>
     </div>
 </html>
